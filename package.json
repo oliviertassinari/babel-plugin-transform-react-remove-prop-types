@@ -2,9 +2,12 @@
   "name": "babel-plugin-react",
   "version": "0.1.0",
   "description": "React specific transformers for babel",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "prebuild": "rm -rf lib/",
+    "build": "babel -d lib/ src/",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
