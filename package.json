@@ -1,0 +1,28 @@
+{
+  "name": "babel-plugin-react",
+  "version": "0.0.0",
+  "description": "React specific transformers for babel",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nkt/babel-plugin-react.git"
+  },
+  "keywords": [
+    "babel",
+    "babel-plugin",
+    "react",
+    "minification"
+  ],
+  "author": "Nikita Gusakov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nkt/babel-plugin-react/issues"
+  },
+  "homepage": "https://github.com/nkt/babel-plugin-react",
+  "dependencies": {
+    "babel-core": "^5.4.7"
+  }
+}
