@@ -4,7 +4,7 @@
   "description": "React specific transformers for babel",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --compilers js:babel-core/register",
     "prebuild": "rm -rf lib/",
     "build": "babel -d lib/ src/",
     "prepublish": "npm run build"
@@ -27,5 +27,8 @@
   "homepage": "https://github.com/nkt/babel-plugin-react",
   "dependencies": {
     "babel-core": "^5.4.7"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5"
   }
 }
