@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-react",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "React specific transformers for babel",
   "main": "lib/index.js",
   "scripts": {
