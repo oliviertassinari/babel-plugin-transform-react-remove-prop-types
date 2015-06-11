@@ -11,7 +11,11 @@ module.exports = function ({Transformer}) {
         });
 
         if (parent && parent.get('callee').matchesPattern('React.createClass')) {
-          this.remove();
+          if (this.dangerouslyRemove) {
+            this.dangerouslyRemove();
+          } else {
+            this.remove();
+          }
         }
       }
     }
