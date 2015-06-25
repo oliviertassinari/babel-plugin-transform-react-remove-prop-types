@@ -1,5 +1,5 @@
-module.exports = function ({Transformer}) {
-  return new Transformer('minification.removeReactPropTypes', {
+export default function ({ Plugin, types: t }) {
+  const visitor = {
     Property: {
       exit(node) {
         if (node.computed || node.key.name !== 'propTypes') {
@@ -11,13 +11,16 @@ module.exports = function ({Transformer}) {
         });
 
         if (parent && parent.get('callee').matchesPattern('React.createClass')) {
-          if (this.dangerouslyRemove) {
-            this.dangerouslyRemove();
-          } else {
-            this.remove();
-          }
+          this.dangerouslyRemove();
         }
       }
+    }
+  };
+
+  return new Plugin('react-remove-prop-types', {
+    visitor,
+    metadata: {
+      group: 'builtin-pre'
     }
   });
 };
