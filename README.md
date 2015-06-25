@@ -1,26 +1,55 @@
-Babel React Plugin
-==================
-[![Circle CI](https://circleci.com/gh/nkt/babel-plugin-react.svg?style=svg)](https://circleci.com/gh/nkt/babel-plugin-react)
-[![Downloads](https://img.shields.io/npm/dm/babel-plugin-react.svg)](https://www.npmjs.com/package/babel-plugin-react)
+# Babel Plugin for removing React propTypes
+[![Circle CI](https://circleci.com/gh/nkt/babel-plugin-react-remove-prop-types.svg?style=svg)](https://circleci.com/gh/nkt/babel-plugin-react-remove-prop-types)
+[![Downloads](https://img.shields.io/npm/dm/babel-plugin-react-remove-prop-types.svg)](https://www.npmjs.com/package/babel-plugin-react-remove-prop-types)
 
-Transformers
-------------
+Removes React propTypes
 
-### Removing `propTypes`
+## Example
 
-Name: `minification.removeReactPropTypes`
-
-Before:
-```js
+**In**
+```javascript
 const Foo = React.createClass({
   propTypes: {
     foo: React.PropTypes.string
   }
 });
 ```
-After:
-```js
+
+**Out**
+```javascript
 const Foo = React.createClass({});
+```
+
+## Installation
+
+```sh
+$ npm install babel-plugin-react-remove-prop-types
+```
+
+## Usage
+
+### Via `.babelrc` (Recommended)
+
+**.babelrc**
+
+```json
+{
+  "plugins": ["react-remove-prop-types"]
+}
+```
+
+### Via CLI
+
+```sh
+$ babel --plugins react-remove-prop-types script.js
+```
+
+### Via Node API
+
+```javascript
+require("babel-core").transform("code", {
+  plugins: ["react-remove-prop-types"]
+});
 ```
 
 License
