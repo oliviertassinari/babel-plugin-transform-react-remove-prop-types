@@ -23,7 +23,7 @@ const Foo = React.createClass({});
 ## Installation
 
 ```sh
-$ npm install babel-plugin-react-remove-prop-types
+$ npm install --save-dev babel-plugin-react-remove-prop-types
 ```
 
 ## Usage
@@ -34,7 +34,11 @@ $ npm install babel-plugin-react-remove-prop-types
 
 ```json
 {
-  "plugins": ["react-remove-prop-types"]
+  "env": {
+    "production": {
+      "plugins": ["react-remove-prop-types"]
+    }
+  }
 }
 ```
 
