@@ -7,10 +7,14 @@ export default function ({ Plugin, types: t }) {
         }
 
         const parent = this.findParent((parent) => {
-          return parent.type === 'CallExpression';
+          if (parent.type !== 'CallExpression') {
+            return false;
+          }
+
+          return parent.get('callee').matchesPattern('React.createClass');
         });
 
-        if (parent && parent.get('callee').matchesPattern('React.createClass')) {
+        if (parent) {
           this.dangerouslyRemove();
         }
       }
