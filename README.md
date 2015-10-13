@@ -2,7 +2,7 @@
 [![Circle CI](https://circleci.com/gh/nkt/babel-plugin-react-remove-prop-types.svg?style=svg)](https://circleci.com/gh/nkt/babel-plugin-react-remove-prop-types)
 [![Downloads](https://img.shields.io/npm/dm/babel-plugin-react-remove-prop-types.svg)](https://www.npmjs.com/package/babel-plugin-react-remove-prop-types)
 
-Removes React propTypes
+Removes `propTypes` from your React components.
 
 ## Example
 
@@ -58,4 +58,4 @@ require("babel-core").transform("code", {
 
 License
 -------
-[![MIT license](https://img.shields.io/npm/l/babel-plugin-react.svg)](LICENSE)
+[![MIT license](https://img.shields.io/npm/l/babel-plugin-react-remove-prop-types.svg)](LICENSE)
