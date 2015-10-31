@@ -18,6 +18,13 @@ export default function ({ Plugin, types: t }) {
           this.dangerouslyRemove();
         }
       }
+    },
+    AssignmentExpression({left}) {
+      if (left.computed || left.property.name !== 'propTypes') {
+        return;
+      }
+
+      this.dangerouslyRemove();
     }
   };
 
