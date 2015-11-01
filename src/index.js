@@ -19,12 +19,21 @@ export default function ({ Plugin, types: t }) {
         }
       }
     },
-    AssignmentExpression({left}) {
-      if (left.computed || left.property.name !== 'propTypes') {
+    AssignmentExpression(node) {
+      if (node.left.computed || node.left.property.name !== 'propTypes') {
         return;
       }
 
-      this.dangerouslyRemove();
+      const className = node.left.object.name;
+      const binding = this.scope.getBinding(className);
+      if (!binding || !binding.path.isClassDeclaration()) {
+        return;
+      }
+
+      const superClass = binding.path.get('superClass');
+      if (superClass.matchesPattern('React.Component') || superClass.matchesPattern('Component')) {
+        this.dangerouslyRemove();
+      }
     }
   };
 
