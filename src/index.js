@@ -18,6 +18,22 @@ export default function ({ Plugin, types: t }) {
           this.dangerouslyRemove();
         }
       }
+    },
+    AssignmentExpression(node) {
+      if (node.left.computed || node.left.property.name !== 'propTypes') {
+        return;
+      }
+
+      const className = node.left.object.name;
+      const binding = this.scope.getBinding(className);
+      if (!binding || !binding.path.isClassDeclaration()) {
+        return;
+      }
+
+      const superClass = binding.path.get('superClass');
+      if (superClass.matchesPattern('React.Component') || superClass.matchesPattern('Component')) {
+        this.dangerouslyRemove();
+      }
     }
   };
 
