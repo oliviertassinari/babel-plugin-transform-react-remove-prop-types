@@ -15,7 +15,6 @@ describe('remove react propTypes', () => {
       const fixtureDir = path.join(fixturesDir, caseName);
       const actual = babel.transformFileSync(path.join(fixtureDir, 'actual.js'), {
         stage: 0,
-        blacklist: ['es6.classes'],
         plugins: [
           reactPlugin
         ]
