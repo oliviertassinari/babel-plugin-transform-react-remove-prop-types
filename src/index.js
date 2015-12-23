@@ -20,7 +20,7 @@ export default function ({ Plugin, types: t }) {
       }
     },
     AssignmentExpression(node) {
-      if (node.left.computed || node.left.property.name !== 'propTypes') {
+      if (node.left.computed || !node.left.property || node.left.property.name !== 'propTypes') {
         return;
       }
 
