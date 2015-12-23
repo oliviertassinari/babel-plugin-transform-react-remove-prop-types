@@ -19,6 +19,16 @@ export default function ({ Plugin, types: t }) {
         }
       }
     },
+    ClassProperty(node, parent, scope) {
+      if (node.key.name === 'propTypes') {
+        const className = scope.block.id.name;
+        const binding = this.scope.getBinding(className);
+        const superClass = binding.path.get('superClass');
+        if (superClass.matchesPattern('React.Component') || superClass.matchesPattern('Component')) {
+          this.dangerouslyRemove();
+        }
+      }
+    },
     AssignmentExpression(node) {
       if (node.left.computed || node.left.property.name !== 'propTypes') {
         return;
