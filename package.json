@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-react-remove-prop-types",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Removes React propTypes",
   "main": "lib/index.js",
   "scripts": {
