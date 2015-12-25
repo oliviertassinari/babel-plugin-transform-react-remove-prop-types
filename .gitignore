@@ -2,3 +2,7 @@ node_modules/
 npm-debug.log
 lib/
 coverage/
+
+# IDE
+*.sublime-project
+*.sublime-workspace
