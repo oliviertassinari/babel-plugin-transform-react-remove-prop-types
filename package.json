@@ -1,7 +1,7 @@
 {
-  "name": "babel-plugin-react-remove-prop-types",
-  "version": "1.0.2",
-  "description": "Removes React propTypes",
+  "name": "babel-plugin-transform-react-remove-prop-types",
+  "version": "0.1.0",
+  "description": "Remove unnecessary React propTypes from the production build",
   "main": "lib/index.js",
   "scripts": {
     "test": "istanbul test _mocha",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nkt/babel-plugin-react-remove-prop-types.git"
+    "url": "https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types.git"
   },
   "keywords": [
     "babel",
@@ -23,9 +23,9 @@
   "author": "Nikita Gusakov",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nkt/babel-plugin-react-remove-prop-types/issues"
+    "url": "https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types/issues"
   },
-  "homepage": "http://nkt.github.io/babel-plugin-react-remove-prop-types/",
+  "homepage": "http://oliviertassinari.github.io/babel-plugin-transform-react-remove-prop-types/",
   "dependencies": {
     "babel-core": "^6.3.26"
   },
