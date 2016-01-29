@@ -34,11 +34,20 @@ export default function ({ Plugin, types: t }) {
             } = path;
 
             if (node.key.name === 'propTypes') {
-              const className = scope.block.id.name;
-              const binding = scope.getBinding(className);
-              const superClass = binding.path.get('superClass');
-              if (superClass.matchesPattern('React.Component') || superClass.matchesPattern('Component')) {
+              let className = scope.block.id.name;
+              let binding = scope.getBinding(className);
+              let superClass = binding.path.get('superClass');
+
+              if (superClass.matchesPattern('React.Component')) {
                 path.remove();
+              } else if (superClass.node.name) { // Check for inheritance
+                className = superClass.node.name;
+                binding = scope.getBinding(className);
+                superClass = binding.path.get('superClass');
+
+                if (superClass.matchesPattern('React.Component')) {
+                  path.remove();
+                }
               }
             }
           },
