@@ -1,4 +1,4 @@
-class PureRenderComponent extends React.Component {
+class PureRenderComponent extends Component {
 }
 
 class Foo extends PureRenderComponent {
