@@ -1,3 +1,5 @@
+import isStatelessComponent from './isStatelessComponent';
+
 export default function ({ Plugin, types: t }) {
   return {
     visitor: {
@@ -52,12 +54,17 @@ export default function ({ Plugin, types: t }) {
 
             const className = node.left.object.name;
             const binding = scope.getBinding(className);
-            if (!binding || !binding.path.isClassDeclaration()) {
+
+            if (!binding) {
               return;
             }
 
-            const superClass = binding.path.get('superClass');
-            if (superClass.matchesPattern('React.Component') || superClass.matchesPattern('Component')) {
+            if (binding.path.isClassDeclaration()) {
+              const superClass = binding.path.get('superClass');
+              if (superClass.matchesPattern('React.Component') || superClass.matchesPattern('Component')) {
+                path.remove();
+              }
+            } else if (isStatelessComponent(binding.path)) {
               path.remove();
             }
           },
@@ -65,4 +72,4 @@ export default function ({ Plugin, types: t }) {
       },
     },
   };
-};
+}
