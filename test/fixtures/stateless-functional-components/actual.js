@@ -92,10 +92,18 @@ Foo8.propTypes = {
   foo: React.PropTypes.string
 };
 
-const Foo9 = () => {
+const Foo9 = () => (
+  React.createElement("div", null)
+);
+
+Foo9.propTypes = {
+  foo: React.PropTypes.string
+};
+
+const Foo10 = () => {
   return React.createElement("div", null);
 };
 
-Foo9.propTypes = {
+Foo10.propTypes = {
   foo: React.PropTypes.string
 };

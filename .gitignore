@@ -3,6 +3,9 @@ npm-debug.log
 lib/
 coverage/
 
+# OS
+*.DS_Store
+
 # IDE
 *.sublime-project
 *.sublime-workspace
