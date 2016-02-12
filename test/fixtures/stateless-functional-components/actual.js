@@ -91,3 +91,11 @@ function Foo8() {
 Foo8.propTypes = {
   foo: React.PropTypes.string
 };
+
+const Foo9 = () => {
+  return React.createElement("div", null);
+};
+
+Foo9.propTypes = {
+  foo: React.PropTypes.string
+};

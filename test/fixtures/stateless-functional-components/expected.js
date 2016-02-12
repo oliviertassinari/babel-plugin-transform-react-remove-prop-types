@@ -61,3 +61,7 @@ function Foo8() {
   };
   return obj.deep.member();
 }
+
+var Foo9 = function Foo9() {
+  return React.createElement("div", null);
+};
