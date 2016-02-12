@@ -1,8 +1,20 @@
+function isJSXElementOrReactCreateElement(node) {
+  if (node.type === 'JSXElement') {
+    return true;
+  }
+
+  if (node.callee && node.callee.object.name === 'React' && node.callee.property.name === 'createElement') {
+    return true;
+  }
+
+  return false;
+}
+
 function isReturningJSXElement(path) {
   /**
    * Early exit for ArrowFunctionExpressions, there is no ReturnStatement node.
    */
-  if (path.node.init && path.node.init.body && path.node.init.body.type === 'JSXElement') {
+  if (path.node.init && path.node.init.body && isJSXElementOrReactCreateElement(path.node.init.body)) {
     return true;
   }
 
@@ -17,15 +29,12 @@ function isReturningJSXElement(path) {
 
       const argument = path2.get('argument');
 
-      if (argument.node.type === 'JSXElement') {
+      if (isJSXElementOrReactCreateElement(argument.node)) {
         visited = true;
-      } else if (argument.node.type === 'CallExpression') {
+        return;
+      }
 
-        const node = argument.get('callee').node;
-        if (node.object.name === 'React' && node.property.name === 'createElement') {
-          visited = true;
-        }
-        
+      if (argument.node.type === 'CallExpression') {
         const name = argument.get('callee').node.name;
         const binding = path.scope.getBinding(name);
 
