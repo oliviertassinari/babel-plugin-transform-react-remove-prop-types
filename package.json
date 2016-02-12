@@ -25,7 +25,6 @@
   "bugs": {
     "url": "https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types/issues"
   },
-  "homepage": "http://oliviertassinari.github.io/babel-plugin-transform-react-remove-prop-types/",
   "dependencies": {
     "babel-core": "^6.3.26"
   },
