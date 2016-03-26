@@ -34,16 +34,16 @@ export default function ({ Plugin, types: t }) {
             } = path;
 
             if (node.key.name === 'propTypes') {
-              let className = scope.block.id.name;
-              let binding = scope.getBinding(className);
-              let superClass = binding.path.get('superClass');
+              const id = scope.block.id;
+
+              let superClass = scope.path.get('superClass');
 
               if (superClass.matchesPattern('React.Component') ||
                 superClass.node.name === 'Component') {
                 path.remove();
               } else if (superClass.node.name) { // Check for inheritance
-                className = superClass.node.name;
-                binding = scope.getBinding(className);
+                const className = superClass.node.name;
+                const binding = scope.getBinding(className);
                 superClass = binding.path.get('superClass');
 
                 if (superClass.matchesPattern('React.Component') ||
