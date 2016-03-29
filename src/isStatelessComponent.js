@@ -29,6 +29,11 @@ function isReturningJSXElement(path) {
 
       const argument = path2.get('argument');
 
+      // Nothing is returned
+      if (!argument.node) {
+        return;
+      }
+
       if (isJSXElementOrReactCreateElement(argument.node)) {
         visited = true;
         return;
