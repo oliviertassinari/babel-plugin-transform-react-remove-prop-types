@@ -12,16 +12,20 @@ Remove unnecessary React `propTypes` from the production build.
 
 **In**
 ```js
-const Foo = React.createClass({
-  propTypes: {
-    foo: React.PropTypes.string
-  }
-});
+const Baz = () => (
+  <div />
+);
+
+Baz.propTypes = {
+  foo: React.PropTypes.string
+};
 ```
 
 **Out**
 ```js
-const Foo = React.createClass({});
+const Baz = () => (
+  <div />
+);
 ```
 
 ## Installation
