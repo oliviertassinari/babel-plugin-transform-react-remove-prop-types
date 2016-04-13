@@ -20,19 +20,36 @@ var PureRenderComponent = function (_Component) {
   return PureRenderComponent;
 }(Component);
 
-var Foo = function (_PureRenderComponent) {
-  _inherits(Foo, _PureRenderComponent);
+var Foo1 = function (_PureRenderComponent) {
+  _inherits(Foo1, _PureRenderComponent);
 
-  function Foo() {
-    _classCallCheck(this, Foo);
+  function Foo1() {
+    _classCallCheck(this, Foo1);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo1).apply(this, arguments));
   }
 
-  _createClass(Foo, [{
+  _createClass(Foo1, [{
     key: "render",
     value: function render() {}
   }]);
 
-  return Foo;
+  return Foo1;
+}(PureRenderComponent);
+
+var Foo2 = function (_PureRenderComponent2) {
+  _inherits(Foo2, _PureRenderComponent2);
+
+  function Foo2() {
+    _classCallCheck(this, Foo2);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo2).apply(this, arguments));
+  }
+
+  _createClass(Foo2, [{
+    key: "render",
+    value: function render() {}
+  }]);
+
+  return Foo2;
 }(PureRenderComponent);

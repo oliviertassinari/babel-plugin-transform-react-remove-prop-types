@@ -1,10 +1,19 @@
 class PureRenderComponent extends Component {
 }
 
-class Foo extends PureRenderComponent {
+class Foo1 extends PureRenderComponent {
   static propTypes = {
-    foo: PropTypes.string.isRequired
+    foo1: PropTypes.string.isRequired
   };
   render () {
   }
 }
+
+class Foo2 extends PureRenderComponent {
+  render () {
+  }
+}
+
+Foo2.propTypes = {
+  foo2: PropTypes.string.isRequired
+};

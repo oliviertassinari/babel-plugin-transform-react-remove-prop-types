@@ -1,5 +1,25 @@
 import isStatelessComponent from './isStatelessComponent';
 
+function isReactClass(superClass, scope) {
+  let isReactClass = false;
+
+  if (superClass.matchesPattern('React.Component') ||
+    superClass.node.name === 'Component') {
+    isReactClass = true;
+  } else if (superClass.node.name) { // Check for inheritance
+    const className = superClass.node.name;
+    const binding = scope.getBinding(className);
+    superClass = binding.path.get('superClass');
+
+    if (superClass.matchesPattern('React.Component') ||
+      (superClass.node && superClass.node.name === 'Component')) {
+      isReactClass = true;
+    }
+  }
+
+  return isReactClass;
+}
+
 export default function ({ Plugin, types: t }) {
   return {
     visitor: {
@@ -38,18 +58,8 @@ export default function ({ Plugin, types: t }) {
 
               let superClass = scope.path.get('superClass');
 
-              if (superClass.matchesPattern('React.Component') ||
-                superClass.node.name === 'Component') {
+              if (isReactClass(superClass, scope)) {
                 path.remove();
-              } else if (superClass.node.name) { // Check for inheritance
-                const className = superClass.node.name;
-                const binding = scope.getBinding(className);
-                superClass = binding.path.get('superClass');
-
-                if (superClass.matchesPattern('React.Component') ||
-                  (superClass.node && superClass.node.name === 'Component')) {
-                  path.remove();
-                }
               }
             }
           },
@@ -72,7 +82,8 @@ export default function ({ Plugin, types: t }) {
 
             if (binding.path.isClassDeclaration()) {
               const superClass = binding.path.get('superClass');
-              if (superClass.matchesPattern('React.Component') || superClass.matchesPattern('Component')) {
+
+              if (isReactClass(superClass, scope)) {
                 path.remove();
               }
             } else if (isStatelessComponent(binding.path)) {
