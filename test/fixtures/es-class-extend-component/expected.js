@@ -8,19 +8,36 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Foo = function (_Component) {
-  _inherits(Foo, _Component);
+var Foo1 = function (_Component) {
+  _inherits(Foo1, _Component);
 
-  function Foo() {
-    _classCallCheck(this, Foo);
+  function Foo1() {
+    _classCallCheck(this, Foo1);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo1).apply(this, arguments));
   }
 
-  _createClass(Foo, [{
+  _createClass(Foo1, [{
     key: "render",
     value: function render() {}
   }]);
 
-  return Foo;
+  return Foo1;
+}(Component);
+
+var Foo2 = function (_Component2) {
+  _inherits(Foo2, _Component2);
+
+  function Foo2() {
+    _classCallCheck(this, Foo2);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo2).apply(this, arguments));
+  }
+
+  _createClass(Foo2, [{
+    key: "render",
+    value: function render() {}
+  }]);
+
+  return Foo2;
 }(Component);
