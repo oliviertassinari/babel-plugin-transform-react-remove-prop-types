@@ -31,7 +31,7 @@ const Baz = () => (
 ## Installation
 
 ```sh
-$ npm install --save-dev babel-plugin-transform-react-remove-prop-types
+npm install --save-dev babel-plugin-transform-react-remove-prop-types
 ```
 
 ## Usage
@@ -53,7 +53,7 @@ $ npm install --save-dev babel-plugin-transform-react-remove-prop-types
 ### Via CLI
 
 ```sh
-$ babel --plugins transform-react-remove-prop-types script.js
+babel --plugins transform-react-remove-prop-types script.js
 ```
 
 ### Via Node API
