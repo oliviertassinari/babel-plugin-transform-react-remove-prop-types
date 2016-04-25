@@ -1,7 +1,7 @@
 function isJSXElementOrReactCreateElement(node) {
   const {
     type,
-    callee
+    callee,
   } = node;
 
   if (type === 'JSXElement') {
