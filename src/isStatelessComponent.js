@@ -1,9 +1,15 @@
 function isJSXElementOrReactCreateElement(node) {
-  if (node.type === 'JSXElement') {
+  const {
+    type,
+    callee
+  } = node;
+
+  if (type === 'JSXElement') {
     return true;
   }
 
-  if (node.callee && node.callee.object.name === 'React' && node.callee.property.name === 'createElement') {
+  if (callee && callee.object && callee.object.name === 'React' &&
+    callee.property.name === 'createElement') {
     return true;
   }
 
