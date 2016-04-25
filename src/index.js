@@ -1,11 +1,11 @@
 import isStatelessComponent from './isStatelessComponent';
 
 function isReactClass(superClass, scope) {
-  let isReactClass = false;
+  let answer = false;
 
   if (superClass.matchesPattern('React.Component') ||
     superClass.node.name === 'Component') {
-    isReactClass = true;
+    answer = true;
   } else if (superClass.node.name) { // Check for inheritance
     const className = superClass.node.name;
     const binding = scope.getBinding(className);
@@ -13,19 +13,19 @@ function isReactClass(superClass, scope) {
 
     if (superClass.matchesPattern('React.Component') ||
       (superClass.node && superClass.node.name === 'Component')) {
-      isReactClass = true;
+      answer = true;
     }
   }
 
-  return isReactClass;
+  return answer;
 }
 
-export default function ({ Plugin, types: t }) {
+export default function() {
   return {
     visitor: {
-      Program(path) {
+      Program(programPath) {
         // On program start, do an explicit traversal up front for this plugin.
-        path.traverse({
+        programPath.traverse({
           ObjectProperty: {
             exit(path) {
               const node = path.node;
@@ -34,18 +34,18 @@ export default function ({ Plugin, types: t }) {
                 return;
               }
 
-              const parent = path.findParent((parent) => {
-                if (parent.type !== 'CallExpression') {
+              const parent = path.findParent((currentNode) => {
+                if (currentNode.type !== 'CallExpression') {
                   return false;
                 }
 
-                return parent.get('callee').matchesPattern('React.createClass');
+                return currentNode.get('callee').matchesPattern('React.createClass');
               });
 
               if (parent) {
                 path.remove();
               }
-            }
+            },
           },
           ClassProperty(path) {
             const {
@@ -54,9 +54,7 @@ export default function ({ Plugin, types: t }) {
             } = path;
 
             if (node.key.name === 'propTypes') {
-              const id = scope.block.id;
-
-              let superClass = scope.path.get('superClass');
+              const superClass = scope.path.get('superClass');
 
               if (isReactClass(superClass, scope)) {
                 path.remove();
