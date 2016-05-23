@@ -38,6 +38,6 @@
     "eslint": "^2.8.0",
     "eslint-plugin-react": "^5.0.1",
     "istanbul": "^0.4.2",
-    "mocha": "^2.2.5"
+    "mocha": "^2.5.0"
   }
 }
