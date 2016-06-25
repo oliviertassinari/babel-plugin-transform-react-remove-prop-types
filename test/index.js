@@ -11,7 +11,7 @@ function trim(str) {
 describe('remove react propTypes', () => {
   const fixturesDir = path.join(__dirname, 'fixtures');
   fs.readdirSync(fixturesDir).map((caseName) => {
-    it(`should ${caseName.split('-').join(' ')}`, () => {
+    it(`should work with ${caseName.split('-').join(' ')}`, () => {
       const fixtureDir = path.join(fixturesDir, caseName);
       const actual = transformFileSync(path.join(fixtureDir, 'actual.js'), {
         plugins: [
@@ -20,7 +20,7 @@ describe('remove react propTypes', () => {
       }).code;
       const expected = fs.readFileSync(path.join(fixtureDir, 'expected.js')).toString();
 
-      assert.equal(trim(actual), trim(expected));
+      assert.strictEqual(trim(actual), trim(expected));
     });
   });
 });
