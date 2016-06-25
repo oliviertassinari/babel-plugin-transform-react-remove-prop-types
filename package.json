@@ -4,7 +4,7 @@
   "description": "Remove unnecessary React propTypes from the production build",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint src test",
     "test:unit": "istanbul test _mocha",
     "test": "npm run lint && npm run test:unit",
     "prebuild": "rm -rf lib/",
