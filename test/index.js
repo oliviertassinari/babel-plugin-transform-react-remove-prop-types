@@ -13,6 +13,8 @@ describe('remove react propTypes', () => {
   fs.readdirSync(fixturesDir).map((caseName) => {
     it(`should work with ${caseName.split('-').join(' ')}`, () => {
       const fixtureDir = path.join(fixturesDir, caseName);
+
+      // Only run plugins targeting the production env.
       process.env.BABEL_ENV = 'production';
       const actual = transformFileSync(path.join(fixtureDir, 'actual.js'), {
         plugins: [
