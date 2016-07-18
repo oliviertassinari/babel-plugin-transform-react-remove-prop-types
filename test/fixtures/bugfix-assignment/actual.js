@@ -4,5 +4,5 @@ var App = {
     if (assets.templates) {
       TemplateStore.init(assets.templates);
     }
-  }
+  },
 };

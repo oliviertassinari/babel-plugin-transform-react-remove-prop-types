@@ -1,5 +1,5 @@
 React.createClass({
   propTypes: {
-    foo: React.PropTypes.string
-  }
+    foo: React.PropTypes.string,
+  },
 });

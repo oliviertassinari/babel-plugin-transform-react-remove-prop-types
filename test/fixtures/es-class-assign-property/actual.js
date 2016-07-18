@@ -3,5 +3,5 @@ class Foo extends React.Component {
 }
 
 Foo.propTypes = {
-  foo: React.PropTypes.string
+  foo: React.PropTypes.string,
 };

@@ -1,4 +1,4 @@
 var foo = {};
 foo.propTypes = {
-  foo: React.PropTypes.string
+  foo: React.PropTypes.string,
 };

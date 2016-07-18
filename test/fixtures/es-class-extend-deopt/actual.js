@@ -2,8 +2,8 @@ import BaseComponent from 'components/base';
 
 class Foo extends BaseComponent {
   static propTypes = {
-    foo: PropTypes.string.isRequired
+    foo: PropTypes.string.isRequired,
   };
-  render () {
+  render() {
   }
 }
