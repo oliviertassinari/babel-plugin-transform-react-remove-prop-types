@@ -46,11 +46,23 @@ const Baz = () => (
 
 **.babelrc**
 
+without options:
 ```json
 {
   "env": {
     "production": {
       "plugins": ["transform-react-remove-prop-types"]
+    }
+  }
+}
+```
+
+with options:
+```json
+{
+  "env": {
+    "production": {
+      "plugins": ["transform-react-remove-prop-types", {"mode": "wrap"}]
     }
   }
 }
@@ -64,11 +76,40 @@ babel --plugins transform-react-remove-prop-types script.js
 
 ### Via Node API
 
+without options:
 ```js
 require('babel-core').transform('code', {
-  plugins: ['transform-react-remove-prop-types']
+  plugins: [
+    'transform-react-remove-prop-types',
+  ],
 });
 ```
+
+with options:
+```js
+require('babel-core').transform('code', {
+  plugins: [
+    [
+      'transform-react-remove-prop-types',
+      {mode: 'wrap'},
+    ],
+  ],
+});
+```
+
+### Options
+
+- `mode` two modes are available
+ - `remove` (**default**):
+the `propTypes` definitions are removed from the source code.
+ - `wrap`:
+the `propTypes` definitions are wrapped with the following code:
+```js
+if (process.env.NODE_ENV !== "production") {
+  ...
+}
+```
+This mode is quite useful for lib authors.
 
 ## License
 

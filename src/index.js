@@ -1,10 +1,12 @@
+// @flow weak
+
 import isStatelessComponent from './isStatelessComponent';
 
 function isReactClass(superClass, scope) {
   let answer = false;
 
   if (superClass.matchesPattern('React.Component') ||
-    superClass.node.name === 'Component') {
+    (superClass.node.name === 'Component')) {
     answer = true;
   } else if (superClass.node.name) { // Check for inheritance
     const className = superClass.node.name;
@@ -20,10 +22,59 @@ function isReactClass(superClass, scope) {
   return answer;
 }
 
-export default function() {
+function remove(path, options) {
+  const {
+    visitedKey,
+    wrapperIfTemplate,
+    mode,
+    type,
+  } = options;
+
+  if (mode === 'remove') {
+    path.remove();
+  } else if (mode === 'wrap') {
+    if (path.node[visitedKey]) {
+      return;
+    }
+
+    path.node[visitedKey] = true;
+
+    switch (type) {
+      // This is legacy, we do not optimize it.
+      case 'createClass':
+        break;
+
+      case 'class static':
+        break;
+
+      case 'class assign':
+      case 'stateless':
+        path.replaceWith(wrapperIfTemplate(
+          {
+            NODE: path.node,
+          }
+        ));
+        break;
+    }
+  } else {
+    throw new Error(`transform-react-remove-prop-type: unsupported mode ${mode}.`);
+  }
+}
+
+export default function({template}) {
+  const wrapperIfTemplate = template(`
+    if (process.env.NODE_ENV !== "production") {
+      NODE;
+    }
+  `);
+
+  const VISITED_KEY = `transform-react-remove-prop-types${Date.now()}`;
+
   return {
     visitor: {
-      Program(programPath) {
+      Program(programPath, state) {
+        const mode = state.opts.mode || 'remove';
+
         // On program start, do an explicit traversal up front for this plugin.
         programPath.traverse({
           ObjectProperty: {
@@ -43,7 +94,12 @@ export default function() {
               });
 
               if (parent) {
-                path.remove();
+                remove(path, {
+                  visitedKey: VISITED_KEY,
+                  wrapperIfTemplate: wrapperIfTemplate,
+                  mode: mode,
+                  type: 'createClass',
+                });
               }
             },
           },
@@ -57,7 +113,12 @@ export default function() {
               const superClass = scope.path.get('superClass');
 
               if (isReactClass(superClass, scope)) {
-                path.remove();
+                remove(path, {
+                  visitedKey: VISITED_KEY,
+                  wrapperIfTemplate: wrapperIfTemplate,
+                  mode: mode,
+                  type: 'class static',
+                });
               }
             }
           },
@@ -82,10 +143,20 @@ export default function() {
               const superClass = binding.path.get('superClass');
 
               if (isReactClass(superClass, scope)) {
-                path.remove();
+                remove(path, {
+                  visitedKey: VISITED_KEY,
+                  wrapperIfTemplate: wrapperIfTemplate,
+                  mode: mode,
+                  type: 'class assign',
+                });
               }
             } else if (isStatelessComponent(binding.path)) {
-              path.remove();
+              remove(path, {
+                visitedKey: VISITED_KEY,
+                wrapperIfTemplate: wrapperIfTemplate,
+                mode: mode,
+                type: 'stateless',
+              });
             }
           },
         });
