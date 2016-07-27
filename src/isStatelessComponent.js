@@ -1,3 +1,5 @@
+// @flow weak
+
 function isJSXElementOrReactCreateElement(node) {
   const {
     type,

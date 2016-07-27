@@ -1,29 +1,33 @@
-import path from 'path';
-import fs from 'fs';
-import assert from 'assert';
-import {transformFileSync} from 'babel-core';
-import reactPlugin from '../src/index';
+// @flow weak
 
-function trim(str) {
-  return str.replace(/^\s+|\s+$/, '');
-}
+import minimist from 'minimist';
+import Mocha from 'mocha';
+import glob from 'glob';
 
-describe('remove react propTypes', () => {
-  const fixturesDir = path.join(__dirname, 'fixtures');
-  fs.readdirSync(fixturesDir).map((caseName) => {
-    it(`should work with ${caseName.split('-').join(' ')}`, () => {
-      const fixtureDir = path.join(fixturesDir, caseName);
-
-      // Only run plugins targeting the production env.
-      process.env.BABEL_ENV = 'production';
-      const actual = transformFileSync(path.join(fixtureDir, 'actual.js'), {
-        plugins: [
-          reactPlugin,
-        ],
-      }).code;
-      const expected = fs.readFileSync(path.join(fixtureDir, 'expected.js')).toString();
-
-      assert.strictEqual(trim(actual), trim(expected));
-    });
-  });
+const argv = minimist(process.argv.slice(2), {
+  alias: {
+    m: 'module',
+    g: 'grep',
+  },
 });
+
+const globPatterns = [
+  `test/**/${argv.module ? argv.module : '*'}.spec.js`,
+];
+
+const mocha = new Mocha({
+  grep: argv.grep ? argv.grep : undefined,
+});
+
+glob(
+  globPatterns.length > 1 ? `{${globPatterns.join(',')}}` : globPatterns[0],
+  {},
+  (err, files) => {
+    files.forEach((file) => mocha.addFile(file));
+    mocha.run((failures) => {
+      process.on('exit', () => {
+        process.exit(failures); // eslint-disable-line no-process-exit
+      });
+    });
+  }
+);
