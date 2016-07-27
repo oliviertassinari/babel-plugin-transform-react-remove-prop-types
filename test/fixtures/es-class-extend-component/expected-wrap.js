@@ -25,9 +25,9 @@ var Foo1 = function (_Component) {
   return Foo1;
 }(Component);
 
-Foo1.propTypes = {
+process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
   foo1: React.PropTypes.string
-};
+} : void 0;
 
 var Foo2 = function (_Component2) {
   _inherits(Foo2, _Component2);

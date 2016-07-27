@@ -28,11 +28,14 @@ function remove(path, options) {
     wrapperIfTemplate,
     mode,
     type,
+    types,
+    pathClassDeclaration,
   } = options;
 
   if (mode === 'remove') {
     path.remove();
   } else if (mode === 'wrap') {
+    // Prevent infinity loop.
     if (path.node[visitedKey]) {
       return;
     }
@@ -44,7 +47,23 @@ function remove(path, options) {
       case 'createClass':
         break;
 
+      // Inspired from babel-plugin-transform-class-properties.
       case 'class static':
+        let ref;
+
+        if (!pathClassDeclaration.isClassExpression() && pathClassDeclaration.node.id) {
+          ref = pathClassDeclaration.node.id;
+        } else {
+          // Class without name not supported
+          return;
+        }
+
+        const node = types.expressionStatement(
+          types.assignmentExpression('=', types.memberExpression(ref, path.node.key), path.node.value)
+        );
+
+        pathClassDeclaration.insertAfter(node);
+        path.remove();
         break;
 
       case 'class assign':
@@ -61,7 +80,7 @@ function remove(path, options) {
   }
 }
 
-export default function({template}) {
+export default function({template, types}) {
   const wrapperIfTemplate = template(`
     if (process.env.NODE_ENV !== "production") {
       NODE;
@@ -103,6 +122,7 @@ export default function({template}) {
               }
             },
           },
+          // Here to support stage-1 transform-class-properties.
           ClassProperty(path) {
             const {
               node,
@@ -110,14 +130,16 @@ export default function({template}) {
             } = path;
 
             if (node.key.name === 'propTypes') {
-              const superClass = scope.path.get('superClass');
+              const pathClassDeclaration = scope.path;
 
-              if (isReactClass(superClass, scope)) {
+              if (isReactClass(pathClassDeclaration.get('superClass'), scope)) {
                 remove(path, {
                   visitedKey: VISITED_KEY,
                   wrapperIfTemplate: wrapperIfTemplate,
                   mode: mode,
                   type: 'class static',
+                  types: types,
+                  pathClassDeclaration: pathClassDeclaration,
                 });
               }
             }

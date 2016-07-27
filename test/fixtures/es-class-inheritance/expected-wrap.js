@@ -37,9 +37,9 @@ var Foo1 = function (_PureRenderComponent) {
   return Foo1;
 }(PureRenderComponent);
 
-Foo1.propTypes = {
+process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
   foo1: PropTypes.string.isRequired
-};
+} : void 0;
 
 var Foo2 = function (_PureRenderComponent2) {
   _inherits(Foo2, _PureRenderComponent2);
