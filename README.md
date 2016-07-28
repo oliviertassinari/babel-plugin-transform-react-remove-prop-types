@@ -106,10 +106,14 @@ the `propTypes` definitions are removed from the source code.
 the `propTypes` definitions are wrapped with the following code:
 ```js
 if (process.env.NODE_ENV !== "production") {
-  ...
+  Foo.propTypes = {
+    bar: React.PropTypes.string,
+  };
 }
 ```
 This mode is quite useful for lib authors.
+However, we do not support the old `React.createClass` syntax nor the
+name less classes yet.
 
 ## License
 
