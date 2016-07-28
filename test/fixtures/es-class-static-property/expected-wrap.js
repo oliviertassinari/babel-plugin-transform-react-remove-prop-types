@@ -25,6 +25,6 @@ var Foo = function (_React$Component) {
   return Foo;
 }(React.Component);
 
-Foo.propTypes = {
+process.env.NODE_ENV !== "production" ? Foo.propTypes = {
   foo: React.PropTypes.string
-};
+} : void 0;
