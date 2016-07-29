@@ -8,23 +8,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Foo = function (_React$Component) {
-  _inherits(Foo, _React$Component);
+var Foo1 = function (_React$Component) {
+  _inherits(Foo1, _React$Component);
 
-  function Foo() {
-    _classCallCheck(this, Foo);
+  function Foo1() {
+    _classCallCheck(this, Foo1);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo1).apply(this, arguments));
   }
 
-  _createClass(Foo, [{
+  _createClass(Foo1, [{
     key: "render",
     value: function render() {}
   }]);
 
-  return Foo;
+  return Foo1;
 }(React.Component);
 
-process.env.NODE_ENV !== "production" ? Foo.propTypes = {
-  foo: React.PropTypes.string
+process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
+  bar1: React.PropTypes.string
+} : void 0;
+
+var Foo2 = function (_React$PureComponent) {
+  _inherits(Foo2, _React$PureComponent);
+
+  function Foo2() {
+    _classCallCheck(this, Foo2);
+
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo2).apply(this, arguments));
+  }
+
+  _createClass(Foo2, [{
+    key: "render",
+    value: function render() {}
+  }]);
+
+  return Foo2;
+}(React.PureComponent);
+
+process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
+  bar2: React.PropTypes.string
 } : void 0;
