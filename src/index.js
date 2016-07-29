@@ -2,19 +2,33 @@
 
 import isStatelessComponent from './isStatelessComponent';
 
+function isPathReactClass(path) {
+  if (path.matchesPattern('React.Component') ||
+    path.matchesPattern('React.PureComponent')) {
+    return true;
+  }
+
+  if ((path.node && (
+    path.node.name === 'Component' ||
+    path.node.name === 'PureComponent'
+    ))) {
+    return true;
+  }
+
+  return false;
+}
+
 function isReactClass(superClass, scope) {
   let answer = false;
 
-  if (superClass.matchesPattern('React.Component') ||
-    (superClass.node.name === 'Component')) {
+  if (isPathReactClass(superClass)) {
     answer = true;
   } else if (superClass.node.name) { // Check for inheritance
     const className = superClass.node.name;
     const binding = scope.getBinding(className);
     superClass = binding.path.get('superClass');
 
-    if (superClass.matchesPattern('React.Component') ||
-      (superClass.node && superClass.node.name === 'Component')) {
+    if (isPathReactClass(superClass)) {
       answer = true;
     }
   }
