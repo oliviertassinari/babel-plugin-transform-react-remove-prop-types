@@ -43,7 +43,6 @@ function remove(path, options) {
     mode,
     type,
     types,
-    pathClassDeclaration,
   } = options;
 
   if (mode === 'remove') {
@@ -64,6 +63,7 @@ function remove(path, options) {
       // Inspired from babel-plugin-transform-class-properties.
       case 'class static':
         let ref;
+        let pathClassDeclaration = options.pathClassDeclaration;
 
         if (!pathClassDeclaration.isClassExpression() && pathClassDeclaration.node.id) {
           ref = pathClassDeclaration.node.id;
@@ -76,7 +76,12 @@ function remove(path, options) {
           types.assignmentExpression('=', types.memberExpression(ref, path.node.key), path.node.value)
         );
 
+        // We need to append the node at the parent level in this case.
+        if (pathClassDeclaration.parentPath.isExportDeclaration()) {
+          pathClassDeclaration = pathClassDeclaration.parentPath;
+        }
         pathClassDeclaration.insertAfter(node);
+
         path.remove();
         break;
 
