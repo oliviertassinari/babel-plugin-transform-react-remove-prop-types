@@ -14,7 +14,7 @@ var PureRenderComponent = function (_Component) {
   function PureRenderComponent() {
     _classCallCheck(this, PureRenderComponent);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(PureRenderComponent).apply(this, arguments));
+    return _possibleConstructorReturn(this, (PureRenderComponent.__proto__ || Object.getPrototypeOf(PureRenderComponent)).apply(this, arguments));
   }
 
   return PureRenderComponent;
@@ -26,7 +26,7 @@ var Foo1 = function (_PureRenderComponent) {
   function Foo1() {
     _classCallCheck(this, Foo1);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo1).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Foo1.__proto__ || Object.getPrototypeOf(Foo1)).apply(this, arguments));
   }
 
   _createClass(Foo1, [{
@@ -47,7 +47,7 @@ var Foo2 = function (_PureRenderComponent2) {
   function Foo2() {
     _classCallCheck(this, Foo2);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo2).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Foo2.__proto__ || Object.getPrototypeOf(Foo2)).apply(this, arguments));
   }
 
   _createClass(Foo2, [{

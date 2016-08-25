@@ -29,6 +29,9 @@ describe('fixtures', () => {
               ],
             ],
           }).code;
+
+          // fs.writeFileSync(path.join(fixtureDir, `expected-${mode}.js`), actual);
+
           actual = trim(actual);
 
           let expected = fs.readFileSync(path.join(fixtureDir, `expected-${mode}.js`));

@@ -18,7 +18,7 @@ var _class = function (_React$Component) {
   function _class() {
     _classCallCheck(this, _class);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(_class).apply(this, arguments));
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
   }
 
   _createClass(_class, [{
