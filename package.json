@@ -43,7 +43,7 @@
     "eslint-plugin-react": "^6.0.0",
     "flow": "^0.2.3",
     "flow-bin": "^0.31.1",
-    "glob": "^7.0.5",
+    "glob": "^7.0.6",
     "istanbul": "^0.4.2",
     "minimist": "^1.2.0",
     "mocha": "^3.0.0",
