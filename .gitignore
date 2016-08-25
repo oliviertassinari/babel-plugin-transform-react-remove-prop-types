@@ -1,11 +1,11 @@
-node_modules/
-npm-debug.log
-lib/
-coverage/
+# npm
+/node_modules
 
-# OS
-*.DS_Store
+# build
+/lib
 
-# IDE
-*.sublime-project
-*.sublime-workspace
+# log
+*.log
+
+# OS files
+.DS_STORE

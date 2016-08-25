@@ -1,8 +1,0 @@
-node_modules/
-npm-debug.log
-coverage/
-test/
-
-# IDE
-*.sublime-project
-*.sublime-workspace

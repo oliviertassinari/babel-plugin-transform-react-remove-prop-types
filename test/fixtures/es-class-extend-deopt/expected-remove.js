@@ -20,7 +20,7 @@ var Foo = function (_BaseComponent) {
   function Foo() {
     _classCallCheck(this, Foo);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Foo).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Foo.__proto__ || Object.getPrototypeOf(Foo)).apply(this, arguments));
   }
 
   _createClass(Foo, [{
