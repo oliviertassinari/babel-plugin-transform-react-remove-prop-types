@@ -111,7 +111,7 @@ if (process.env.NODE_ENV !== "production") {
   };
 }
 ```
-This mode is quite useful for lib authors.
+This `wrap` mode is quite useful for lib authors.
 However, there is some limitation.
 We do not support the old `React.createClass` syntax nor the
 name less classes yet. In those cases, we keep the `propTypes`.
