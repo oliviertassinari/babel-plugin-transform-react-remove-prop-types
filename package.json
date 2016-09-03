@@ -47,7 +47,7 @@
     "eslint-plugin-mocha": "^4.4.0",
     "eslint-plugin-react": "^6.1.2",
     "flow": "^0.2.3",
-    "flow-bin": "^0.31.1",
+    "flow-bin": "^0.32.0",
     "glob": "^7.0.6",
     "minimist": "^1.2.0",
     "mocha": "^3.0.2",
