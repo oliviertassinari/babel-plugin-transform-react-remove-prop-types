@@ -97,24 +97,21 @@ require('babel-core').transform('code', {
 });
 ```
 
-### Options
+## Options
 
-- `mode` two modes are available
- - `remove` (**default**):
+### `mode`
+ - `remove` (default):
 the `propTypes` definitions are removed from the source code.
  - `wrap`:
 the `propTypes` definitions are wrapped with the following code:
 ```js
 if (process.env.NODE_ENV !== "production") {
-  Foo.propTypes = {
-    bar: React.PropTypes.string,
-  };
+  // ...
 }
 ```
-This `wrap` mode is quite useful for lib authors.
-However, there is some limitation.
-We do not support the old `React.createClass` syntax nor the
-name less classes yet. In those cases, we keep the `propTypes`.
+
+The `wrap` mode is targeting react libraries like [material-ui](https://github.com/callemall/material-ui).
+It's not intended to be used in userland.
 
 ## License
 
