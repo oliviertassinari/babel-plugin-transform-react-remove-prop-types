@@ -62,7 +62,7 @@ with options:
 {
   "env": {
     "production": {
-      "plugins": ["transform-react-remove-prop-types", {"mode": "wrap"}]
+      "plugins": [["transform-react-remove-prop-types", {"mode": "wrap"}]]
     }
   }
 }
