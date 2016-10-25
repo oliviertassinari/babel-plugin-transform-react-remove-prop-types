@@ -11,10 +11,10 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Message = function Message(_ref) {
-  var isFetching = _ref.isFetching;
-  var isSuccess = _ref.isSuccess;
-  var isFailure = _ref.isFailure;
-  var errorMsg = _ref.errorMsg;
+  var isFetching = _ref.isFetching,
+      isSuccess = _ref.isSuccess,
+      isFailure = _ref.isFailure,
+      errorMsg = _ref.errorMsg;
 
   var messageType = void 0;
   var messageTxt = void 0;
