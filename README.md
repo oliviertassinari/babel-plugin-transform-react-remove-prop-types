@@ -24,19 +24,19 @@ You can **save bandwidth** by removing them.
 
 **In**
 ```js
-const Baz = () => (
-  <div />
+const Baz = (props) => (
+  <div {...props} />
 );
 
 Baz.propTypes = {
-  foo: React.PropTypes.string
+  className: React.PropTypes.string
 };
 ```
 
 **Out**
 ```js
-const Baz = () => (
-  <div />
+const Baz = (props) => (
+  <div {...props} />
 );
 ```
 
