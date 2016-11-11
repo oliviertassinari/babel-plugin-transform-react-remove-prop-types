@@ -17,7 +17,8 @@ npm install --save-dev babel-plugin-transform-react-remove-prop-types
 
 ## The problem solved
 
-Remove unnecessary React `propTypes` from the production build.
+
+Remove React `propTypes` from the production build, as they are only used in development.
 You can **save bandwidth** by removing them.
 
 ## Example
