@@ -69,3 +69,7 @@ var Foo9 = function Foo9() {
 var Foo10 = function Foo10() {
   return React.createElement("div", null);
 };
+
+var Foo11 = function Foo11() {
+  return true && React.createElement("div", null);
+};

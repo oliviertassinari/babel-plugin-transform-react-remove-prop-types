@@ -17,13 +17,14 @@ const modes = ['remove-es5', 'wrap-es5', 'remove-es6', 'wrap-es6'];
 describe('fixtures', () => {
   const fixturesDir = path.join(__dirname, 'fixtures');
 
-  fs.readdirSync(fixturesDir).map((caseName) => {
+  fs.readdirSync(fixturesDir).forEach((caseName) => {
     describe(`should work with ${caseName.split('-').join(' ')}`, () => {
       const fixtureDir = path.join(fixturesDir, caseName);
 
-      modes.map((mode) => {
+      modes.forEach((mode) => {
         let expected;
 
+        // Only run the check if the expect file is provided
         try {
           expected = fs.readFileSync(path.join(fixtureDir, `expected-${mode}.js`));
           expected = expected.toString();

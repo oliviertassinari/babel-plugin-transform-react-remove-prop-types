@@ -103,3 +103,9 @@ const Foo10 = () => {
 process.env.NODE_ENV !== "production" ? Foo10.propTypes = {
   foo: React.PropTypes.string
 } : void 0;
+
+const Foo11 = () => true && <div />;
+
+process.env.NODE_ENV !== "production" ? Foo11.propTypes = {
+  foo: React.PropTypes.string
+} : void 0;
