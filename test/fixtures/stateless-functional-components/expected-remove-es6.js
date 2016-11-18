@@ -63,3 +63,5 @@ const Foo9 = () => React.createElement("div", null);
 const Foo10 = () => {
   return React.createElement("div", null);
 };
+
+const Foo11 = () => true && <div />;

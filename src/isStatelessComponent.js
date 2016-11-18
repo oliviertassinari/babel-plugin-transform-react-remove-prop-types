@@ -1,28 +1,29 @@
 // @flow weak
 
-function isJSXElementOrReactCreateElement(node) {
-  const {
-    type,
-    callee,
-  } = node;
+function isJSXElementOrReactCreateElement(path) {
+  let visited = false;
 
-  if (type === 'JSXElement') {
-    return true;
-  }
+  path.traverse({
+    CallExpression(path2) {
+      const {
+        callee,
+      } = path2.node;
 
-  if (callee && callee.object && callee.object.name === 'React' &&
-    callee.property.name === 'createElement') {
-    return true;
-  }
+      if (callee && callee.object && callee.object.name === 'React' && callee.property.name === 'createElement') {
+        visited = true;
+      }
+    },
+    JSXElement() {
+      visited = true;
+    },
+  });
 
-  return false;
+  return visited;
 }
 
 function isReturningJSXElement(path) {
-  /**
-   * Early exit for ArrowFunctionExpressions, there is no ReturnStatement node.
-   */
-  if (path.node.init && path.node.init.body && isJSXElementOrReactCreateElement(path.node.init.body)) {
+  // Early exit for ArrowFunctionExpressions, there is no ReturnStatement node.
+  if (path.node.init && path.node.init.body && isJSXElementOrReactCreateElement(path)) {
     return true;
   }
 
@@ -42,7 +43,7 @@ function isReturningJSXElement(path) {
         return;
       }
 
-      if (isJSXElementOrReactCreateElement(argument.node)) {
+      if (isJSXElementOrReactCreateElement(path2)) {
         visited = true;
         return;
       }
@@ -65,18 +66,14 @@ function isReturningJSXElement(path) {
   return visited;
 }
 
-const validPossibleStatelessComponentTypes = [
+const VALID_POSSIBLE_STATELESS_COMPONENT_TYPES = [
   'VariableDeclarator',
   'FunctionDeclaration',
 ];
 
-/**
- * Returns `true` if the path represents a function which returns a JSXElement
- */
+// Returns `true` if the path represents a function which returns a JSXElement
 export default function isStatelessComponent(path) {
-  const node = path.node;
-
-  if (validPossibleStatelessComponentTypes.indexOf(node.type) === -1) {
+  if (VALID_POSSIBLE_STATELESS_COMPONENT_TYPES.indexOf(path.node.type) === -1) {
     return false;
   }
 

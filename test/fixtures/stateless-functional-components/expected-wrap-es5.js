@@ -109,3 +109,11 @@ var Foo10 = function Foo10() {
 process.env.NODE_ENV !== "production" ? Foo10.propTypes = {
   foo: React.PropTypes.string
 } : void 0;
+
+var Foo11 = function Foo11() {
+  return true && React.createElement("div", null);
+};
+
+process.env.NODE_ENV !== "production" ? Foo11.propTypes = {
+  foo: React.PropTypes.string
+} : void 0;

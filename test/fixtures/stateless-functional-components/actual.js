@@ -107,3 +107,11 @@ const Foo10 = () => {
 Foo10.propTypes = {
   foo: React.PropTypes.string
 };
+
+const Foo11 = () => (
+  true && <div />
+);
+
+Foo11.propTypes = {
+  foo: React.PropTypes.string
+};
