@@ -29,5 +29,5 @@ glob(
         process.exit(failures); // eslint-disable-line no-process-exit
       });
     });
-  }
+  },
 );

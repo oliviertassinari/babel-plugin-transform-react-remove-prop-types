@@ -1,9 +1,10 @@
 // @flow weak
+/* eslint-env mocha */
 
 import path from 'path';
 import fs from 'fs';
 import assert from 'assert';
-import {transformFileSync} from 'babel-core';
+import { transformFileSync } from 'babel-core';
 import babelPluginSyntaxJsx from 'babel-plugin-syntax-jsx';
 import babelPluginTransformClassProperties from 'babel-plugin-transform-class-properties';
 import babelPluginTransformReactRemovePropTypes from '../src/index';
@@ -40,7 +41,7 @@ describe('fixtures', () => {
               plugins: [
                 [
                   babelPluginTransformReactRemovePropTypes,
-                  {mode: 'remove'},
+                  { mode: 'remove' },
                 ],
               ],
             };
@@ -49,7 +50,7 @@ describe('fixtures', () => {
               plugins: [
                 [
                   babelPluginTransformReactRemovePropTypes,
-                  {mode: 'wrap'},
+                  { mode: 'wrap' },
                 ],
               ],
             };
@@ -61,7 +62,7 @@ describe('fixtures', () => {
                 babelPluginTransformClassProperties,
                 [
                   babelPluginTransformReactRemovePropTypes,
-                  {mode: 'remove'},
+                  { mode: 'remove' },
                 ],
               ],
             };
@@ -73,7 +74,7 @@ describe('fixtures', () => {
                 babelPluginTransformClassProperties,
                 [
                   babelPluginTransformReactRemovePropTypes,
-                  {mode: 'wrap'},
+                  { mode: 'wrap' },
                 ],
               ],
             };

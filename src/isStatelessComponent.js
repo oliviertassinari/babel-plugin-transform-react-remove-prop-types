@@ -9,7 +9,8 @@ function isJSXElementOrReactCreateElement(path) {
         callee,
       } = path2.node;
 
-      if (callee && callee.object && callee.object.name === 'React' && callee.property.name === 'createElement') {
+      if (callee && callee.object && callee.object.name === 'React' &&
+        callee.property.name === 'createElement') {
         visited = true;
       }
     },

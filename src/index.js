@@ -61,7 +61,7 @@ function remove(path, options) {
         break;
 
       // Inspired from babel-plugin-transform-class-properties.
-      case 'class static':
+      case 'class static': {
         let ref;
         let pathClassDeclaration = options.pathClassDeclaration;
 
@@ -73,7 +73,7 @@ function remove(path, options) {
         }
 
         const node = types.expressionStatement(
-          types.assignmentExpression('=', types.memberExpression(ref, path.node.key), path.node.value)
+          types.assignmentExpression('=', types.memberExpression(ref, path.node.key), path.node.value),
         );
 
         // We need to append the node at the parent level in this case.
@@ -84,14 +84,18 @@ function remove(path, options) {
 
         path.remove();
         break;
+      }
 
       case 'class assign':
       case 'stateless':
         path.replaceWith(wrapperIfTemplate(
           {
             NODE: path.node,
-          }
+          },
         ));
+        break;
+
+      default:
         break;
     }
   } else {
@@ -99,7 +103,7 @@ function remove(path, options) {
   }
 }
 
-export default function({template, types}) {
+export default function ({ template, types }) {
   const wrapperIfTemplate = template(`
     if (process.env.NODE_ENV !== "production") {
       NODE;
@@ -134,8 +138,8 @@ export default function({template, types}) {
               if (parent) {
                 remove(path, {
                   visitedKey: VISITED_KEY,
-                  wrapperIfTemplate: wrapperIfTemplate,
-                  mode: mode,
+                  wrapperIfTemplate,
+                  mode,
                   type: 'createClass',
                 });
               }
@@ -154,11 +158,11 @@ export default function({template, types}) {
               if (isReactClass(pathClassDeclaration.get('superClass'), scope)) {
                 remove(path, {
                   visitedKey: VISITED_KEY,
-                  wrapperIfTemplate: wrapperIfTemplate,
-                  mode: mode,
+                  wrapperIfTemplate,
+                  mode,
                   type: 'class static',
-                  types: types,
-                  pathClassDeclaration: pathClassDeclaration,
+                  types,
+                  pathClassDeclaration,
                 });
               }
             }
@@ -186,16 +190,16 @@ export default function({template, types}) {
               if (isReactClass(superClass, scope)) {
                 remove(path, {
                   visitedKey: VISITED_KEY,
-                  wrapperIfTemplate: wrapperIfTemplate,
-                  mode: mode,
+                  wrapperIfTemplate,
+                  mode,
                   type: 'class assign',
                 });
               }
             } else if (isStatelessComponent(binding.path)) {
               remove(path, {
                 visitedKey: VISITED_KEY,
-                wrapperIfTemplate: wrapperIfTemplate,
-                mode: mode,
+                wrapperIfTemplate,
+                mode,
                 type: 'stateless',
               });
             }
