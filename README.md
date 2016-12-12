@@ -114,6 +114,24 @@ if (process.env.NODE_ENV !== "production") {
 The `wrap` mode is targeting react libraries like [material-ui](https://github.com/callemall/material-ui).
 It's not intended to be used in userland.
 
+## Is it safe?
+
+If you are using the `propTypes` in a conventionnal way,
+i.e by using them to perform type checking on the properties, that plugin should be **safe to use**.
+
+However, some libraries are accessing the `propTypes` on the component directly.
+For instance [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons/blob/3d1f2a5b7175d6e4c8985676940240776543ff60/lib/icon-button.js#L59) use them to split the properties between two components:
+```jsx
+const touchableProps = pick(restProps, Object.keys(TouchableHighlight.propTypes));
+```
+:warning: The plugin is breaking that code if he end-up removing `TouchableHighlight.propTypes`.
+
+Makes sure you are:
+- Not using that pattern in your souce code.
+If you do, explicitly **export** the `propTypes` to work around that limitation.
+- Not parsing the `node_modules`.
+If you do, test that things are still working before shipping into production.
+
 ## License
 
 MIT
