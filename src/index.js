@@ -26,10 +26,14 @@ function isReactClass(superClass, scope) {
   } else if (superClass.node.name) { // Check for inheritance
     const className = superClass.node.name;
     const binding = scope.getBinding(className);
-    superClass = binding.path.get('superClass');
+    if (!binding) {
+      answer = false;
+    } else {
+      superClass = binding.path.get('superClass');
 
-    if (isPathReactClass(superClass)) {
-      answer = true;
+      if (isPathReactClass(superClass)) {
+        answer = true;
+      }
     }
   }
 
