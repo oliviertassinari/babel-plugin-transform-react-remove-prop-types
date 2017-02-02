@@ -25,6 +25,10 @@ describe('fixtures', () => {
       modes.forEach((mode) => {
         let expected;
 
+        // if (caseName !== 'bugfix-assignment') {
+        //   return;
+        // }
+
         // Only run the check if the expect file is provided
         try {
           expected = fs.readFileSync(path.join(fixtureDir, `expected-${mode}.js`));

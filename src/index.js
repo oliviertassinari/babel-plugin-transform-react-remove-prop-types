@@ -50,7 +50,12 @@ function remove(path, options) {
   } = options;
 
   if (mode === 'remove') {
-    path.remove();
+    // remove() crash in some conditions.
+    if (path.parentPath.type === 'ConditionalExpression') {
+      path.replaceWith(types.booleanLiteral(true));
+    } else {
+      path.remove();
+    }
   } else if (mode === 'wrap') {
     // Prevent infinity loop.
     if (path.node[visitedKey]) {
@@ -145,6 +150,7 @@ export default function ({ template, types }) {
                   wrapperIfTemplate,
                   mode,
                   type: 'createClass',
+                  types,
                 });
               }
             },
@@ -197,6 +203,7 @@ export default function ({ template, types }) {
                   wrapperIfTemplate,
                   mode,
                   type: 'class assign',
+                  types,
                 });
               }
             } else if (isStatelessComponent(binding.path)) {
@@ -205,6 +212,7 @@ export default function ({ template, types }) {
                 wrapperIfTemplate,
                 mode,
                 type: 'stateless',
+                types,
               });
             }
           },
