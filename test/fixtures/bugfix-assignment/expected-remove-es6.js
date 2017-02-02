@@ -6,3 +6,7 @@ var App = {
     }
   }
 };
+
+const FormattedPlural = () => <div />;
+
+process.env.NODE_ENV !== 'production' ? true : void 0;
