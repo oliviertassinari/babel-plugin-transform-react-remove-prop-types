@@ -9,4 +9,4 @@ var App = {
 
 const FormattedPlural = () => <div />;
 
-process.env.NODE_ENV !== 'production' ? true : void 0;
+process.env.NODE_ENV !== 'production' ? void 0 : void 0;

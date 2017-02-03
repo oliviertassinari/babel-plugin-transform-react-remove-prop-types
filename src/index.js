@@ -52,7 +52,7 @@ function remove(path, options) {
   if (mode === 'remove') {
     // remove() crash in some conditions.
     if (path.parentPath.type === 'ConditionalExpression') {
-      path.replaceWith(types.booleanLiteral(true));
+      path.replaceWith(types.unaryExpression('void', types.numericLiteral(0)));
     } else {
       path.remove();
     }
