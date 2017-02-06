@@ -216,27 +216,6 @@ export default function ({ template, types }) {
               });
             }
           },
-          MemberExpression(path) {
-            const {
-              node,
-              scope,
-            } = path;
-
-            if (node.property.name === 'propTypes') {
-              const binding = scope.getBinding(node.object.name);
-
-              if (!binding) {
-                return;
-              }
-
-              if (['ImportDefaultSpecifier', 'ImportSpecifier'].indexOf(binding.path.node.type) !== -1) {
-                throw path.buildCodeFrameError(
-                  'You are accessing the propTypes from an imported Identifier.\n' +
-                  'It\'s likely to break at runtime. Instead, import the propTypes.\n' +
-                  'For more details, have a look at this issue: https://goo.gl/sHDdUk.');
-              }
-            }
-          },
         });
       },
     },
