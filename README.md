@@ -63,7 +63,12 @@ with options:
 {
   "env": {
     "production": {
-      "plugins": [["transform-react-remove-prop-types", {"mode": "wrap"}]]
+      "plugins": [
+        ["transform-react-remove-prop-types", {
+          "mode": "wrap",
+          "ignoreFilenames": ["node_modules"]
+        }]
+      ]
     }
   }
 }
@@ -92,7 +97,10 @@ require('babel-core').transform('code', {
   plugins: [
     [
       'transform-react-remove-prop-types',
-      {mode: 'wrap'},
+      {
+        mode: 'wrap',
+        ignoreFilenames: ['node_modules'],
+      },
     ],
   ],
 });
@@ -113,6 +121,22 @@ if (process.env.NODE_ENV !== "production") {
 
 The `wrap` mode is targeting react libraries like [material-ui](https://github.com/callemall/material-ui).
 It's not intended to be used in userland.
+
+
+### `ignoreFilenames`
+
+This filter generates a regular expression.
+Any filenames containing one of the array's strings will be ignored.
+By default, we match everything.
+
+Following the [Is it safe?](#is-it-safe?) section, you might encounter a component
+depending on the `propTypes` at runtime to work.
+For this reason, we provide an array options to filter out some files and folders.
+For instance, you can ignore all the npm modules:
+```jsx
+ignoreFilenames: ['node_modules'],
+```
+
 
 ## Is it safe?
 
