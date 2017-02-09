@@ -22,20 +22,10 @@ describe('fixtures', () => {
 
       modes.forEach((mode) => {
         let expected;
-
-        // if (caseName !== 'wrong-patterns') {
-        //   return;
-        // }
-
         let options = {};
 
         const optionsPath = path.join(fixtureDir, 'options.json');
         if (pathExists.sync(optionsPath)) {
-          // Only use the first mode when an option is provided.
-          if (mode !== 'remove-es5') {
-            return;
-          }
-
           options = require(optionsPath); // eslint-disable-line global-require, import/no-dynamic-require
         }
 
@@ -44,7 +34,7 @@ describe('fixtures', () => {
           expected = expected.toString();
         } catch (error) {
           // Only run the check if the expect file is or have an option provided.
-          if (Object.keys(options).length === 0) {
+          if (!options.throws) {
             return;
           }
         }
@@ -58,7 +48,10 @@ describe('fixtures', () => {
                 plugins: [
                   [
                     babelPluginTransformReactRemovePropTypes,
-                    { mode: 'remove' },
+                    {
+                      ...options,
+                      mode: 'remove',
+                    },
                   ],
                 ],
               };
@@ -69,7 +62,10 @@ describe('fixtures', () => {
                 plugins: [
                   [
                     babelPluginTransformReactRemovePropTypes,
-                    { mode: 'wrap' },
+                    {
+                      ...options,
+                      mode: 'wrap',
+                    },
                   ],
                 ],
               };
@@ -83,7 +79,10 @@ describe('fixtures', () => {
                   babelPluginTransformClassProperties,
                   [
                     babelPluginTransformReactRemovePropTypes,
-                    { mode: 'remove' },
+                    {
+                      ...options,
+                      mode: 'remove',
+                    },
                   ],
                 ],
               };
@@ -98,7 +97,10 @@ describe('fixtures', () => {
                   babelPluginTransformClassProperties,
                   [
                     babelPluginTransformReactRemovePropTypes,
-                    { mode: 'wrap' },
+                    {
+                      ...options,
+                      mode: 'wrap',
+                    },
                   ],
                 ],
               };

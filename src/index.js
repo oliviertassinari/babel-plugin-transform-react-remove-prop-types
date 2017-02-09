@@ -1,6 +1,7 @@
 // @flow weak
 
 import isStatelessComponent from './isStatelessComponent';
+import remove from './remove';
 
 function isPathReactClass(path) {
   if (path.matchesPattern('React.Component') ||
@@ -40,91 +41,29 @@ function isReactClass(superClass, scope) {
   return answer;
 }
 
-function remove(path, options) {
-  const {
-    visitedKey,
-    wrapperIfTemplate,
-    mode,
-    type,
-    types,
-  } = options;
-
-  if (mode === 'remove') {
-    // remove() crash in some conditions.
-    if (path.parentPath.type === 'ConditionalExpression') {
-      path.replaceWith(types.unaryExpression('void', types.numericLiteral(0)));
-    } else {
-      path.remove();
-    }
-  } else if (mode === 'wrap') {
-    // Prevent infinity loop.
-    if (path.node[visitedKey]) {
-      return;
-    }
-
-    path.node[visitedKey] = true;
-
-    switch (type) {
-      // This is legacy, we do not optimize it.
-      case 'createClass':
-        break;
-
-      // Inspired from babel-plugin-transform-class-properties.
-      case 'class static': {
-        let ref;
-        let pathClassDeclaration = options.pathClassDeclaration;
-
-        if (!pathClassDeclaration.isClassExpression() && pathClassDeclaration.node.id) {
-          ref = pathClassDeclaration.node.id;
-        } else {
-          // Class without name not supported
-          return;
-        }
-
-        const node = types.expressionStatement(
-          types.assignmentExpression('=', types.memberExpression(ref, path.node.key), path.node.value),
-        );
-
-        // We need to append the node at the parent level in this case.
-        if (pathClassDeclaration.parentPath.isExportDeclaration()) {
-          pathClassDeclaration = pathClassDeclaration.parentPath;
-        }
-        pathClassDeclaration.insertAfter(node);
-
-        path.remove();
-        break;
-      }
-
-      case 'class assign':
-      case 'stateless':
-        path.replaceWith(wrapperIfTemplate(
-          {
-            NODE: path.node,
-          },
-        ));
-        break;
-
-      default:
-        break;
-    }
-  } else {
-    throw new Error(`transform-react-remove-prop-type: unsupported mode ${mode}.`);
-  }
-}
-
 export default function ({ template, types }) {
-  const wrapperIfTemplate = template(`
-    if (process.env.NODE_ENV !== "production") {
-      NODE;
-    }
-  `);
-
-  const VISITED_KEY = `transform-react-remove-prop-types${Date.now()}`;
-
   return {
     visitor: {
       Program(programPath, state) {
-        const mode = state.opts.mode || 'remove';
+        let ignoreFilenames;
+
+        if (state.opts.ignoreFilenames) {
+          ignoreFilenames = new RegExp(state.opts.ignoreFilenames.join('|'), 'gi');
+        } else {
+          ignoreFilenames = undefined;
+        }
+
+        const globalOptions = {
+          visitedKey: `transform-react-remove-prop-types${Date.now()}`,
+          wrapperIfTemplate: template(`
+            if (process.env.NODE_ENV !== "production") {
+              NODE;
+            }
+          `),
+          mode: state.opts.mode || 'remove',
+          ignoreFilenames,
+          types,
+        };
 
         // On program start, do an explicit traversal up front for this plugin.
         programPath.traverse({
@@ -145,12 +84,8 @@ export default function ({ template, types }) {
               });
 
               if (parent) {
-                remove(path, {
-                  visitedKey: VISITED_KEY,
-                  wrapperIfTemplate,
-                  mode,
+                remove(path, globalOptions, {
                   type: 'createClass',
-                  types,
                 });
               }
             },
@@ -166,12 +101,8 @@ export default function ({ template, types }) {
               const pathClassDeclaration = scope.path;
 
               if (isReactClass(pathClassDeclaration.get('superClass'), scope)) {
-                remove(path, {
-                  visitedKey: VISITED_KEY,
-                  wrapperIfTemplate,
-                  mode,
+                remove(path, globalOptions, {
                   type: 'class static',
-                  types,
                   pathClassDeclaration,
                 });
               }
@@ -198,21 +129,13 @@ export default function ({ template, types }) {
               const superClass = binding.path.get('superClass');
 
               if (isReactClass(superClass, scope)) {
-                remove(path, {
-                  visitedKey: VISITED_KEY,
-                  wrapperIfTemplate,
-                  mode,
+                remove(path, globalOptions, {
                   type: 'class assign',
-                  types,
                 });
               }
             } else if (isStatelessComponent(binding.path)) {
-              remove(path, {
-                visitedKey: VISITED_KEY,
-                wrapperIfTemplate,
-                mode,
+              remove(path, globalOptions, {
                 type: 'stateless',
-                types,
               });
             }
           },
