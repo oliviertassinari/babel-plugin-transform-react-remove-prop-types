@@ -24,7 +24,7 @@ You can **save bandwidth** by removing them.
 ## Example
 
 **In**
-```js
+```jsx
 const Baz = (props) => (
   <div {...props} />
 );
@@ -35,7 +35,7 @@ Baz.propTypes = {
 ```
 
 **Out**
-```js
+```jsx
 const Baz = (props) => (
   <div {...props} />
 );
@@ -133,7 +133,7 @@ Following the [Is it safe?](#user-content-is-it-safe) section, you might encount
 depending on the `propTypes` at runtime to work.
 For this reason, we provide an array options to filter out some files and folders.
 For instance, you can ignore all the npm modules:
-```jsx
+```js
 ignoreFilenames: ['node_modules'],
 ```
 
@@ -145,16 +145,18 @@ i.e by using them to perform type checking on the properties, that plugin should
 
 However, some libraries are accessing the `propTypes` on the component directly.
 For instance [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons/blob/3d1f2a5b7175d6e4c8985676940240776543ff60/lib/icon-button.js#L59) use them to split the properties between two components:
-```jsx
+```js
 const touchableProps = pick(restProps, Object.keys(TouchableHighlight.propTypes));
 ```
 :warning: The plugin is breaking that code if he end-up removing `TouchableHighlight.propTypes`.
 
-Makes sure you are:
+Make sure you are:
 - Not using that pattern in your souce code.
 If you do, explicitly **export** the `propTypes` to work around that limitation.
 - Not parsing the `node_modules`.
 If you do, test that things are still working before shipping into production.
+
+[eslint-plugin-react has a rule forbid-foreign-prop-types](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-foreign-prop-types.md) that can help you make this plugin safer to use.
 
 ## License
 
