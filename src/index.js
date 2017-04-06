@@ -20,6 +20,10 @@ function isPathReactClass(path) {
 }
 
 function isReactClass(superClass, scope) {
+  if (!superClass.node) {
+    return false;
+  }
+
   let answer = false;
 
   if (isPathReactClass(superClass)) {

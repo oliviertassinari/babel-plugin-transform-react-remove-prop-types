@@ -1,5 +1,9 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61,3 +65,22 @@ var Foo2 = function (_PureRenderComponent2) {
 process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
   foo2: PropTypes.string.isRequired
 } : void 0;
+
+// With no inheritance
+
+var Foo3 = exports.Foo3 = function () {
+  function Foo3() {
+    _classCallCheck(this, Foo3);
+  }
+
+  _createClass(Foo3, [{
+    key: "render",
+    value: function render() {}
+  }]);
+
+  return Foo3;
+}();
+
+Foo3.propTypes = {
+  foo3: React.PropTypes.string
+};

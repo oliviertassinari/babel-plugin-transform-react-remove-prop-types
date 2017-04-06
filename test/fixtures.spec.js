@@ -20,6 +20,10 @@ describe('fixtures', () => {
     describe(`should work with ${caseName.split('-').join(' ')}`, () => {
       const fixtureDir = path.join(fixturesDir, caseName);
 
+      // if (caseName !== 'es-class-inheritance') {
+      //   return;
+      // }
+
       modes.forEach((mode) => {
         let expected;
         let options = {};
