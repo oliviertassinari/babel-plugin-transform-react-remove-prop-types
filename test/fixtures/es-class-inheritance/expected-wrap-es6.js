@@ -14,3 +14,12 @@ class Foo2 extends PureRenderComponent {
 process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
   foo2: PropTypes.string.isRequired
 } : void 0;
+
+// With no inheritance
+export class Foo3 {
+
+  render() {}
+}
+Foo3.propTypes = {
+  foo3: React.PropTypes.string
+};

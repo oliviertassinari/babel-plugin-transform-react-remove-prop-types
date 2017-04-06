@@ -17,3 +17,12 @@ class Foo2 extends PureRenderComponent {
 Foo2.propTypes = {
   foo2: PropTypes.string.isRequired,
 };
+
+// With no inheritance
+export class Foo3 {
+  static propTypes = {
+    foo3: React.PropTypes.string,
+  };
+
+  render() {}
+}
