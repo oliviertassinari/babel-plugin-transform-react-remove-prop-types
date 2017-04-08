@@ -5,7 +5,7 @@ var Foo1 = function Foo1() {
 };
 
 process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 var Foo2 = function Foo2() {
@@ -13,7 +13,7 @@ var Foo2 = function Foo2() {
 };
 
 process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 var Foo3 = function Foo3() {
@@ -29,7 +29,7 @@ var Foo3 = function Foo3() {
 };
 
 process.env.NODE_ENV !== "production" ? Foo3.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo4() {
@@ -37,7 +37,7 @@ function Foo4() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo4.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo5() {
@@ -49,7 +49,7 @@ function Foo5() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo5.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo6() {
@@ -63,7 +63,7 @@ function Foo6() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo6.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo7() {
@@ -76,7 +76,7 @@ function Foo7() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo7.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo8() {
@@ -91,7 +91,7 @@ function Foo8() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo8.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 var Foo9 = function Foo9() {
@@ -99,7 +99,7 @@ var Foo9 = function Foo9() {
 };
 
 process.env.NODE_ENV !== "production" ? Foo9.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 var Foo10 = function Foo10() {
@@ -107,7 +107,7 @@ var Foo10 = function Foo10() {
 };
 
 process.env.NODE_ENV !== "production" ? Foo10.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 var Foo11 = function Foo11() {
@@ -115,5 +115,5 @@ var Foo11 = function Foo11() {
 };
 
 process.env.NODE_ENV !== "production" ? Foo11.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;

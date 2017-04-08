@@ -21,7 +21,7 @@ Foo2.propTypes = {
 // With no inheritance
 export class Foo3 {
   static propTypes = {
-    foo3: React.PropTypes.string,
+    foo3: PropTypes.string,
   };
 
   render() {}

@@ -1,6 +1,6 @@
 class Foo1 extends React.Component {
   static propTypes = {
-    bar1: React.PropTypes.string,
+    bar1: PropTypes.string,
   };
 
   render() {}
@@ -8,7 +8,7 @@ class Foo1 extends React.Component {
 
 export default class Foo2 extends React.Component {
   static propTypes = {
-    bar2: React.PropTypes.string,
+    bar2: PropTypes.string,
   };
 
   render() {}

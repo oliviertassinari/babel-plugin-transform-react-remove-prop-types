@@ -1,7 +1,7 @@
 const Foo1 = () => <div />;
 
 process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 const Foo2 = () => {
@@ -9,7 +9,7 @@ const Foo2 = () => {
 };
 
 process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 const Foo3 = function () {
@@ -25,7 +25,7 @@ const Foo3 = function () {
 };
 
 process.env.NODE_ENV !== "production" ? Foo3.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo4() {
@@ -33,7 +33,7 @@ function Foo4() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo4.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo5() {
@@ -45,7 +45,7 @@ function Foo5() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo5.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo6() {
@@ -59,7 +59,7 @@ function Foo6() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo6.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo7() {
@@ -72,7 +72,7 @@ function Foo7() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo7.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 function Foo8() {
@@ -87,13 +87,13 @@ function Foo8() {
 }
 
 process.env.NODE_ENV !== "production" ? Foo8.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 const Foo9 = () => React.createElement("div", null);
 
 process.env.NODE_ENV !== "production" ? Foo9.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 const Foo10 = () => {
@@ -101,11 +101,11 @@ const Foo10 = () => {
 };
 
 process.env.NODE_ENV !== "production" ? Foo10.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;
 
 const Foo11 = () => true && <div />;
 
 process.env.NODE_ENV !== "production" ? Foo11.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 } : void 0;

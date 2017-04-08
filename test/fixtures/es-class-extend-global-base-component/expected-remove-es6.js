@@ -3,12 +3,12 @@ class Foo1 extends GlobalComponent {
 }
 
 Foo1.propTypes = {
-  foo1: React.PropTypes.string
+  foo1: PropTypes.string
 };
 class Foo2 extends GlobalComponent {
   render() {}
 }
 
 Foo2.propTypes = {
-  foo2: React.PropTypes.string
+  foo2: PropTypes.string
 };

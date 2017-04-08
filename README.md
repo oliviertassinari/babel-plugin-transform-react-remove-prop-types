@@ -30,7 +30,7 @@ const Baz = (props) => (
 );
 
 Baz.propTypes = {
-  className: React.PropTypes.string
+  className: PropTypes.string
 };
 ```
 

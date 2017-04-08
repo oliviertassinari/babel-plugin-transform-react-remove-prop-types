@@ -3,7 +3,7 @@ const Foo1 = () => (
 );
 
 Foo1.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 const Foo2 = () => {
@@ -11,7 +11,7 @@ const Foo2 = () => {
 };
 
 Foo2.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 const Foo3 = function() {
@@ -27,7 +27,7 @@ const Foo3 = function() {
 };
 
 Foo3.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 function Foo4() {
@@ -35,7 +35,7 @@ function Foo4() {
 }
 
 Foo4.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 function Foo5() {
@@ -47,7 +47,7 @@ function Foo5() {
 }
 
 Foo5.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 function Foo6() {
@@ -61,7 +61,7 @@ function Foo6() {
 }
 
 Foo6.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 function Foo7() {
@@ -74,7 +74,7 @@ function Foo7() {
 }
 
 Foo7.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 function Foo8() {
@@ -89,7 +89,7 @@ function Foo8() {
 }
 
 Foo8.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 const Foo9 = () => (
@@ -97,7 +97,7 @@ const Foo9 = () => (
 );
 
 Foo9.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 const Foo10 = () => {
@@ -105,7 +105,7 @@ const Foo10 = () => {
 };
 
 Foo10.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 
 const Foo11 = () => (
@@ -113,5 +113,5 @@ const Foo11 = () => (
 );
 
 Foo11.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
