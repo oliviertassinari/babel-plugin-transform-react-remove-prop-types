@@ -3,7 +3,7 @@ class Foo1 extends React.Component {
 }
 
 Foo1.propTypes = {
-  bar1: React.PropTypes.string,
+  bar1: PropTypes.string,
 };
 
 class Foo2 extends React.PureComponent {
@@ -11,5 +11,5 @@ class Foo2 extends React.PureComponent {
 }
 
 Foo2.propTypes = {
-  bar2: React.PropTypes.string,
+  bar2: PropTypes.string,
 };

@@ -82,5 +82,5 @@ var Foo3 = exports.Foo3 = function () {
 }();
 
 Foo3.propTypes = {
-  foo3: React.PropTypes.string
+  foo3: PropTypes.string
 };

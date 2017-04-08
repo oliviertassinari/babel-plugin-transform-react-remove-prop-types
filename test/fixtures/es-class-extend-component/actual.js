@@ -1,6 +1,6 @@
 class Foo1 extends Component {
   static propTypes = {
-    foo1: React.PropTypes.string,
+    foo1: PropTypes.string,
   };
 
   render() {}
@@ -11,5 +11,5 @@ class Foo2 extends Component {
 }
 
 Foo2.propTypes = {
-  foo2: React.PropTypes.string,
+  foo2: PropTypes.string,
 };

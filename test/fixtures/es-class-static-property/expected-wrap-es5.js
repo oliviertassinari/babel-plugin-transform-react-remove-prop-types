@@ -30,7 +30,7 @@ var Foo1 = function (_React$Component) {
 }(React.Component);
 
 process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
-  bar1: React.PropTypes.string
+  bar1: PropTypes.string
 } : void 0;
 
 var Foo2 = function (_React$Component2) {
@@ -52,5 +52,5 @@ var Foo2 = function (_React$Component2) {
 
 exports.default = Foo2;
 process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
-  bar2: React.PropTypes.string
+  bar2: PropTypes.string
 } : void 0;

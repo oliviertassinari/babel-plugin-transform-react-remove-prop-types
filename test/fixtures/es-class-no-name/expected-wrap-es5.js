@@ -30,6 +30,6 @@ var _class = function (_React$Component) {
 }(React.Component);
 
 _class.propTypes = {
-  foo: React.PropTypes.string
+  foo: PropTypes.string
 };
 exports.default = _class;

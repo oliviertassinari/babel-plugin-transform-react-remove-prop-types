@@ -26,7 +26,7 @@ var Foo1 = function (_Component) {
 }(Component);
 
 process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
-  foo1: React.PropTypes.string
+  foo1: PropTypes.string
 } : void 0;
 
 var Foo2 = function (_Component2) {
@@ -47,5 +47,5 @@ var Foo2 = function (_Component2) {
 }(Component);
 
 process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
-  foo2: React.PropTypes.string
+  foo2: PropTypes.string
 } : void 0;
