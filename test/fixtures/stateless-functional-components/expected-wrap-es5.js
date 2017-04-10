@@ -117,3 +117,11 @@ var Foo11 = function Foo11() {
 process.env.NODE_ENV !== "production" ? Foo11.propTypes = {
   foo: PropTypes.string
 } : void 0;
+
+function Foo12(props) {
+  return React.cloneElement(props.children);
+}
+
+process.env.NODE_ENV !== "production" ? Foo12.propTypes = {
+  foo: PropTypes.string
+} : void 0;

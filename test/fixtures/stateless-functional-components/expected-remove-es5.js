@@ -73,3 +73,7 @@ var Foo10 = function Foo10() {
 var Foo11 = function Foo11() {
   return true && React.createElement("div", null);
 };
+
+function Foo12(props) {
+  return React.cloneElement(props.children);
+}

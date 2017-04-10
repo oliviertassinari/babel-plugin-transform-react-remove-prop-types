@@ -115,3 +115,11 @@ const Foo11 = () => (
 Foo11.propTypes = {
   foo: PropTypes.string
 };
+
+function Foo12(props) {
+  return React.cloneElement(props.children);
+}
+
+Foo12.propTypes = {
+  foo: PropTypes.string,
+};
