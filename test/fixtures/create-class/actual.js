@@ -1,5 +1,8 @@
-React.createClass({
+var createReactClass = require('create-react-class');
+var PropTypes = require('prop-types');
+
+createReactClass({
   propTypes: {
-    foo: React.PropTypes.string,
+    foo: PropTypes.string,
   },
 });

@@ -9,10 +9,9 @@ function isPathReactClass(path) {
     return true;
   }
 
-  if ((path.node && (
-    path.node.name === 'Component' ||
-    path.node.name === 'PureComponent'
-    ))) {
+  const node = path.node;
+
+  if (node && (node.name === 'Component' || node.name === 'PureComponent')) {
     return true;
   }
 
@@ -84,7 +83,7 @@ export default function ({ template, types }) {
                   return false;
                 }
 
-                return currentNode.get('callee').matchesPattern('React.createClass');
+                return currentNode.get('callee').node.name === 'createReactClass';
               });
 
               if (parent) {
