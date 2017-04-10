@@ -5,12 +5,12 @@ function isJSXElementOrReactCreateElement(path) {
 
   path.traverse({
     CallExpression(path2) {
-      const {
-        callee,
-      } = path2.node;
+      const callee = path2.get('callee');
 
-      if (callee && callee.object && callee.object.name === 'React' &&
-        callee.property.name === 'createElement') {
+      if (
+        callee.matchesPattern('React.createElement') ||
+        callee.matchesPattern('React.cloneElement')
+      ) {
         visited = true;
       }
     },
