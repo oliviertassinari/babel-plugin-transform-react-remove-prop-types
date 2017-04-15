@@ -1,0 +1,20 @@
+import React, { Component } from 'react';
+import PropTypes from 'proptypes';
+
+export default class Greeting extends Component {
+  constructor(props, context) {
+    super(props, context);
+    const appName = context.store.getState().appName;
+    this.state = {
+      appName: appName
+    };
+  }
+
+  render() {
+    return <h1>Welcome {this.props.name} to {this.state.appName}</h1>;
+  }
+}
+
+Greeting.contextTypes = {
+  store: PropTypes.object
+};
