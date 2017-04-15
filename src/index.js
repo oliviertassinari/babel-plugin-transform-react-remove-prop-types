@@ -66,7 +66,7 @@ export default function ({ template, types }) {
           mode: state.opts.mode || 'remove',
           ignoreFilenames,
           types,
-          removeImport: state.opts.removeImport,
+          removeImport: state.opts.removeImport || false,
         };
 
         // On program start, do an explicit traversal up front for this plugin.
@@ -147,31 +147,26 @@ export default function ({ template, types }) {
 
         programPath.scope.crawl();
 
-        programPath.traverse({
-          ImportDeclaration(path) {
-            if (!globalOptions.removeImport) {
-              return;
-            }
-            const { source, specifiers } = path.node;
-            if (source.value !== 'prop-types') {
-              return;
-            }
-
-            const usedSpecifiers = specifiers.reduce((usedSpecifiersArray, specifier) => {
-              const importedIdentifierName = specifier.local.name;
-              const { referencePaths } = path.scope.getBinding(importedIdentifierName);
-
-              if (referencePaths.length > 0) {
-                return [...usedSpecifiersArray, specifier];
+        if (globalOptions.removeImport) {
+          programPath.traverse({
+            ImportDeclaration(path) {
+              const { source, specifiers } = path.node;
+              if (source.value !== 'prop-types') {
+                return;
               }
-              return usedSpecifiersArray;
-            }, []);
+              const haveUsedSpecifiers = specifiers.some((specifier) => {
+                const importedIdentifierName = specifier.local.name;
+                const { referencePaths } = path.scope.getBinding(importedIdentifierName);
+                return referencePaths.length > 0;
+              });
 
-            if (usedSpecifiers.length === 0) {
-              path.remove();
-            }
-          },
-        });
+              if (!haveUsedSpecifiers) {
+                path.remove();
+              }
+              path.stop();
+            },
+          });
+        }
       },
     },
   };
