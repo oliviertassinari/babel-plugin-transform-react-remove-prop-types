@@ -147,7 +147,7 @@ export default function ({ template, types }) {
 
         programPath.scope.crawl();
 
-        if (globalOptions.removeImport) {
+        if (globalOptions.removeImport && globalOptions.mode === 'remove') {
           programPath.traverse({
             ImportDeclaration(path) {
               const { source, specifiers } = path.node;

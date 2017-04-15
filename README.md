@@ -137,6 +137,13 @@ For instance, you can ignore all the npm modules:
 ignoreFilenames: ['node_modules'],
 ```
 
+### `removeImport`
+ - `true`
+This removes the `import PropTypes from 'proptypes'` as well.
+This option only works if `mode` is set to `remove`
+ - `false` (default):
+Does not remove any import statements.
+
 
 ## Is it safe?
 
