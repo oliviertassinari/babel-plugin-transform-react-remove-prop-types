@@ -10,9 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _proptypes = require('proptypes');
+var _propTypes = require('prop-types');
 
-var _proptypes2 = _interopRequireDefault(_proptypes);
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58,5 +58,5 @@ exports.default = Greeting;
 
 
 Greeting.contextTypes = {
-  store: _proptypes2.default.object
+  store: _propTypes2.default.object
 };

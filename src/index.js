@@ -66,6 +66,7 @@ export default function ({ template, types }) {
           mode: state.opts.mode || 'remove',
           ignoreFilenames,
           types,
+          removeImport: state.opts.removeImport
         };
 
         // On program start, do an explicit traversal up front for this plugin.
@@ -140,6 +141,35 @@ export default function ({ template, types }) {
               remove(path, globalOptions, {
                 type: 'stateless',
               });
+            }
+          },
+        });
+
+        programPath.scope.crawl();
+
+        programPath.traverse({
+          ImportDeclaration(path) {
+            if (!globalOptions.removeImport) {
+              return;
+            }
+            const { source, specifiers } = path.node;
+            if (source.value !== 'prop-types') {
+              return
+            }
+
+            const usedSpecifiers = specifiers.reduce(function (usedSpecifiers, specifier) {
+
+              const importedIdentifierName = specifier.local.name;
+              const { referencePaths } = path.scope.getBinding(importedIdentifierName);
+
+              if (referencePaths.length > 0) {
+                return [...usedSpecifiers, specifier];
+              }
+              return usedSpecifiers;
+            }, []);
+
+            if (usedSpecifiers.length === 0) {
+              path.remove();
             }
           },
         });

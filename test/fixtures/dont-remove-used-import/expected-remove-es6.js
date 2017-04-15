@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'proptypes';
+import PropTypes from 'prop-types';
 
 export default class Greeting extends Component {
   constructor(props, context) {
