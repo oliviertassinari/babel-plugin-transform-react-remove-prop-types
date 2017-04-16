@@ -14,10 +14,10 @@ class Foo2 extends React.PureComponent {
   render() {}
 }
 
-Foo1.contextTypes = {
+Foo2.contextTypes = {
   bar2: PropTypes.string
 };
 
-Foo1.childContextTypes = {
+Foo2.childContextTypes = {
   bar2: PropTypes.string
 };
