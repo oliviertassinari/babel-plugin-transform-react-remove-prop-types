@@ -17,7 +17,6 @@ npm install --save-dev babel-plugin-transform-react-remove-prop-types
 
 ## The problem solved
 
-
 Remove React `propTypes` from the production build, as they are only used in development.
 You can **save bandwidth** by removing them.
 
@@ -109,6 +108,7 @@ require('babel-core').transform('code', {
 ## Options
 
 ### `mode`
+
  - `remove` (default):
 the `propTypes` definitions are removed from the source code.
  - `wrap`:
@@ -122,12 +122,19 @@ if (process.env.NODE_ENV !== "production") {
 The `wrap` mode is targeting react libraries like [material-ui](https://github.com/callemall/material-ui).
 It's not intended to be used in userland.
 
+### `removeImport`
+
+ - `true`: the import statements are removed as well. This option only works if `mode` is set to `remove`:
+```js
+import PropTypes from 'prop-types'
+```
+ - `false` (default): does not remove the import statements.
 
 ### `ignoreFilenames`
 
 This filter generates a regular expression.
 Any filenames containing one of the array's strings will be ignored.
-By default, we match everything.
+By **default**, we match everything.
 
 Following the [Is it safe?](#user-content-is-it-safe) section, you might encounter a component
 depending on the `propTypes` at runtime to work.
@@ -136,14 +143,6 @@ For instance, you can ignore all the npm modules:
 ```js
 ignoreFilenames: ['node_modules'],
 ```
-
-### `removeImport`
- - `true`
-This removes the `import PropTypes from 'proptypes'` as well.
-This option only works if `mode` is set to `remove`
- - `false` (default):
-Does not remove any import statements.
-
 
 ## Is it safe?
 
