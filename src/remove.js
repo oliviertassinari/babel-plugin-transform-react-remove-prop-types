@@ -19,7 +19,6 @@ export default function remove(path, globalOptions, options) {
   const {
     visitedKey,
     wrapperIfTemplate,
-    mode,
     ignoreFilenames,
     types,
   } = globalOptions;
@@ -28,14 +27,14 @@ export default function remove(path, globalOptions, options) {
     return;
   }
 
-  if (mode === 'remove') {
+  if (options.mode === 'remove') {
     // remove() crash in some conditions.
     if (path.parentPath.type === 'ConditionalExpression') {
       path.replaceWith(types.unaryExpression('void', types.numericLiteral(0)));
     } else {
       path.remove();
     }
-  } else if (mode === 'wrap') {
+  } else if (options.mode === 'wrap') {
     // Prevent infinity loop.
     if (path.node[visitedKey]) {
       return;
@@ -87,6 +86,6 @@ export default function remove(path, globalOptions, options) {
         break;
     }
   } else {
-    throw new Error(`transform-react-remove-prop-type: unsupported mode ${mode}.`);
+    throw new Error(`transform-react-remove-prop-type: unsupported mode ${options.mode}.`);
   }
 }

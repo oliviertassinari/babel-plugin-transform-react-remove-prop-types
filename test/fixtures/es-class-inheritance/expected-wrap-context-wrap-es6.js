@@ -5,12 +5,12 @@ class Foo1 extends PureRenderComponent {
   render() {}
 }
 
-Foo1.contextTypes = {
+process.env.NODE_ENV !== "production" ? Foo1.childContextTypes = {
   foo1: PropTypes.string.isRequired
-};
-Foo1.childContextTypes = {
+} : void 0;
+process.env.NODE_ENV !== "production" ? Foo1.contextTypes = {
   foo1: PropTypes.string.isRequired
-};
+} : void 0;
 process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
   foo1: PropTypes.string.isRequired
 } : void 0;
@@ -22,13 +22,13 @@ process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
   foo2: PropTypes.string.isRequired
 } : void 0;
 
-Foo2.contextTypes = {
+process.env.NODE_ENV !== "production" ? Foo2.contextTypes = {
   foo2: PropTypes.string.isRequired
-};
+} : void 0;
 
-Foo2.childContextTypes = {
+process.env.NODE_ENV !== "production" ? Foo2.childContextTypes = {
   foo2: PropTypes.string.isRequired
-};
+} : void 0;
 
 // With no inheritance
 export class Foo3 {

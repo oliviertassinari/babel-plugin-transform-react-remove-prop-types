@@ -22,4 +22,12 @@ var Message = function Message(_ref) {
   });
 };
 
+Message.contextTypes = {
+  mapList: _react.PropTypes.array.isRequired
+};
+
+Message.childContextTypes = {
+  mapList: _react.PropTypes.array.isRequired
+};
+
 exports.default = Message;

@@ -5,23 +5,9 @@ class Foo1 extends PureRenderComponent {
   render() {}
 }
 
-Foo1.contextTypes = {
-  foo1: PropTypes.string.isRequired
-};
-Foo1.childContextTypes = {
-  foo1: PropTypes.string.isRequired
-};
 class Foo2 extends PureRenderComponent {
   render() {}
 }
-
-Foo2.contextTypes = {
-  foo2: PropTypes.string.isRequired
-};
-
-Foo2.childContextTypes = {
-  foo2: PropTypes.string.isRequired
-};
 
 // With no inheritance
 export class Foo3 {

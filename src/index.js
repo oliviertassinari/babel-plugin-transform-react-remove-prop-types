@@ -49,6 +49,20 @@ export default function ({ template, types }) {
     visitor: {
       Program(programPath, state) {
         let ignoreFilenames;
+        let contextMode;
+        let includeContext;
+        const mode = state.opts.mode || 'remove';
+
+        if (state.opts.contextMode === 'wrap' || state.opts.contextMode === 'remove') {
+          contextMode = state.opts.contextMode;
+          includeContext = true;
+        } else {
+          includeContext = false;
+        }
+
+        const isContextTypes = (str) => {
+          return includeContext && (str === 'contextTypes' || str === 'childContextTypes');
+        };
 
         if (state.opts.ignoreFilenames) {
           ignoreFilenames = new RegExp(state.opts.ignoreFilenames.join('|'), 'gi');
@@ -63,7 +77,6 @@ export default function ({ template, types }) {
               NODE;
             }
           `),
-          mode: state.opts.mode || 'remove',
           ignoreFilenames,
           types,
           removeImport: state.opts.removeImport || false,
@@ -74,8 +87,10 @@ export default function ({ template, types }) {
           ObjectProperty: {
             exit(path) {
               const node = path.node;
+              const isKeyContextTypes = isContextTypes(node.key.name);
 
-              if (node.computed || node.key.name !== 'propTypes') {
+              if (node.computed || (node.key.name !== 'propTypes' &&
+                !isKeyContextTypes)) {
                 return;
               }
 
@@ -90,6 +105,7 @@ export default function ({ template, types }) {
               if (parent) {
                 remove(path, globalOptions, {
                   type: 'createClass',
+                  mode: isKeyContextTypes ? contextMode : mode,
                 });
               }
             },
@@ -100,14 +116,16 @@ export default function ({ template, types }) {
               node,
               scope,
             } = path;
+            const isKeyContextTypes = isContextTypes(node.key.name);
 
-            if (node.key.name === 'propTypes') {
+            if (node.key.name === 'propTypes' || isKeyContextTypes) {
               const pathClassDeclaration = scope.path;
 
               if (isReactClass(pathClassDeclaration.get('superClass'), scope)) {
                 remove(path, globalOptions, {
                   type: 'class static',
                   pathClassDeclaration,
+                  mode: isKeyContextTypes ? contextMode : mode,
                 });
               }
             }
@@ -118,7 +136,13 @@ export default function ({ template, types }) {
               scope,
             } = path;
 
-            if (node.left.computed || !node.left.property || node.left.property.name !== 'propTypes') {
+            if (node.left.computed || !node.left.property) {
+              return;
+            }
+
+            const isKeyContextTypes = isContextTypes(node.left.property.name);
+
+            if (node.left.property.name !== 'propTypes' && !isKeyContextTypes) {
               return;
             }
 
@@ -135,17 +159,19 @@ export default function ({ template, types }) {
               if (isReactClass(superClass, scope)) {
                 remove(path, globalOptions, {
                   type: 'class assign',
+                  mode: isKeyContextTypes ? contextMode : mode,
                 });
               }
             } else if (isStatelessComponent(binding.path)) {
               remove(path, globalOptions, {
                 type: 'stateless',
+                mode: isKeyContextTypes ? contextMode : mode,
               });
             }
           },
         });
 
-        if (globalOptions.removeImport && globalOptions.mode === 'remove') {
+        if (globalOptions.removeImport && mode === 'remove') {
           programPath.scope.crawl();
 
           programPath.traverse({

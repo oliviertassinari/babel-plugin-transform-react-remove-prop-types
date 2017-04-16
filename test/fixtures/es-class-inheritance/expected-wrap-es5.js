@@ -41,6 +41,12 @@ var Foo1 = function (_PureRenderComponent) {
   return Foo1;
 }(PureRenderComponent);
 
+Foo1.contextTypes = {
+  foo1: PropTypes.string.isRequired
+};
+Foo1.childContextTypes = {
+  foo1: PropTypes.string.isRequired
+};
 process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
   foo1: PropTypes.string.isRequired
 } : void 0;
@@ -66,6 +72,14 @@ process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
   foo2: PropTypes.string.isRequired
 } : void 0;
 
+Foo2.contextTypes = {
+  foo2: PropTypes.string.isRequired
+};
+
+Foo2.childContextTypes = {
+  foo2: PropTypes.string.isRequired
+};
+
 // With no inheritance
 
 var Foo3 = exports.Foo3 = function () {
@@ -82,5 +96,11 @@ var Foo3 = exports.Foo3 = function () {
 }();
 
 Foo3.propTypes = {
+  foo3: PropTypes.string
+};
+Foo3.contextTypes = {
+  foo3: PropTypes.string
+};
+Foo3.childContextTypes = {
   foo3: PropTypes.string
 };

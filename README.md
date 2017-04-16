@@ -130,6 +130,24 @@ import PropTypes from 'prop-types'
 ```
  - `false` (default): does not remove the import statements.
 
+### `contextMode`
+
+:warning: **Use this option only if you are using the React `context` API, and you know what you're doing.** :warning: 
+ - `ignore` (default):
+Will not include `contextTypes` and `childContextTypes` to the definitions to remove or wrap.
+ - `wrap`:
+The `contextTypes` and `childContextTypes` definitions are wrapped with the following code:
+```js
+if (process.env.NODE_ENV !== "production") {
+  // ...
+}
+```
+This is the recommended mode for libraries targeting React ecosystem.
+ - `remove`:
+The `contextTypes` and `childContextTypes` definitions are removed from the source code.
+
+This mode should only be used if you are targeting framework like Preact, which implements context without contextTypes and childContextTypes.
+
 ### `ignoreFilenames`
 
 This filter generates a regular expression.

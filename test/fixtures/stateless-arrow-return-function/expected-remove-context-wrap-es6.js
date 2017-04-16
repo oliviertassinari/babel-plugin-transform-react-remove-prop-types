@@ -7,12 +7,12 @@ var Message = ({ mapList }) => {
   });
 };
 
-Message.contextTypes = {
+process.env.NODE_ENV !== "production" ? Message.contextTypes = {
   mapList: PropTypes.array.isRequired
-};
+} : void 0;
 
-Message.childContextTypes = {
+process.env.NODE_ENV !== "production" ? Message.childContextTypes = {
   mapList: PropTypes.array.isRequired
-};
+} : void 0;
 
 export default Message;

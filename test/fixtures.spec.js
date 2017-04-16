@@ -11,7 +11,8 @@ import babelPluginTransformClassProperties from 'babel-plugin-transform-class-pr
 import babelPluginTransformReactRemovePropTypes from '../src/index';
 import { trim } from './utils';
 
-const modes = ['remove-es5', 'wrap-es5', 'remove-es6', 'wrap-es6'];
+const modes = ['remove-es5', 'wrap-es5', 'remove-es6', 'wrap-es6', 'remove-context-wrap-es6',
+  'remove-context-remove-es6', 'wrap-context-wrap-es6', 'wrap-context-remove-es6'];
 
 describe('fixtures', () => {
   const fixturesDir = path.join(__dirname, 'fixtures');
@@ -92,7 +93,78 @@ describe('fixtures', () => {
               };
               break;
 
+            case 'remove-context-wrap-es6':
+              babelConfig = {
+                babelrc: false,
+                plugins: [
+                  babelPluginSyntaxJsx,
+                  babelPluginTransformClassProperties,
+                  [
+                    babelPluginTransformReactRemovePropTypes,
+                    {
+                      ...options,
+                      mode: 'remove',
+                      contextMode: 'wrap',
+                    },
+                  ],
+                ],
+              };
+              break;
+
+            case 'remove-context-remove-es6':
+              babelConfig = {
+                babelrc: false,
+                plugins: [
+                  babelPluginSyntaxJsx,
+                  babelPluginTransformClassProperties,
+                  [
+                    babelPluginTransformReactRemovePropTypes,
+                    {
+                      ...options,
+                      mode: 'remove',
+                      contextMode: 'remove',
+                    },
+                  ],
+                ],
+              };
+              break;
+
             case 'wrap-es6':
+              babelConfig = {
+                babelrc: false,
+                plugins: [
+                  babelPluginSyntaxJsx,
+                  babelPluginTransformClassProperties,
+                  [
+                    babelPluginTransformReactRemovePropTypes,
+                    {
+                      ...options,
+                      mode: 'wrap',
+                    },
+                  ],
+                ],
+              };
+              break;
+
+            case 'wrap-context-wrap-es6':
+              babelConfig = {
+                babelrc: false,
+                plugins: [
+                  babelPluginSyntaxJsx,
+                  babelPluginTransformClassProperties,
+                  [
+                    babelPluginTransformReactRemovePropTypes,
+                    {
+                      ...options,
+                      mode: 'wrap',
+                      contextMode: 'wrap',
+                    },
+                  ],
+                ],
+              };
+              break;
+
+            case 'wrap-context-remove-es6':
             default:
               babelConfig = {
                 babelrc: false,
@@ -104,6 +176,7 @@ describe('fixtures', () => {
                     {
                       ...options,
                       mode: 'wrap',
+                      contextMode: 'remove',
                     },
                   ],
                 ],
