@@ -145,9 +145,9 @@ export default function ({ template, types }) {
           },
         });
 
-        programPath.scope.crawl();
-
         if (globalOptions.removeImport && globalOptions.mode === 'remove') {
+          programPath.scope.crawl();
+
           programPath.traverse({
             ImportDeclaration(path) {
               const { source, specifiers } = path.node;
