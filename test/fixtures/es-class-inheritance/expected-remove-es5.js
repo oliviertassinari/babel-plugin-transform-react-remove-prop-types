@@ -41,6 +41,13 @@ var Foo1 = function (_PureRenderComponent) {
   return Foo1;
 }(PureRenderComponent);
 
+Foo1.contextTypes = {
+  foo1: PropTypes.string.isRequired
+};
+Foo1.childContextTypes = {
+  foo1: PropTypes.string.isRequired
+};
+
 var Foo2 = function (_PureRenderComponent2) {
   _inherits(Foo2, _PureRenderComponent2);
 
@@ -58,7 +65,16 @@ var Foo2 = function (_PureRenderComponent2) {
   return Foo2;
 }(PureRenderComponent);
 
+Foo2.contextTypes = {
+  foo2: PropTypes.string.isRequired
+};
+
+Foo2.childContextTypes = {
+  foo2: PropTypes.string.isRequired
+};
+
 // With no inheritance
+
 var Foo3 = exports.Foo3 = function () {
   function Foo3() {
     _classCallCheck(this, Foo3);
@@ -73,5 +89,11 @@ var Foo3 = exports.Foo3 = function () {
 }();
 
 Foo3.propTypes = {
+  foo3: PropTypes.string
+};
+Foo3.contextTypes = {
+  foo3: PropTypes.string
+};
+Foo3.childContextTypes = {
   foo3: PropTypes.string
 };

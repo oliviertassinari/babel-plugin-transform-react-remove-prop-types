@@ -29,4 +29,10 @@ var _class = function (_React$Component) {
   return _class;
 }(React.Component);
 
+_class.contextTypes = {
+  foo: PropTypes.string.isRequired
+};
+_class.childContextTypes = {
+  foo: PropTypes.string.isRequired
+};
 exports.default = _class;

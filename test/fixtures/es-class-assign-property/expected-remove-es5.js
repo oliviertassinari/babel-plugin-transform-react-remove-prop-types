@@ -25,6 +25,14 @@ var Foo1 = function (_React$Component) {
   return Foo1;
 }(React.Component);
 
+Foo1.contextTypes = {
+  bar1: PropTypes.string
+};
+
+Foo1.childContextTypes = {
+  bar1: PropTypes.string
+};
+
 var Foo2 = function (_React$PureComponent) {
   _inherits(Foo2, _React$PureComponent);
 
@@ -41,3 +49,11 @@ var Foo2 = function (_React$PureComponent) {
 
   return Foo2;
 }(React.PureComponent);
+
+Foo1.contextTypes = {
+  bar2: PropTypes.string
+};
+
+Foo1.childContextTypes = {
+  bar2: PropTypes.string
+};

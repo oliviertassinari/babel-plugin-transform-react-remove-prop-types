@@ -26,4 +26,12 @@ process.env.NODE_ENV !== "production" ? Message.propTypes = {
   mapList: _react.PropTypes.array.isRequired
 } : void 0;
 
+Message.contextTypes = {
+  mapList: _react.PropTypes.array.isRequired
+};
+
+Message.childContextTypes = {
+  mapList: _react.PropTypes.array.isRequired
+};
+
 exports.default = Message;
