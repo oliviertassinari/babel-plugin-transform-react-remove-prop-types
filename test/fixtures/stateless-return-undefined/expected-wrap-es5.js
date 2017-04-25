@@ -40,11 +40,11 @@ var Message = function Message(_ref) {
   );
 };
 
-process.env.NODE_ENV !== "production" ? Message.propTypes = {
+Message.propTypes = process.env.NODE_ENV !== "production" ? {
   isFetching: _react.PropTypes.bool.isRequired,
   isSuccess: _react.PropTypes.bool.isRequired,
   isFailure: _react.PropTypes.bool.isRequired,
   errorMsg: _react.PropTypes.string.isRequired
-} : void 0;
+} : {};
 
 exports.default = Message;

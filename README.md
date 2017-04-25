@@ -114,13 +114,24 @@ the `propTypes` definitions are removed from the source code.
  - `wrap`:
 the `propTypes` definitions are wrapped with the following code:
 ```js
-if (process.env.NODE_ENV !== "production") {
+Component.propTypes = process.env.NODE_ENV !== "production" ? {
   // ...
+} : {};
+```
+Accessing `Component.propTypes.className` won't throw. It's a tradeoff between the size of the output file and the likelihood libraries like [react-native-hyperlink](https://github.com/obipawan/react-native-hyperlink/pull/11) breaks.
+ - `unsafe-wrap`:
+the `propTypes` definitions are wrapped with the following code:
+```js
+if (process.env.NODE_ENV !== "production") {
+  Component.propTypes = {
+    // ...
+  }
 }
 ```
+Accessing `Component.propTypes.className` will throw.
 
-The `wrap` mode is targeting react libraries like [material-ui](https://github.com/callemall/material-ui).
-It's not intended to be used in userland.
+The *wrap* modes are targeting React libraries like [material-ui](https://github.com/callemall/material-ui) or [react-native-web](https://github.com/necolas/react-native-web).
+They are not intended to be used by application authors.
 
 ### `removeImport`
 
@@ -160,7 +171,7 @@ Make sure you are:
 - Not using that pattern in your souce code.
 If you do, explicitly **export** the `propTypes` to work around that limitation.
 - Not parsing the `node_modules`.
-If you do, test that things are still working before shipping into production.
+If you do, test that your code is still working before shipping into production.
 
 [eslint-plugin-react has a rule forbid-foreign-prop-types](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-foreign-prop-types.md) that can help you make this plugin safer to use.
 

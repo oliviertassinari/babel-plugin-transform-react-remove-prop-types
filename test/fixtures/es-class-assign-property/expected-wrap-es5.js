@@ -25,9 +25,9 @@ var Foo1 = function (_React$Component) {
   return Foo1;
 }(React.Component);
 
-process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
+Foo1.propTypes = process.env.NODE_ENV !== "production" ? {
   bar1: PropTypes.string
-} : void 0;
+} : {};
 
 var Foo2 = function (_React$PureComponent) {
   _inherits(Foo2, _React$PureComponent);
@@ -46,6 +46,6 @@ var Foo2 = function (_React$PureComponent) {
   return Foo2;
 }(React.PureComponent);
 
-process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
+Foo2.propTypes = process.env.NODE_ENV !== "production" ? {
   bar2: PropTypes.string
-} : void 0;
+} : {};

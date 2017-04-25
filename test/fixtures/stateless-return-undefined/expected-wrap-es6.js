@@ -21,11 +21,11 @@ var Message = ({ isFetching, isSuccess, isFailure, errorMsg }) => {
   return <div className={'alert alert-' + messageType} role="alert">{messageTxt}</div>;
 };
 
-process.env.NODE_ENV !== "production" ? Message.propTypes = {
+Message.propTypes = process.env.NODE_ENV !== "production" ? {
   isFetching: PropTypes.bool.isRequired,
   isSuccess: PropTypes.bool.isRequired,
   isFailure: PropTypes.bool.isRequired,
   errorMsg: PropTypes.string.isRequired
-} : void 0;
+} : {};
 
 export default Message;

@@ -14,4 +14,4 @@ export default function Foo(props) {
   return <Bar {...barProps} />;
 }
 
-process.env.NODE_ENV !== "production" ? Foo.propTypes = propTypes : void 0;
+Foo.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};

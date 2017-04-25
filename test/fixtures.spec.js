@@ -11,7 +11,7 @@ import babelPluginTransformClassProperties from 'babel-plugin-transform-class-pr
 import babelPluginTransformReactRemovePropTypes from '../src/index';
 import { trim } from './utils';
 
-const modes = ['remove-es5', 'wrap-es5', 'remove-es6', 'wrap-es6'];
+const modes = ['options', 'remove-es5', 'wrap-es5', 'remove-es6', 'wrap-es6'];
 
 describe('fixtures', () => {
   const fixturesDir = path.join(__dirname, 'fixtures');
@@ -20,6 +20,7 @@ describe('fixtures', () => {
     describe(`should work with ${caseName.split('-').join(' ')}`, () => {
       const fixtureDir = path.join(fixturesDir, caseName);
 
+      // Only run a specific test
       // if (caseName !== 'create-class') {
       //   return;
       // }
@@ -33,8 +34,10 @@ describe('fixtures', () => {
           options = require(optionsPath); // eslint-disable-line global-require, import/no-dynamic-require
         }
 
+        const filename = mode === 'options' ? 'expected.js' : `expected-${mode}.js`;
+
         try {
-          expected = fs.readFileSync(path.join(fixtureDir, `expected-${mode}.js`));
+          expected = fs.readFileSync(path.join(fixtureDir, filename));
           expected = expected.toString();
         } catch (error) {
           // Only run the check if the expect file is or have an option provided.
@@ -93,7 +96,6 @@ describe('fixtures', () => {
               break;
 
             case 'wrap-es6':
-            default:
               babelConfig = {
                 babelrc: false,
                 plugins: [
@@ -108,11 +110,22 @@ describe('fixtures', () => {
                   ],
                 ],
               };
+              break;
+
+            default:
+              babelConfig = {
+                plugins: [
+                  [
+                    babelPluginTransformReactRemovePropTypes, options,
+                  ],
+                ],
+              };
           }
 
           try {
             const actual = transformFileSync(path.join(fixtureDir, 'actual.js'), babelConfig).code;
-            // fs.writeFileSync(path.join(fixtureDir, `expected-${mode}.js`), actual);
+            // Write the output
+            // fs.writeFileSync(path.join(fixtureDir, filename), actual);
             assert.strictEqual(trim(actual), trim(expected));
           } catch (err) {
             if (options.throws) {

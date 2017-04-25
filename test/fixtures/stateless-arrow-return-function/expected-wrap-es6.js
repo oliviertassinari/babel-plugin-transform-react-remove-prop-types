@@ -7,8 +7,8 @@ var Message = ({ mapList }) => {
   });
 };
 
-process.env.NODE_ENV !== "production" ? Message.propTypes = {
+Message.propTypes = process.env.NODE_ENV !== "production" ? {
   mapList: PropTypes.array.isRequired
-} : void 0;
+} : {};
 
 export default Message;

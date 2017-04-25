@@ -29,4 +29,4 @@ function Foo(props) {
   return _react2.default.createElement(_bar2.default, barProps);
 }
 
-process.env.NODE_ENV !== "production" ? Foo.propTypes = propTypes : void 0;
+Foo.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};

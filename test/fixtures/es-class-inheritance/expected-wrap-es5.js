@@ -41,9 +41,9 @@ var Foo1 = function (_PureRenderComponent) {
   return Foo1;
 }(PureRenderComponent);
 
-process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
+Foo1.propTypes = process.env.NODE_ENV !== "production" ? {
   foo1: PropTypes.string.isRequired
-} : void 0;
+} : {};
 
 var Foo2 = function (_PureRenderComponent2) {
   _inherits(Foo2, _PureRenderComponent2);
@@ -62,9 +62,9 @@ var Foo2 = function (_PureRenderComponent2) {
   return Foo2;
 }(PureRenderComponent);
 
-process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
+Foo2.propTypes = process.env.NODE_ENV !== "production" ? {
   foo2: PropTypes.string.isRequired
-} : void 0;
+} : {};
 
 // With no inheritance
 

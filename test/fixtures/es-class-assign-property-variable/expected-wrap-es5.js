@@ -29,4 +29,4 @@ var Foo = function (_React$Component) {
   return Foo;
 }(React.Component);
 
-process.env.NODE_ENV !== "production" ? Foo.propTypes = propTypes : void 0;
+Foo.propTypes = process.env.NODE_ENV !== "production" ? propTypes : {};
