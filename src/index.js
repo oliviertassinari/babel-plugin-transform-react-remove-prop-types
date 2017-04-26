@@ -1,5 +1,6 @@
 // @flow weak
 
+import isAnnotatedForRemoval from './isAnnotatedForRemoval';
 import isStatelessComponent from './isStatelessComponent';
 import remove from './remove';
 
@@ -132,15 +133,17 @@ export default function ({ template, types }) {
               return;
             }
 
+            const forceRemoval = isAnnotatedForRemoval(path.node.left);
+
             if (binding.path.isClassDeclaration()) {
               const superClass = binding.path.get('superClass');
 
-              if (isReactClass(superClass, scope)) {
+              if (isReactClass(superClass, scope) || forceRemoval) {
                 remove(path, globalOptions, {
                   type: 'class assign',
                 });
               }
-            } else if (isStatelessComponent(binding.path)) {
+            } else if (isStatelessComponent(binding.path) || forceRemoval) {
               remove(path, globalOptions, {
                 type: 'stateless',
               });
