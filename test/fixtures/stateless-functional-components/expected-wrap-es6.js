@@ -1,16 +1,16 @@
 const Foo1 = () => <div />;
 
-process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
+Foo1.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 const Foo2 = () => {
   return <div />;
 };
 
-process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
+Foo2.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 const Foo3 = function () {
   switch (true) {
@@ -24,17 +24,17 @@ const Foo3 = function () {
   }
 };
 
-process.env.NODE_ENV !== "production" ? Foo3.propTypes = {
+Foo3.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 function Foo4() {
   return <div />;
 }
 
-process.env.NODE_ENV !== "production" ? Foo4.propTypes = {
+Foo4.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 function Foo5() {
   const bar5 = function () {
@@ -44,9 +44,9 @@ function Foo5() {
   return bar5();
 }
 
-process.env.NODE_ENV !== "production" ? Foo5.propTypes = {
+Foo5.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 function Foo6() {
   var result = bar6();
@@ -58,9 +58,9 @@ function Foo6() {
   }
 }
 
-process.env.NODE_ENV !== "production" ? Foo6.propTypes = {
+Foo6.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 function Foo7() {
   const shallow = {
@@ -71,9 +71,9 @@ function Foo7() {
   return shallow.shallowMember();
 }
 
-process.env.NODE_ENV !== "production" ? Foo7.propTypes = {
+Foo7.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 function Foo8() {
   const obj = {
@@ -86,34 +86,34 @@ function Foo8() {
   return obj.deep.member();
 }
 
-process.env.NODE_ENV !== "production" ? Foo8.propTypes = {
+Foo8.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 const Foo9 = () => React.createElement("div", null);
 
-process.env.NODE_ENV !== "production" ? Foo9.propTypes = {
+Foo9.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 const Foo10 = () => {
   return React.createElement("div", null);
 };
 
-process.env.NODE_ENV !== "production" ? Foo10.propTypes = {
+Foo10.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 const Foo11 = () => true && <div />;
 
-process.env.NODE_ENV !== "production" ? Foo11.propTypes = {
+Foo11.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};
 
 function Foo12(props) {
   return React.cloneElement(props.children);
 }
 
-process.env.NODE_ENV !== "production" ? Foo12.propTypes = {
+Foo12.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : void 0;
+} : {};

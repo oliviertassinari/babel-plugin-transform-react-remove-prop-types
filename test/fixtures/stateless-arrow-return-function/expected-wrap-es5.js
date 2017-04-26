@@ -22,8 +22,8 @@ var Message = function Message(_ref) {
   });
 };
 
-process.env.NODE_ENV !== "production" ? Message.propTypes = {
+Message.propTypes = process.env.NODE_ENV !== "production" ? {
   mapList: _react.PropTypes.array.isRequired
-} : void 0;
+} : {};
 
 exports.default = Message;

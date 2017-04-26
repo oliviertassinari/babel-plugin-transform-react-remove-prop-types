@@ -58,10 +58,13 @@ export default function ({ template, types }) {
 
         const globalOptions = {
           visitedKey: `transform-react-remove-prop-types${Date.now()}`,
-          wrapperIfTemplate: template(`
+          unsafeWrapTemplate: template(`
             if (process.env.NODE_ENV !== "production") {
               NODE;
             }
+          `),
+          wrapTemplate: template(`
+            LEFT = process.env.NODE_ENV !== "production" ? RIGHT : {}
           `),
           mode: state.opts.mode || 'remove',
           ignoreFilenames,
@@ -145,27 +148,33 @@ export default function ({ template, types }) {
           },
         });
 
-        if (globalOptions.removeImport && globalOptions.mode === 'remove') {
-          programPath.scope.crawl();
+        if (globalOptions.removeImport) {
+          if (globalOptions.mode === 'remove') {
+            programPath.scope.crawl();
 
-          programPath.traverse({
-            ImportDeclaration(path) {
-              const { source, specifiers } = path.node;
-              if (source.value !== 'prop-types') {
-                return;
-              }
-              const haveUsedSpecifiers = specifiers.some((specifier) => {
-                const importedIdentifierName = specifier.local.name;
-                const { referencePaths } = path.scope.getBinding(importedIdentifierName);
-                return referencePaths.length > 0;
-              });
+            programPath.traverse({
+              ImportDeclaration(path) {
+                const { source, specifiers } = path.node;
+                if (source.value !== 'prop-types') {
+                  return;
+                }
+                const haveUsedSpecifiers = specifiers.some((specifier) => {
+                  const importedIdentifierName = specifier.local.name;
+                  const { referencePaths } = path.scope.getBinding(importedIdentifierName);
+                  return referencePaths.length > 0;
+                });
 
-              if (!haveUsedSpecifiers) {
-                path.remove();
-              }
-              path.stop();
-            },
-          });
+                if (!haveUsedSpecifiers) {
+                  path.remove();
+                }
+                path.stop();
+              },
+            });
+          } else {
+            throw new Error(
+              'react-remove-prop-types: removeImport and mode=remove can not be used at the same time.',
+            );
+          }
         }
       },
     },

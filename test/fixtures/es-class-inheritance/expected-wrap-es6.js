@@ -4,16 +4,16 @@ class Foo1 extends PureRenderComponent {
   render() {}
 }
 
-process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
+Foo1.propTypes = process.env.NODE_ENV !== "production" ? {
   foo1: PropTypes.string.isRequired
-} : void 0;
+} : {};
 class Foo2 extends PureRenderComponent {
   render() {}
 }
 
-process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
+Foo2.propTypes = process.env.NODE_ENV !== "production" ? {
   foo2: PropTypes.string.isRequired
-} : void 0;
+} : {};
 
 // With no inheritance
 export class Foo3 {

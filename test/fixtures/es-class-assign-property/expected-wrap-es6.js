@@ -2,14 +2,14 @@ class Foo1 extends React.Component {
   render() {}
 }
 
-process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
+Foo1.propTypes = process.env.NODE_ENV !== "production" ? {
   bar1: PropTypes.string
-} : void 0;
+} : {};
 
 class Foo2 extends React.PureComponent {
   render() {}
 }
 
-process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
+Foo2.propTypes = process.env.NODE_ENV !== "production" ? {
   bar2: PropTypes.string
-} : void 0;
+} : {};

@@ -18,7 +18,8 @@ function isInside(scope, regex) {
 export default function remove(path, globalOptions, options) {
   const {
     visitedKey,
-    wrapperIfTemplate,
+    unsafeWrapTemplate,
+    wrapTemplate,
     mode,
     ignoreFilenames,
     types,
@@ -28,6 +29,13 @@ export default function remove(path, globalOptions, options) {
     return;
   }
 
+  // Prevent infinity loop.
+  if (path.node[visitedKey]) {
+    return;
+  }
+
+  path.node[visitedKey] = true;
+
   if (mode === 'remove') {
     // remove() crash in some conditions.
     if (path.parentPath.type === 'ConditionalExpression') {
@@ -35,14 +43,11 @@ export default function remove(path, globalOptions, options) {
     } else {
       path.remove();
     }
-  } else if (mode === 'wrap') {
-    // Prevent infinity loop.
-    if (path.node[visitedKey]) {
-      return;
-    }
 
-    path.node[visitedKey] = true;
+    return;
+  }
 
+  if (mode === 'wrap' || mode === 'unsafe-wrap') {
     switch (options.type) {
       // This is legacy, we do not optimize it.
       case 'createClass':
@@ -69,24 +74,35 @@ export default function remove(path, globalOptions, options) {
           pathClassDeclaration = pathClassDeclaration.parentPath;
         }
         pathClassDeclaration.insertAfter(node);
-
         path.remove();
         break;
       }
 
       case 'class assign':
       case 'stateless':
-        path.replaceWith(wrapperIfTemplate(
-          {
-            NODE: path.node,
-          },
-        ));
+        if (mode === 'unsafe-wrap') {
+          path.replaceWith(unsafeWrapTemplate(
+            {
+              NODE: path.node,
+            },
+          ));
+        } else {
+          path.replaceWith(wrapTemplate(
+            {
+              LEFT: path.node.left,
+              RIGHT: path.node.right,
+            },
+          ));
+        }
+        path.node[visitedKey] = true;
         break;
 
       default:
         break;
     }
-  } else {
-    throw new Error(`transform-react-remove-prop-type: unsupported mode ${mode}.`);
+
+    return;
   }
+
+  throw new Error(`transform-react-remove-prop-type: unsupported mode ${mode}.`);
 }

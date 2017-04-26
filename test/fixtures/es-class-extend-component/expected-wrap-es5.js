@@ -25,9 +25,9 @@ var Foo1 = function (_Component) {
   return Foo1;
 }(Component);
 
-process.env.NODE_ENV !== "production" ? Foo1.propTypes = {
+Foo1.propTypes = process.env.NODE_ENV !== "production" ? {
   foo1: PropTypes.string
-} : void 0;
+} : {};
 
 var Foo2 = function (_Component2) {
   _inherits(Foo2, _Component2);
@@ -46,6 +46,6 @@ var Foo2 = function (_Component2) {
   return Foo2;
 }(Component);
 
-process.env.NODE_ENV !== "production" ? Foo2.propTypes = {
+Foo2.propTypes = process.env.NODE_ENV !== "production" ? {
   foo2: PropTypes.string
-} : void 0;
+} : {};
