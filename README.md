@@ -40,6 +40,16 @@ const Baz = (props) => (
 );
 ```
 
+### With comment annotation
+
+The majority of cases should be addressed by default by this plugin.
+
+In some cases, for example when using HOCs (High Order Components), like *react-redux*'s `connect`, or component inheritance ([although it's NOT recommended](https://facebook.github.io/react/docs/composition-vs-inheritance.html)), a comment after the `propTypes` definition may be used to force the removal:
+
+```js
+Component.propTypes /* remove-proptypes */ = {}
+```
+
 ## Usage
 
 ### Via `.babelrc` (Recommended)
