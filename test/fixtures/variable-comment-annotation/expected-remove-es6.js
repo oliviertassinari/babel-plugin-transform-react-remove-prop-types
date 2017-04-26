@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import GreetingComponent from './GreetingComponent';
+import FooComponent from './FooComponent';
 
-const Greeting = connect(() => {}, () => {})(GreetingComponent);
+const Foo = connect(() => {}, () => {})(FooComponent);
 
-export default Greeting;
+export default Foo;

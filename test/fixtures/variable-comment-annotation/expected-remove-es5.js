@@ -8,14 +8,18 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactRedux = require('react-redux');
 
-var _GreetingComponent = require('./GreetingComponent');
+var _FooComponent = require('./FooComponent');
 
-var _GreetingComponent2 = _interopRequireDefault(_GreetingComponent);
+var _FooComponent2 = _interopRequireDefault(_FooComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Greeting = (0, _reactRedux.connect)(function () {}, function () {})(_GreetingComponent2.default);
+var Foo = (0, _reactRedux.connect)(function () {}, function () {})(_FooComponent2.default);
 
-exports.default = Greeting;
+exports.default = Foo;

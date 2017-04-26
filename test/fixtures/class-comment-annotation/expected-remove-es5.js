@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Parent = require('./Parent');
 
 var _Parent2 = _interopRequireDefault(_Parent);
@@ -22,36 +26,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Greeting = function (_ParentComponent) {
-  _inherits(Greeting, _ParentComponent);
+var Foo = function (_ParentComponent) {
+  _inherits(Foo, _ParentComponent);
 
-  function Greeting(props, context) {
-    _classCallCheck(this, Greeting);
+  function Foo() {
+    _classCallCheck(this, Foo);
 
-    var _this = _possibleConstructorReturn(this, (Greeting.__proto__ || Object.getPrototypeOf(Greeting)).call(this, props, context));
-
-    var appName = context.store.getState().appName;
-    _this.state = {
-      appName: appName
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (Foo.__proto__ || Object.getPrototypeOf(Foo)).apply(this, arguments));
   }
 
-  _createClass(Greeting, [{
+  _createClass(Foo, [{
     key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'h1',
-        null,
-        'Welcome ',
-        this.props.name,
-        ' to ',
-        this.state.appName
-      );
-    }
+    value: function render() {}
   }]);
 
-  return Greeting;
+  return Foo;
 }(_Parent2.default);
 
-exports.default = Greeting;
+exports.default = Foo;
