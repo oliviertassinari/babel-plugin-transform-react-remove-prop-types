@@ -164,7 +164,7 @@ For instance, by default
 import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 ```
-will result in `propTypes` not to be removed; with:
+will result in the latter not to be removed, while with:
 ```js
 additionalLibraries: ['react-immutable-proptypes'],
 ```
