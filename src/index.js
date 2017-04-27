@@ -70,6 +70,7 @@ export default function ({ template, types }) {
           ignoreFilenames,
           types,
           removeImport: state.opts.removeImport || false,
+          libraries: (state.opts.additionalLibraries || []).concat('prop-types'),
         };
 
         // On program start, do an explicit traversal up front for this plugin.
@@ -155,7 +156,7 @@ export default function ({ template, types }) {
             programPath.traverse({
               ImportDeclaration(path) {
                 const { source, specifiers } = path.node;
-                if (source.value !== 'prop-types') {
+                if (!globalOptions.libraries.includes(source.value)) {
                   return;
                 }
                 const haveUsedSpecifiers = specifiers.some((specifier) => {
@@ -167,7 +168,6 @@ export default function ({ template, types }) {
                 if (!haveUsedSpecifiers) {
                   path.remove();
                 }
-                path.stop();
               },
             });
           } else {

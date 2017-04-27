@@ -155,6 +155,22 @@ For instance, you can ignore all the npm modules:
 ignoreFilenames: ['node_modules'],
 ```
 
+### `additionalLibraries`
+
+This option gives the possibility to remove other `propTypes` in addition to the canonical `prop-types`.
+
+For instance, by default
+```js
+import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+```
+will result in the latter not to be removed, while with:
+```js
+additionalLibraries: ['react-immutable-proptypes'],
+```
+both will be removed.
+
+
 ## Is it safe?
 
 If you are using the `propTypes` in a conventionnal way,

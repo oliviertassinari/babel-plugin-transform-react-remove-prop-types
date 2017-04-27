@@ -1,0 +1,4 @@
+{
+  "additionalLibraries": ["react-immutable-proptypes"],
+  "removeImport": true
+}
