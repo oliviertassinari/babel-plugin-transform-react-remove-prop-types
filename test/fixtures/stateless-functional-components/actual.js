@@ -123,3 +123,12 @@ function Foo12(props) {
 Foo12.propTypes = {
   foo: PropTypes.string,
 };
+
+type Props = {
+  foo?: string,
+  children?: React.Element<any>,
+}
+
+function Foo12Flow(props: Props) {
+  return React.cloneElement(props.children);
+}

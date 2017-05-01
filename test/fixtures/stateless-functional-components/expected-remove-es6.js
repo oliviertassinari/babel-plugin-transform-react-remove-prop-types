@@ -69,3 +69,7 @@ const Foo11 = () => true && <div />;
 function Foo12(props) {
   return React.cloneElement(props.children);
 }
+
+function Foo12Flow(props) {
+  return React.cloneElement(props.children);
+}

@@ -8,6 +8,8 @@ import pathExists from 'path-exists';
 import { transformFileSync } from 'babel-core';
 import babelPluginSyntaxJsx from 'babel-plugin-syntax-jsx';
 import babelPluginTransformClassProperties from 'babel-plugin-transform-class-properties';
+import babelPluginFlowReactPropTypes from 'babel-plugin-flow-react-proptypes';
+import babelPluginFlowStripTypes from 'babel-plugin-transform-flow-strip-types';
 import babelPluginTransformReactRemovePropTypes from '../src/index';
 import { trim } from './utils';
 
@@ -83,6 +85,8 @@ describe('fixtures', () => {
                 babelrc: false,
                 plugins: [
                   babelPluginSyntaxJsx,
+                  babelPluginFlowReactPropTypes,
+                  babelPluginFlowStripTypes,
                   babelPluginTransformClassProperties,
                   [
                     babelPluginTransformReactRemovePropTypes,
@@ -100,6 +104,8 @@ describe('fixtures', () => {
                 babelrc: false,
                 plugins: [
                   babelPluginSyntaxJsx,
+                  babelPluginFlowReactPropTypes,
+                  babelPluginFlowStripTypes,
                   babelPluginTransformClassProperties,
                   [
                     babelPluginTransformReactRemovePropTypes,
