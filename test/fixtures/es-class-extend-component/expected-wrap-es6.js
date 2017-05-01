@@ -13,3 +13,19 @@ class Foo2 extends Component {
 Foo2.propTypes = process.env.NODE_ENV !== "production" ? {
   foo2: PropTypes.string
 } : {};
+
+class Foo1Flow extends Component {
+
+  render() {}
+}
+
+Foo1Flow.propTypes = process.env.NODE_ENV !== "production" ? {
+  foo1: PropTypes.string
+} : {};
+class Foo2Flow extends Component {
+  render() {}
+}
+
+Foo2Flow.propTypes = process.env.NODE_ENV !== "production" ? {
+  foo2: PropTypes.string
+} : {};

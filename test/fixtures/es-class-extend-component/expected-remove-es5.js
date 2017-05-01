@@ -41,3 +41,37 @@ var Foo2 = function (_Component2) {
 
   return Foo2;
 }(Component);
+
+var Foo1Flow = function (_Component3) {
+  _inherits(Foo1Flow, _Component3);
+
+  function Foo1Flow() {
+    _classCallCheck(this, Foo1Flow);
+
+    return _possibleConstructorReturn(this, (Foo1Flow.__proto__ || Object.getPrototypeOf(Foo1Flow)).apply(this, arguments));
+  }
+
+  _createClass(Foo1Flow, [{
+    key: "render",
+    value: function render() {}
+  }]);
+
+  return Foo1Flow;
+}(Component);
+
+var Foo2Flow = function (_Component4) {
+  _inherits(Foo2Flow, _Component4);
+
+  function Foo2Flow() {
+    _classCallCheck(this, Foo2Flow);
+
+    return _possibleConstructorReturn(this, (Foo2Flow.__proto__ || Object.getPrototypeOf(Foo2Flow)).apply(this, arguments));
+  }
+
+  _createClass(Foo2Flow, [{
+    key: "render",
+    value: function render() {}
+  }]);
+
+  return Foo2Flow;
+}(Component);
