@@ -1,0 +1,6 @@
+{
+  "plugins": [
+    "babel-plugin-flow-react-proptypes",
+    "babel-plugin-transform-flow-strip-types"
+  ]
+}
