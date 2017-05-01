@@ -29,11 +29,15 @@
   "bugs": {
     "url": "https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "babel-traverse": "^6.24.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.22.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
+    "babel-plugin-flow-react-proptypes": "^2.1.3",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",

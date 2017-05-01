@@ -1,5 +1,7 @@
 // @flow weak
+/* eslint-disable global-require, import/no-dynamic-require */
 
+import { visitors } from 'babel-traverse';
 import isAnnotatedForRemoval from './isAnnotatedForRemoval';
 import isStatelessComponent from './isStatelessComponent';
 import remove from './remove';
@@ -73,6 +75,15 @@ export default function ({ template, types }) {
           removeImport: state.opts.removeImport || false,
           libraries: (state.opts.additionalLibraries || []).concat('prop-types'),
         };
+
+        if (state.opts.plugins) {
+          const pluginsVisitors = state.opts.plugins.map((pluginName) => {
+            const plugin = require(pluginName);
+            return plugin({ template, types }).visitor;
+          });
+
+          programPath.traverse(visitors.merge(pluginsVisitors));
+        }
 
         // On program start, do an explicit traversal up front for this plugin.
         programPath.traverse({
