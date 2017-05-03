@@ -77,3 +77,7 @@ var Foo11 = function Foo11() {
 function Foo12(props) {
   return React.cloneElement(props.children);
 }
+
+function Foo12Flow(props) {
+  return React.cloneElement(props.children);
+}

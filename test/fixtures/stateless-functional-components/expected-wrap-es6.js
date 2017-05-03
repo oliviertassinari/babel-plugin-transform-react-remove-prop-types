@@ -117,3 +117,11 @@ function Foo12(props) {
 Foo12.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
 } : {};
+
+function Foo12Flow(props) {
+  return React.cloneElement(props.children);
+}
+
+Foo12Flow.propTypes = process.env.NODE_ENV !== "production" ? {
+  foo: PropTypes.string
+} : {};
