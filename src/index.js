@@ -2,6 +2,8 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 
 import { visitors } from 'babel-traverse';
+// import generate from 'babel-generator';
+// console.log(generate(node).code);
 import isAnnotatedForRemoval from './isAnnotatedForRemoval';
 import isStatelessComponent from './isStatelessComponent';
 import remove from './remove';
@@ -138,6 +140,12 @@ export default function ({ template, types }) {
               return;
             }
 
+            const forceRemoval = isAnnotatedForRemoval(path.node.left);
+
+            if (forceRemoval) {
+              remove(path, globalOptions, { type: 'assign' });
+            }
+
             const className = node.left.object.name;
             const binding = scope.getBinding(className);
 
@@ -145,20 +153,14 @@ export default function ({ template, types }) {
               return;
             }
 
-            const forceRemoval = isAnnotatedForRemoval(path.node.left);
-
             if (binding.path.isClassDeclaration()) {
               const superClass = binding.path.get('superClass');
 
-              if (isReactClass(superClass, scope) || forceRemoval) {
-                remove(path, globalOptions, {
-                  type: 'class assign',
-                });
+              if (isReactClass(superClass, scope)) {
+                remove(path, globalOptions, { type: 'assign' });
               }
-            } else if (isStatelessComponent(binding.path) || forceRemoval) {
-              remove(path, globalOptions, {
-                type: 'stateless',
-              });
+            } else if (isStatelessComponent(binding.path)) {
+              remove(path, globalOptions, { type: 'assign' });
             }
           },
         });

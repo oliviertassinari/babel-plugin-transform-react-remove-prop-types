@@ -78,8 +78,7 @@ export default function remove(path, globalOptions, options) {
         break;
       }
 
-      case 'class assign':
-      case 'stateless':
+      case 'assign':
         if (mode === 'unsafe-wrap') {
           path.replaceWith(unsafeWrapTemplate(
             {
