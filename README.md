@@ -183,7 +183,7 @@ both will be removed.
 
 ## Is it safe?
 
-If you are using the `propTypes` in a conventionnal way,
+If you are using the `propTypes` in a conventional way,
 i.e by using them to perform type checking on the properties, that plugin should be **safe to use**.
 
 However, some libraries are accessing the `propTypes` on the component directly.
@@ -191,10 +191,10 @@ For instance [react-native-vector-icons](https://github.com/oblador/react-native
 ```js
 const touchableProps = pick(restProps, Object.keys(TouchableHighlight.propTypes));
 ```
-:warning: The plugin is breaking that code if he end-up removing `TouchableHighlight.propTypes`.
+:warning: The plugin is breaking that code if it ends up removing `TouchableHighlight.propTypes`.
 
 Make sure you are:
-- Not using that pattern in your souce code.
+- Not using that pattern in your source code.
 If you do, explicitly **export** the `propTypes` to work around that limitation.
 - Not parsing the `node_modules`.
 If you do, test that your code is still working before shipping into production.
