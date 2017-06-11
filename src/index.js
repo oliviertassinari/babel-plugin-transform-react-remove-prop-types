@@ -172,7 +172,7 @@ export default function ({ template, types }) {
             programPath.traverse({
               ImportDeclaration(path) {
                 const { source, specifiers } = path.node;
-                if (!globalOptions.libraries.includes(source.value)) {
+                if (globalOptions.libraries.indexOf(source.value) === -1) {
                   return;
                 }
                 const haveUsedSpecifiers = specifiers.some((specifier) => {
