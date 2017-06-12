@@ -3,7 +3,7 @@
 
 import path from 'path';
 import fs from 'fs';
-import assert from 'assert';
+import { assert } from 'chai';
 import pathExists from 'path-exists';
 import { transformFileSync } from 'babel-core';
 import babelPluginSyntaxJsx from 'babel-plugin-syntax-jsx';
