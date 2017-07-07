@@ -165,7 +165,7 @@ For instance, you can ignore all the npm modules:
 ignoreFilenames: ['node_modules'],
 ```
 
-### `additionalLibraries`
+### `additionalLibraries`
 
 This option gives the possibility to remove other `propTypes` in addition to the canonical `prop-types`.
 
