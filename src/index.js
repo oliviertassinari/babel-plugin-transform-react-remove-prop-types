@@ -1,7 +1,7 @@
 // @flow weak
 /* eslint-disable global-require, import/no-dynamic-require */
 
-import { visitors } from 'babel-traverse';
+import traverse, { visitors } from 'babel-traverse';
 // import generate from 'babel-generator';
 // console.log(generate(node).code);
 import isAnnotatedForRemoval from './isAnnotatedForRemoval';
@@ -79,12 +79,29 @@ export default function ({ template, types }) {
         };
 
         if (state.opts.plugins) {
-          const pluginsVisitors = state.opts.plugins.map((pluginName) => {
+          const pluginsState = state;
+          const pluginsVisitors = state.opts.plugins.map((pluginOpts) => {
+            const pluginName =
+              typeof pluginOpts === 'string' ? pluginOpts : pluginOpts[0];
+
+            if (typeof pluginOpts !== 'string') {
+              pluginsState.opts = {
+                ...pluginsState.opts,
+                ...pluginOpts[1],
+              };
+            }
+
             const plugin = require(pluginName);
             return plugin({ template, types }).visitor;
           });
 
-          programPath.traverse(visitors.merge(pluginsVisitors));
+          traverse(
+            programPath.parent,
+            visitors.merge(pluginsVisitors),
+            programPath.scope,
+            pluginsState,
+            programPath.parentPath,
+          );
         }
 
         // On program start, do an explicit traversal up front for this plugin.

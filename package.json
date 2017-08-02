@@ -11,7 +11,7 @@
     "prebuild": "rm -rf lib/",
     "build": "babel src --out-dir lib",
     "flow": "flow",
-    "prepublish": "npm run build && pkgfiles"
+    "source": "npm run build && pkgfiles"
   },
   "repository": {
     "type": "git",
