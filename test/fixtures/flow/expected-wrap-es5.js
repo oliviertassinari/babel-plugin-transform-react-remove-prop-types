@@ -28,6 +28,9 @@ var Foo1 = function (_Component) {
 Foo1.propTypes = process.env.NODE_ENV !== "production" ? {
   bar1: require("prop-types").string
 } : {};
+var babelPluginFlowReactPropTypes_proptype_Props2 = {
+  bar2: require("prop-types").string
+};
 
 var Foo2 = function (_Component2) {
   _inherits(Foo2, _Component2);

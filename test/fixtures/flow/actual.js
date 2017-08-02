@@ -5,7 +5,7 @@ class Foo1 extends Component {
   render() {}
 }
 
-type Props2 = {
+export type Props2 = {
   bar2?: string
 }
 
