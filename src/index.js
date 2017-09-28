@@ -1,7 +1,6 @@
 // @flow weak
 /* eslint-disable global-require, import/no-dynamic-require */
 
-import traverse, { visitors } from 'babel-traverse';
 // import generate from 'babel-generator';
 // console.log(generate(node).code);
 import isAnnotatedForRemoval from './isAnnotatedForRemoval';
@@ -49,7 +48,7 @@ function isReactClass(superClass, scope) {
   return answer;
 }
 
-export default function ({ template, types }) {
+export default function ({ template, types, traverse }) {
   return {
     visitor: {
       Program(programPath, state) {
@@ -97,7 +96,7 @@ export default function ({ template, types }) {
 
           traverse(
             programPath.parent,
-            visitors.merge(pluginsVisitors),
+            traverse.visitors.merge(pluginsVisitors),
             programPath.scope,
             pluginsState,
             programPath.parentPath,
