@@ -4,4 +4,5 @@ export const propTypes = {
 
 class Foo extends React.Component {
   render() {}
+
 }

@@ -1,8 +1,14 @@
 import React, { PropTypes } from 'react';
 
-var Message = ({ isFetching, isSuccess, isFailure, errorMsg }) => {
+var Message = ({
+  isFetching,
+  isSuccess,
+  isFailure,
+  errorMsg
+}) => {
   let messageType;
   let messageTxt;
+
   if (isFetching) {
     messageType = 'warning';
     messageTxt = 'Pending call...';
@@ -18,7 +24,7 @@ var Message = ({ isFetching, isSuccess, isFailure, errorMsg }) => {
     return;
   }
 
-  return <div className={'alert alert-' + messageType} role="alert">{messageTxt}</div>;
+  return <div className={'alert alert-' + messageType} role='alert'>{messageTxt}</div>;
 };
 
 export default Message;
