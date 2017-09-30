@@ -1,5 +1,3 @@
-"use strict";
-
 var Foo1 = function Foo1() {
   return React.createElement("div", null);
 };
@@ -24,6 +22,7 @@ var Foo3 = function Foo3() {
       } else {
         return React.createElement("span", null);
       }
+
       break;
   }
 };
@@ -54,7 +53,6 @@ Foo5.propTypes = process.env.NODE_ENV !== "production" ? {
 
 function Foo6() {
   var result = bar6();
-
   return result;
 
   function bar6() {

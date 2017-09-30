@@ -12,6 +12,7 @@ const Foo3 = function () {
       } else {
         return <span />;
       }
+
       break;
   }
 };
@@ -30,7 +31,6 @@ function Foo5() {
 
 function Foo6() {
   var result = bar6();
-
   return result;
 
   function bar6() {
@@ -43,6 +43,7 @@ function Foo7() {
     shallowMember() {
       return <div />;
     }
+
   };
   return shallow.shallowMember();
 }
@@ -53,6 +54,7 @@ function Foo8() {
       member() {
         return <div />;
       }
+
     }
   };
   return obj.deep.member();

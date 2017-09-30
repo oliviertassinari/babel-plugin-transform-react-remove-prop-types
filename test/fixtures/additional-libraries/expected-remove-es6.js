@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-
 export default class Greeting extends Component {
   constructor(props, context) {
     super(props, context);
@@ -13,4 +11,5 @@ export default class Greeting extends Component {
   render() {
     return <h1>Welcome {this.props.name} and {this.props.friends.join(', ')} to {this.state.appName}</h1>;
   }
+
 }

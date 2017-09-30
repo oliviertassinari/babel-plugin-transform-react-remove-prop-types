@@ -90,7 +90,13 @@ export default function ({ template, types, traverse }) {
               };
             }
 
-            const plugin = require(pluginName);
+            let plugin = require(pluginName);
+
+            // Required for `babel-plugin-transform-flow-strip-types`
+            if (typeof plugin !== 'function') {
+              plugin = plugin.default;
+            }
+
             return plugin({ template, types }).visitor;
           });
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 export default class Greeting extends Component {
   constructor(props, context) {
     super(props, context);
@@ -13,8 +12,8 @@ export default class Greeting extends Component {
   render() {
     return <h1>Welcome {this.props.name} to {this.state.appName}</h1>;
   }
-}
 
+}
 Greeting.contextTypes = {
   store: PropTypes.object
 };

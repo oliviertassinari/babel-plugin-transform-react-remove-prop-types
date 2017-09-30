@@ -1,5 +1,5 @@
 class Foo1 extends Component {
-  props:  {
+  props: {
     bar1?: string,
   };
   render() {}
