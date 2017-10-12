@@ -29,6 +29,11 @@ export default function remove(path, globalOptions, options) {
     return;
   }
 
+  // If it's been removed already, don't even bother.
+  if (path.node === null) {
+    return;
+  }
+
   // Prevent infinity loop.
   if (path.node[visitedKey]) {
     return;
