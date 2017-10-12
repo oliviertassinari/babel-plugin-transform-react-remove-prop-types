@@ -3,61 +3,61 @@
 
 // import generate from 'babel-generator';
 // console.log(generate(node).code);
-import isAnnotatedForRemoval from './isAnnotatedForRemoval';
-import isStatelessComponent from './isStatelessComponent';
-import remove from './remove';
+import isAnnotatedForRemoval from './isAnnotatedForRemoval'
+import isStatelessComponent from './isStatelessComponent'
+import remove from './remove'
 
 function isPathReactClass(path) {
-  if (path.matchesPattern('React.Component') ||
-    path.matchesPattern('React.PureComponent')) {
-    return true;
+  if (path.matchesPattern('React.Component') || path.matchesPattern('React.PureComponent')) {
+    return true
   }
 
-  const node = path.node;
+  const node = path.node
 
   if (node && (node.name === 'Component' || node.name === 'PureComponent')) {
-    return true;
+    return true
   }
 
-  return false;
+  return false
 }
 
 function isReactClass(superClass, scope) {
   if (!superClass.node) {
-    return false;
+    return false
   }
 
-  let answer = false;
+  let answer = false
 
   if (isPathReactClass(superClass)) {
-    answer = true;
-  } else if (superClass.node.name) { // Check for inheritance
-    const className = superClass.node.name;
-    const binding = scope.getBinding(className);
+    answer = true
+  } else if (superClass.node.name) {
+    // Check for inheritance
+    const className = superClass.node.name
+    const binding = scope.getBinding(className)
     if (!binding) {
-      answer = false;
+      answer = false
     } else {
-      superClass = binding.path.get('superClass');
+      const bindingSuperClass = binding.path.get('superClass')
 
-      if (isPathReactClass(superClass)) {
-        answer = true;
+      if (isPathReactClass(bindingSuperClass)) {
+        answer = true
       }
     }
   }
 
-  return answer;
+  return answer
 }
 
-export default function ({ template, types, traverse }) {
+export default function({ template, types, traverse }) {
   return {
     visitor: {
       Program(programPath, state) {
-        let ignoreFilenames;
+        let ignoreFilenames
 
         if (state.opts.ignoreFilenames) {
-          ignoreFilenames = new RegExp(state.opts.ignoreFilenames.join('|'), 'gi');
+          ignoreFilenames = new RegExp(state.opts.ignoreFilenames.join('|'), 'gi')
         } else {
-          ignoreFilenames = undefined;
+          ignoreFilenames = undefined
         }
 
         const globalOptions = {
@@ -75,147 +75,144 @@ export default function ({ template, types, traverse }) {
           types,
           removeImport: state.opts.removeImport || false,
           libraries: (state.opts.additionalLibraries || []).concat('prop-types'),
-        };
+        }
 
         if (state.opts.plugins) {
-          const pluginsState = state;
-          const pluginsVisitors = state.opts.plugins.map((pluginOpts) => {
-            const pluginName =
-              typeof pluginOpts === 'string' ? pluginOpts : pluginOpts[0];
+          const pluginsState = state
+          const pluginsVisitors = state.opts.plugins.map(pluginOpts => {
+            const pluginName = typeof pluginOpts === 'string' ? pluginOpts : pluginOpts[0]
 
             if (typeof pluginOpts !== 'string') {
               pluginsState.opts = {
                 ...pluginsState.opts,
                 ...pluginOpts[1],
-              };
+              }
             }
 
-            let plugin = require(pluginName);
+            let plugin = require(pluginName)
 
             // Required for `babel-plugin-transform-flow-strip-types`
             if (typeof plugin !== 'function') {
-              plugin = plugin.default;
+              plugin = plugin.default
             }
 
-            return plugin({ template, types }).visitor;
-          });
+            return plugin({ template, types }).visitor
+          })
 
           traverse(
             programPath.parent,
             traverse.visitors.merge(pluginsVisitors),
             programPath.scope,
             pluginsState,
-            programPath.parentPath,
-          );
+            programPath.parentPath
+          )
         }
 
         // On program start, do an explicit traversal up front for this plugin.
         programPath.traverse({
           ObjectProperty: {
             exit(path) {
-              const node = path.node;
+              const node = path.node
 
               if (node.computed || node.key.name !== 'propTypes') {
-                return;
+                return
               }
 
-              const parent = path.findParent((currentNode) => {
+              const parent = path.findParent(currentNode => {
                 if (currentNode.type !== 'CallExpression') {
-                  return false;
+                  return false
                 }
 
-                return currentNode.get('callee').node.name === 'createReactClass';
-              });
+                return currentNode.get('callee').node.name === 'createReactClass'
+              })
 
               if (parent) {
                 remove(path, globalOptions, {
                   type: 'createClass',
-                });
+                })
               }
             },
           },
           // Here to support stage-1 transform-class-properties.
           ClassProperty(path) {
-            const {
-              node,
-              scope,
-            } = path;
+            const { node, scope } = path
 
             if (node.key.name === 'propTypes') {
-              const pathClassDeclaration = scope.path;
+              const pathClassDeclaration = scope.path
 
               if (isReactClass(pathClassDeclaration.get('superClass'), scope)) {
                 remove(path, globalOptions, {
                   type: 'class static',
                   pathClassDeclaration,
-                });
+                })
               }
             }
           },
           AssignmentExpression(path) {
-            const {
-              node,
-              scope,
-            } = path;
+            const { node, scope } = path
 
-            if (node.left.computed || !node.left.property || node.left.property.name !== 'propTypes') {
-              return;
+            if (
+              node.left.computed ||
+              !node.left.property ||
+              node.left.property.name !== 'propTypes'
+            ) {
+              return
             }
 
-            const forceRemoval = isAnnotatedForRemoval(path.node.left);
+            const forceRemoval = isAnnotatedForRemoval(path.node.left)
 
             if (forceRemoval) {
-              remove(path, globalOptions, { type: 'assign' });
-              return;
+              remove(path, globalOptions, { type: 'assign' })
+              return
             }
 
-            const className = node.left.object.name;
-            const binding = scope.getBinding(className);
+            const className = node.left.object.name
+            const binding = scope.getBinding(className)
 
             if (!binding) {
-              return;
+              return
             }
 
             if (binding.path.isClassDeclaration()) {
-              const superClass = binding.path.get('superClass');
+              const superClass = binding.path.get('superClass')
 
               if (isReactClass(superClass, scope)) {
-                remove(path, globalOptions, { type: 'assign' });
+                remove(path, globalOptions, { type: 'assign' })
               }
             } else if (isStatelessComponent(binding.path)) {
-              remove(path, globalOptions, { type: 'assign' });
+              remove(path, globalOptions, { type: 'assign' })
             }
           },
-        });
+        })
 
         if (globalOptions.removeImport) {
           if (globalOptions.mode === 'remove') {
-            programPath.scope.crawl();
+            programPath.scope.crawl()
 
             programPath.traverse({
               ImportDeclaration(path) {
-                const { source, specifiers } = path.node;
+                const { source, specifiers } = path.node
                 if (globalOptions.libraries.indexOf(source.value) === -1) {
-                  return;
+                  return
                 }
-                const haveUsedSpecifiers = specifiers.some((specifier) => {
-                  const importedIdentifierName = specifier.local.name;
-                  const { referencePaths } = path.scope.getBinding(importedIdentifierName);
-                  return referencePaths.length > 0;
-                });
+                const haveUsedSpecifiers = specifiers.some(specifier => {
+                  const importedIdentifierName = specifier.local.name
+                  const { referencePaths } = path.scope.getBinding(importedIdentifierName)
+                  return referencePaths.length > 0
+                })
 
                 if (!haveUsedSpecifiers) {
-                  path.remove();
+                  path.remove()
                 }
               },
-            });
+            })
           } else {
             throw new Error(
-              'react-remove-prop-types: removeImport and mode=remove can not be used at the same time.',
-            );
+              'react-remove-prop-types: removeImport and mode=remove can not be used at the same time.'
+            )
           }
         }
       },
     },
-  };
+  }
 }

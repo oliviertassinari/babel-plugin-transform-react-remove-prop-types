@@ -1,17 +1,18 @@
 // @flow weak
+/* eslint-disable no-param-reassign */
 
 function isInside(scope, regex) {
   if (!scope.hub.file.opts) {
-    return true;
+    return true
   }
 
-  const filename = scope.hub.file.opts.filename;
+  const filename = scope.hub.file.opts.filename
 
   if (!filename) {
-    return true;
+    return true
   }
 
-  return filename.match(regex) !== null;
+  return filename.match(regex) !== null
 }
 
 // Remove a specific path.
@@ -23,85 +24,89 @@ export default function remove(path, globalOptions, options) {
     mode,
     ignoreFilenames,
     types,
-  } = globalOptions;
+  } = globalOptions
 
   if (ignoreFilenames && isInside(path.scope, ignoreFilenames)) {
-    return;
+    return
   }
 
   // Prevent infinity loop.
   if (path.node[visitedKey]) {
-    return;
+    return
   }
 
-  path.node[visitedKey] = true;
+  path.node[visitedKey] = true
 
   if (mode === 'remove') {
     // remove() crash in some conditions.
     if (path.parentPath.type === 'ConditionalExpression') {
-      path.replaceWith(types.unaryExpression('void', types.numericLiteral(0)));
+      path.replaceWith(types.unaryExpression('void', types.numericLiteral(0)))
     } else {
-      path.remove();
+      path.remove()
     }
 
-    return;
+    return
   }
 
   if (mode === 'wrap' || mode === 'unsafe-wrap') {
     switch (options.type) {
       // This is legacy, we do not optimize it.
       case 'createClass':
-        break;
+        break
 
       // Inspired from babel-plugin-transform-class-properties.
       case 'class static': {
-        let ref;
-        let pathClassDeclaration = options.pathClassDeclaration;
+        let ref
+        let pathClassDeclaration = options.pathClassDeclaration
 
         if (!pathClassDeclaration.isClassExpression() && pathClassDeclaration.node.id) {
-          ref = pathClassDeclaration.node.id;
+          ref = pathClassDeclaration.node.id
         } else {
           // Class without name not supported
-          return;
+          return
         }
 
         const node = types.expressionStatement(
-          types.assignmentExpression('=', types.memberExpression(ref, path.node.key), path.node.value),
-        );
+          types.assignmentExpression(
+            '=',
+            types.memberExpression(ref, path.node.key),
+            path.node.value
+          )
+        )
 
         // We need to append the node at the parent level in this case.
         if (pathClassDeclaration.parentPath.isExportDeclaration()) {
-          pathClassDeclaration = pathClassDeclaration.parentPath;
+          pathClassDeclaration = pathClassDeclaration.parentPath
         }
-        pathClassDeclaration.insertAfter(node);
-        path.remove();
-        break;
+        pathClassDeclaration.insertAfter(node)
+        path.remove()
+        break
       }
 
       case 'assign':
         if (mode === 'unsafe-wrap') {
-          path.replaceWith(unsafeWrapTemplate(
-            {
+          path.replaceWith(
+            unsafeWrapTemplate({
               NODE: path.node,
-            },
-          ));
+            })
+          )
         } else {
-          path.replaceWith(wrapTemplate(
-            {
+          path.replaceWith(
+            wrapTemplate({
               LEFT: path.node.left,
               RIGHT: path.node.right,
-            },
-          ));
+            })
+          )
         }
-        path.node[visitedKey] = true;
-        break;
+        path.node[visitedKey] = true
+        break
 
       default:
-        break;
+        break
     }
 
-    return;
+    return
   }
 
-  throw new Error(`transform-react-remove-prop-type: unsupported mode ${mode}.`);
+  throw new Error(`transform-react-remove-prop-type: unsupported mode ${mode}.`)
 }
