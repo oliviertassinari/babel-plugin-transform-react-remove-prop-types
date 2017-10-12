@@ -1,53 +1,53 @@
 // @flow weak
 /* eslint-env mocha */
 
-import path from 'path';
-import fs from 'fs';
-import { assert } from 'chai';
-import pathExists from 'path-exists';
-import { transformFileSync } from 'babel-core';
-import babelPluginSyntaxJsx from 'babel-plugin-syntax-jsx';
-import babelPluginTransformClassProperties from 'babel-plugin-transform-class-properties';
-import babelPluginTransformReactRemovePropTypes from '../src/index';
-import { trim } from './utils';
+import path from 'path'
+import fs from 'fs'
+import { assert } from 'chai'
+import pathExists from 'path-exists'
+import { transformFileSync } from 'babel-core'
+import babelPluginSyntaxJsx from 'babel-plugin-syntax-jsx'
+import babelPluginTransformClassProperties from 'babel-plugin-transform-class-properties'
+import babelPluginTransformReactRemovePropTypes from '../src/index'
+import { trim } from './utils'
 
-const modes = ['options', 'remove-es5', 'wrap-es5', 'remove-es6', 'wrap-es6'];
+const modes = ['options', 'remove-es5', 'wrap-es5', 'remove-es6', 'wrap-es6']
 
 describe('fixtures', () => {
-  const fixturesDir = path.join(__dirname, 'fixtures');
+  const fixturesDir = path.join(__dirname, 'fixtures')
 
-  fs.readdirSync(fixturesDir).forEach((caseName) => {
+  fs.readdirSync(fixturesDir).forEach(caseName => {
     describe(`should work with ${caseName.split('-').join(' ')}`, () => {
-      const fixtureDir = path.join(fixturesDir, caseName);
+      const fixtureDir = path.join(fixturesDir, caseName)
 
       // Only run a specific test
       // if (caseName !== 'issue-106') {
       //   return;
       // }
 
-      modes.forEach((mode) => {
-        let expected;
-        let options = {};
+      modes.forEach(mode => {
+        let expected
+        let options = {}
 
-        const optionsPath = path.join(fixtureDir, 'options.json');
+        const optionsPath = path.join(fixtureDir, 'options.json')
         if (pathExists.sync(optionsPath)) {
-          options = require(optionsPath); // eslint-disable-line global-require, import/no-dynamic-require
+          options = require(optionsPath) // eslint-disable-line global-require, import/no-dynamic-require
         }
 
-        const filename = mode === 'options' ? 'expected.js' : `expected-${mode}.js`;
+        const filename = mode === 'options' ? 'expected.js' : `expected-${mode}.js`
 
         try {
-          expected = fs.readFileSync(path.join(fixtureDir, filename));
-          expected = expected.toString();
+          expected = fs.readFileSync(path.join(fixtureDir, filename))
+          expected = expected.toString()
         } catch (error) {
           // Only run the check if the expect file is or have an option provided.
           if (!options.throws) {
-            return;
+            return
           }
         }
 
         it(mode, () => {
-          let babelConfig;
+          let babelConfig
 
           switch (mode) {
             case 'remove-es5':
@@ -61,8 +61,8 @@ describe('fixtures', () => {
                     },
                   ],
                 ],
-              };
-              break;
+              }
+              break
 
             case 'wrap-es5':
               babelConfig = {
@@ -75,8 +75,8 @@ describe('fixtures', () => {
                     },
                   ],
                 ],
-              };
-              break;
+              }
+              break
 
             case 'remove-es6':
               babelConfig = {
@@ -92,8 +92,8 @@ describe('fixtures', () => {
                     },
                   ],
                 ],
-              };
-              break;
+              }
+              break
 
             case 'wrap-es6':
               babelConfig = {
@@ -109,34 +109,33 @@ describe('fixtures', () => {
                     },
                   ],
                 ],
-              };
-              break;
+              }
+              break
 
             default:
               babelConfig = {
-                plugins: [
-                  [
-                    babelPluginTransformReactRemovePropTypes, options,
-                  ],
-                ],
-              };
+                plugins: [[babelPluginTransformReactRemovePropTypes, options]],
+              }
           }
 
           try {
-            const actual = transformFileSync(path.join(fixtureDir, 'actual.js'), babelConfig).code;
+            const actual = transformFileSync(path.join(fixtureDir, 'actual.js'), babelConfig).code
             // Write the output
             // fs.writeFileSync(path.join(fixtureDir, filename), `${actual}\n`);
-            assert.strictEqual(trim(actual), trim(expected));
+            assert.strictEqual(trim(actual), trim(expected))
           } catch (err) {
             if (options.throws) {
-              assert.strictEqual(err.message.indexOf(options.throws) > 0, true,
-              `Expected to throw: ${options.throws}. Have: ${err.message}`);
+              assert.strictEqual(
+                err.message.indexOf(options.throws) > 0,
+                true,
+                `Expected to throw: ${options.throws}. Have: ${err.message}`
+              )
             } else {
-              throw err;
+              throw err
             }
           }
-        });
-      });
-    });
-  });
-});
+        })
+      })
+    })
+  })
+})

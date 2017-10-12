@@ -1,7 +1,7 @@
 // @flow weak
 
-export default function (node) {
-  const comments = node.trailingComments || [];
+export default function(node) {
+  const comments = node.trailingComments || []
 
-  return !!comments.find(({ value }) => value.trim() === 'remove-proptypes');
+  return !!comments.find(({ value }) => value.trim() === 'remove-proptypes')
 }
