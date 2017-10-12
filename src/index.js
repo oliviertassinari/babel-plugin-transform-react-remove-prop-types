@@ -166,6 +166,7 @@ export default function ({ template, types, traverse }) {
 
             if (forceRemoval) {
               remove(path, globalOptions, { type: 'assign' });
+              return;
             }
 
             const className = node.left.object.name;
