@@ -1,3 +1,16 @@
 {
-  "presets": ["es2015", "react", "flow", "stage-0"]
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "ie": "10",
+          "node": "6"
+        }
+      }
+    ],
+    "react",
+    "flow",
+    "stage-1"
+  ]
 }
