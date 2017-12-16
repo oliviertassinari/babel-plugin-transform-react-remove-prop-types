@@ -69,7 +69,7 @@ export default function({ template, types, traverse }) {
           `, { placeholderWhitelist: new Set(['NODE']) }),
           wrapTemplate: template(`
             LEFT = process.env.NODE_ENV !== "production" ? RIGHT : {}
-          `, { placeholderWhitelist: new Set(['LEFT', 'RIGHT']) })),
+          `, { placeholderWhitelist: new Set(['LEFT', 'RIGHT']) }),
           mode: state.opts.mode || 'remove',
           ignoreFilenames,
           types,
