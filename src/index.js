@@ -96,8 +96,6 @@ export default function({ template, types, traverse }) {
             }
 
             let plugin = require(pluginName)
-
-            // Required for `babel-plugin-transform-flow-strip-types`
             if (typeof plugin !== 'function') {
               plugin = plugin.default
             }

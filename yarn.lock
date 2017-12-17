@@ -217,6 +217,10 @@
   version "7.0.0-beta.35"
   resolved "https://registry.yarnpkg.com/@babel/plugin-check-constants/-/plugin-check-constants-7.0.0-beta.35.tgz#18cca7d9fbba746171c879ced7c69defbdc8bc11"
 
+"@babel/plugin-external-helpers@^7.0.0-beta.35":
+  version "7.0.0-beta.35"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-external-helpers/-/plugin-external-helpers-7.0.0-beta.35.tgz#ae5992f6f2752a6b12cbf9612060e2c8422d05f8"
+
 "@babel/plugin-proposal-async-generator-functions@7.0.0-beta.35":
   version "7.0.0-beta.35"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-async-generator-functions/-/plugin-proposal-async-generator-functions-7.0.0-beta.35.tgz#7f55a538b0f347e13504c9301807a16b8b5b5cc9"
@@ -224,7 +228,7 @@
     "@babel/helper-remap-async-to-generator" "7.0.0-beta.35"
     "@babel/plugin-syntax-async-generators" "7.0.0-beta.35"
 
-"@babel/plugin-proposal-class-properties@7.0.0-beta.35":
+"@babel/plugin-proposal-class-properties@7.0.0-beta.35", "@babel/plugin-proposal-class-properties@^7.0.0-beta.35":
   version "7.0.0-beta.35"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-class-properties/-/plugin-proposal-class-properties-7.0.0-beta.35.tgz#f1c468110959115c7bfd0ba065148048542d06ce"
   dependencies:

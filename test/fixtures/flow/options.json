@@ -3,6 +3,6 @@
     ["babel-plugin-flow-react-proptypes", {
       "omitRuntimeTypeExport": true
     }],
-    "babel-plugin-transform-flow-strip-types"
+    "@babel/plugin-transform-flow-strip-types"
   ]
 }

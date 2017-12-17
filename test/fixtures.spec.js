@@ -7,7 +7,8 @@ import { assert } from 'chai'
 import pathExists from 'path-exists'
 import { transformFileSync } from '@babel/core'
 import babelPluginSyntaxJsx from '@babel/plugin-syntax-jsx'
-// import babelPluginTransformClassProperties from 'babel-plugin-transform-class-properties'
+import babelPluginExternalHelpers from '@babel/plugin-external-helpers'
+import babelPluginTransformClassProperties from '@babel/plugin-proposal-class-properties'
 import babelPluginTransformReactRemovePropTypes from '../src/index'
 import { trim } from './utils'
 
@@ -53,6 +54,7 @@ describe('fixtures', () => {
             case 'remove-es5':
               babelConfig = {
                 plugins: [
+                  babelPluginExternalHelpers,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
@@ -67,6 +69,7 @@ describe('fixtures', () => {
             case 'wrap-es5':
               babelConfig = {
                 plugins: [
+                  babelPluginExternalHelpers,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
@@ -82,8 +85,9 @@ describe('fixtures', () => {
               babelConfig = {
                 babelrc: false,
                 plugins: [
+                  babelPluginExternalHelpers,
                   babelPluginSyntaxJsx,
-                  // babelPluginTransformClassProperties,
+                  babelPluginTransformClassProperties,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
@@ -99,8 +103,9 @@ describe('fixtures', () => {
               babelConfig = {
                 babelrc: false,
                 plugins: [
+                  babelPluginExternalHelpers,
                   babelPluginSyntaxJsx,
-                  // babelPluginTransformClassProperties,
+                  babelPluginTransformClassProperties,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
@@ -114,7 +119,10 @@ describe('fixtures', () => {
 
             default:
               babelConfig = {
-                plugins: [[babelPluginTransformReactRemovePropTypes, options]],
+                plugins: [
+                  babelPluginExternalHelpers,
+                  [babelPluginTransformReactRemovePropTypes, options],
+                ],
               }
           }
 
