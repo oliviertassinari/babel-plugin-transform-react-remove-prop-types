@@ -5,9 +5,9 @@ import path from 'path'
 import fs from 'fs'
 import { assert } from 'chai'
 import pathExists from 'path-exists'
-import { transformFileSync } from 'babel-core'
-import babelPluginSyntaxJsx from 'babel-plugin-syntax-jsx'
-import babelPluginTransformClassProperties from 'babel-plugin-transform-class-properties'
+import { transformFileSync } from '@babel/core'
+import babelPluginSyntaxJsx from '@babel/plugin-syntax-jsx'
+// import babelPluginTransformClassProperties from 'babel-plugin-transform-class-properties'
 import babelPluginTransformReactRemovePropTypes from '../src/index'
 import { trim } from './utils'
 
@@ -83,7 +83,7 @@ describe('fixtures', () => {
                 babelrc: false,
                 plugins: [
                   babelPluginSyntaxJsx,
-                  babelPluginTransformClassProperties,
+                  // babelPluginTransformClassProperties,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
@@ -100,7 +100,7 @@ describe('fixtures', () => {
                 babelrc: false,
                 plugins: [
                   babelPluginSyntaxJsx,
-                  babelPluginTransformClassProperties,
+                  // babelPluginTransformClassProperties,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
