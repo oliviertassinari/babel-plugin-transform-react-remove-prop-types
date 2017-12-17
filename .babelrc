@@ -1,7 +1,7 @@
 {
   "presets": [
     [
-      "env",
+      "@babel/preset-env",
       {
         "targets": {
           "ie": "10",
@@ -9,8 +9,8 @@
         }
       }
     ],
-    "react",
-    "flow",
-    "stage-1"
+    "@babel/preset-react",
+    "@babel/preset-flow",
+    "@babel/preset-stage-1"
   ]
 }

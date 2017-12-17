@@ -68,13 +68,13 @@ export default function({ template, types, traverse }) {
                 NODE;
               }
             `,
-            { placeholderWhitelist: new Set(['NODE']) }
+            { placeholderPattern: /^NODE$/ }
           ),
           wrapTemplate: template(
             `
               LEFT = process.env.NODE_ENV !== "production" ? RIGHT : {}
             `,
-            { placeholderWhitelist: new Set(['LEFT', 'RIGHT']) }
+            { placeholderPattern: /^(LEFT|RIGHT)$/ }
           ),
           mode: state.opts.mode || 'remove',
           ignoreFilenames,
@@ -96,8 +96,6 @@ export default function({ template, types, traverse }) {
             }
 
             let plugin = require(pluginName)
-
-            // Required for `babel-plugin-transform-flow-strip-types`
             if (typeof plugin !== 'function') {
               plugin = plugin.default
             }
