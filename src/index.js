@@ -68,13 +68,13 @@ export default function({ template, types, traverse }) {
                 NODE;
               }
             `,
-            { placeholderWhitelist: new Set(['NODE']) }
+            { placeholderPattern: /^NODE$/ }
           ),
           wrapTemplate: template(
             `
               LEFT = process.env.NODE_ENV !== "production" ? RIGHT : {}
             `,
-            { placeholderWhitelist: new Set(['LEFT', 'RIGHT']) }
+            { placeholderPattern: /^(LEFT|RIGHT)$/ }
           ),
           mode: state.opts.mode || 'remove',
           ignoreFilenames,
