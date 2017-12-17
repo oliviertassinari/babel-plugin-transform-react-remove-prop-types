@@ -62,14 +62,20 @@ export default function({ template, types, traverse }) {
 
         const globalOptions = {
           visitedKey: `transform-react-remove-prop-types${Date.now()}`,
-          unsafeWrapTemplate: template(`
-            if (process.env.NODE_ENV !== "production") {
-              NODE;
-            }
-          `),
-          wrapTemplate: template(`
-            LEFT = process.env.NODE_ENV !== "production" ? RIGHT : {}
-          `),
+          unsafeWrapTemplate: template(
+            `
+              if (process.env.NODE_ENV !== "production") {
+                NODE;
+              }
+            `,
+            { placeholderWhitelist: new Set(['NODE']) }
+          ),
+          wrapTemplate: template(
+            `
+              LEFT = process.env.NODE_ENV !== "production" ? RIGHT : {}
+            `,
+            { placeholderWhitelist: new Set(['LEFT', 'RIGHT']) }
+          ),
           mode: state.opts.mode || 'remove',
           ignoreFilenames,
           types,
