@@ -7,28 +7,33 @@ import isAnnotatedForRemoval from './isAnnotatedForRemoval'
 import isStatelessComponent from './isStatelessComponent'
 import remove from './remove'
 
-function isPathReactClass(path) {
+function isPathReactClass(path, globalOptions) {
+  const node = path.node
+  const matchers = globalOptions.classNameMatchers
+
   if (path.matchesPattern('React.Component') || path.matchesPattern('React.PureComponent')) {
     return true
   }
 
-  const node = path.node
-
   if (node && (node.name === 'Component' || node.name === 'PureComponent')) {
+    return true
+  }
+
+  if (node && matchers && node.name.match(matchers)) {
     return true
   }
 
   return false
 }
 
-function isReactClass(superClass, scope) {
+function isReactClass(superClass, scope, globalOptions) {
   if (!superClass.node) {
     return false
   }
 
   let answer = false
 
-  if (isPathReactClass(superClass)) {
+  if (isPathReactClass(superClass, globalOptions)) {
     answer = true
   } else if (superClass.node.name) {
     // Check for inheritance
@@ -39,7 +44,7 @@ function isReactClass(superClass, scope) {
     } else {
       const bindingSuperClass = binding.path.get('superClass')
 
-      if (isPathReactClass(bindingSuperClass)) {
+      if (isPathReactClass(bindingSuperClass, globalOptions)) {
         answer = true
       }
     }
@@ -53,11 +58,18 @@ export default function({ template, types, traverse }) {
     visitor: {
       Program(programPath, state) {
         let ignoreFilenames
+        let classNameMatchers
 
         if (state.opts.ignoreFilenames) {
           ignoreFilenames = new RegExp(state.opts.ignoreFilenames.join('|'), 'gi')
         } else {
           ignoreFilenames = undefined
+        }
+
+        if (state.opts.classNameMatchers) {
+          classNameMatchers = new RegExp(state.opts.classNameMatchers.join('|'), 'g')
+        } else {
+          classNameMatchers = undefined
         }
 
         const globalOptions = {
@@ -81,6 +93,7 @@ export default function({ template, types, traverse }) {
           types,
           removeImport: state.opts.removeImport || false,
           libraries: (state.opts.additionalLibraries || []).concat('prop-types'),
+          classNameMatchers,
         }
 
         if (state.opts.plugins) {
@@ -144,7 +157,7 @@ export default function({ template, types, traverse }) {
             if (node.key.name === 'propTypes') {
               const pathClassDeclaration = scope.path
 
-              if (isReactClass(pathClassDeclaration.get('superClass'), scope)) {
+              if (isReactClass(pathClassDeclaration.get('superClass'), scope, globalOptions)) {
                 remove(path, globalOptions, {
                   type: 'class static',
                   pathClassDeclaration,
@@ -180,7 +193,7 @@ export default function({ template, types, traverse }) {
             if (binding.path.isClassDeclaration()) {
               const superClass = binding.path.get('superClass')
 
-              if (isReactClass(superClass, scope)) {
+              if (isReactClass(superClass, scope, globalOptions)) {
                 remove(path, globalOptions, { type: 'assign' })
               }
             } else if (isStatelessComponent(binding.path)) {
