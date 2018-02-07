@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Foo3 = void 0;
 
-var _class, _temp;
-
 var PureRenderComponent =
 /*#__PURE__*/
 function (_Component) {
@@ -55,7 +53,7 @@ function (_PureRenderComponent2) {
 }(PureRenderComponent);
 
 // With no inheritance
-var Foo3 = (_temp = _class =
+var Foo3 =
 /*#__PURE__*/
 function () {
   function Foo3() {
@@ -67,12 +65,14 @@ function () {
     value: function render() {}
   }]);
   return Foo3;
-}(), Object.defineProperty(_class, "propTypes", {
+}();
+
+exports.Foo3 = Foo3;
+Object.defineProperty(Foo3, "propTypes", {
   configurable: true,
   enumerable: true,
   writable: true,
   value: {
     foo3: PropTypes.string
   }
-}), _temp);
-exports.Foo3 = Foo3;
+});
