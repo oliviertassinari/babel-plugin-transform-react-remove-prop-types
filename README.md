@@ -180,6 +180,21 @@ additionalLibraries: ['react-immutable-proptypes'],
 ```
 both will be removed.
 
+### `classNameMatchers`
+
+Use this option to enable this plugin to run on components that extend a class different than `React.Component` or `React.PureComponent`.
+
+Given this example:
+```js
+class MyComponent extends BaseComponent {
+  ...
+}
+```
+
+You would use: 
+```js
+classNameMatchers: ["BaseComponent"]
+```
 
 ## Is it safe?
 
