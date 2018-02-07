@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-react-remove-prop-types",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "description": "Remove unnecessary React propTypes from the production build",
   "main": "lib/index.js",
   "scripts": {
