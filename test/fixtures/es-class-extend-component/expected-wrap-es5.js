@@ -1,3 +1,5 @@
+"use strict";
+
 var Foo1 =
 /*#__PURE__*/
 function (_Component) {

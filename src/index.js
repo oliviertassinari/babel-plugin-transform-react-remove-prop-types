@@ -53,7 +53,9 @@ function isReactClass(superClass, scope, globalOptions) {
   return answer
 }
 
-export default function({ template, types, traverse }) {
+export default function(api) {
+  const { template, types, traverse } = api
+
   return {
     visitor: {
       Program(programPath, state) {
@@ -113,7 +115,7 @@ export default function({ template, types, traverse }) {
               plugin = plugin.default
             }
 
-            return plugin({ template, types }).visitor
+            return plugin(api).visitor
           })
 
           traverse(
