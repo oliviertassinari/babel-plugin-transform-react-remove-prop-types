@@ -5,21 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _class =
+var _default =
 /*#__PURE__*/
 function (_React$Component) {
-  babelHelpers.inherits(_class, _React$Component);
+  babelHelpers.inherits(_default, _React$Component);
 
-  function _class() {
-    babelHelpers.classCallCheck(this, _class);
-    return babelHelpers.possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+  function _default() {
+    babelHelpers.classCallCheck(this, _default);
+    return babelHelpers.possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
   }
 
-  babelHelpers.createClass(_class, [{
+  babelHelpers.createClass(_default, [{
     key: "render",
     value: function render() {}
   }]);
-  return _class;
+  return _default;
 }(React.Component);
 
-exports.default = _class;
+exports.default = _default;

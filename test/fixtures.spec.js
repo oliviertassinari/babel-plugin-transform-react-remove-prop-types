@@ -129,7 +129,7 @@ describe('fixtures', () => {
           try {
             const actual = transformFileSync(path.join(fixtureDir, 'actual.js'), babelConfig).code
             // Write the output
-            // fs.writeFileSync(path.join(fixtureDir, filename), `${actual}\n`);
+            // fs.writeFileSync(path.join(fixtureDir, filename), `${actual}\n`)
             assert.strictEqual(trim(actual), trim(expected))
           } catch (err) {
             if (options.throws) {
