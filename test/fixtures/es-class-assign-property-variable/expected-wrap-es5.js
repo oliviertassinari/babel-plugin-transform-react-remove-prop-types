@@ -1,8 +1,8 @@
 "use strict";
 
-var propTypes = {
+var propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-};
+} : {};;
 
 var Foo =
 /*#__PURE__*/

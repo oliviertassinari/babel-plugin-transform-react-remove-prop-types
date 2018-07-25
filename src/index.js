@@ -53,8 +53,38 @@ function isReactClass(superClass, scope, globalOptions) {
   return answer
 }
 
+function areSetsEqual(set1, set2) {
+  if (set1.size !== set2.size) {
+    return false
+  }
+
+  return !Array.from(set1).some(item => !set2.has(item))
+}
+
 export default function(api) {
   const { template, types, traverse } = api
+
+  const nestedIdentifiers = new Set()
+  const removedPaths = new Set()
+  const collectNestedIdentifiers = {
+    Identifier(path) {
+      if (path.parent.type === 'MemberExpression') {
+        // foo.bar
+        return
+      }
+
+      if (
+        path.parent.type === 'ObjectProperty' &&
+        (path.parent.key === path.node || path.parent.shorthand)
+      ) {
+        // { foo: 'bar' }
+        // { foo }
+        return
+      }
+
+      nestedIdentifiers.add(path.node.name)
+    },
+  }
 
   return {
     visitor: {
@@ -146,6 +176,8 @@ export default function(api) {
               })
 
               if (parent) {
+                path.traverse(collectNestedIdentifiers)
+                removedPaths.add(path)
                 remove(path, globalOptions, {
                   type: 'createClass',
                 })
@@ -160,6 +192,8 @@ export default function(api) {
               const pathClassDeclaration = scope.path
 
               if (isReactClass(pathClassDeclaration.get('superClass'), scope, globalOptions)) {
+                path.traverse(collectNestedIdentifiers)
+                removedPaths.add(path)
                 remove(path, globalOptions, {
                   type: 'class static',
                   pathClassDeclaration,
@@ -181,6 +215,8 @@ export default function(api) {
             const forceRemoval = isAnnotatedForRemoval(path.node.left)
 
             if (forceRemoval) {
+              path.traverse(collectNestedIdentifiers)
+              removedPaths.add(path)
               remove(path, globalOptions, { type: 'assign' })
               return
             }
@@ -196,13 +232,60 @@ export default function(api) {
               const superClass = binding.path.get('superClass')
 
               if (isReactClass(superClass, scope, globalOptions)) {
+                path.traverse(collectNestedIdentifiers)
+                removedPaths.add(path)
                 remove(path, globalOptions, { type: 'assign' })
               }
             } else if (isStatelessComponent(binding.path)) {
+              path.traverse(collectNestedIdentifiers)
+              removedPaths.add(path)
               remove(path, globalOptions, { type: 'assign' })
             }
           },
         })
+
+        let skippedIdentifiers = 0
+        const removeNewlyUnusedIdentifiers = {
+          VariableDeclarator(path) {
+            if (!nestedIdentifiers.has(path.node.id.name)) {
+              return
+            }
+
+            const { referencePaths } = path.scope.getBinding(path.node.id.name)
+
+            // Count the number of referencePaths that are not in the
+            // removedPaths Set. We need to do this in order to support the wrap
+            // option, which doesn't actually remove the references.
+            const hasRemainingReferencePaths = referencePaths.some(referencePath => {
+              const found = referencePath.find(p => removedPaths.has(p))
+              return !found
+            })
+
+            if (hasRemainingReferencePaths) {
+              // There are still references to this identifier, so we need to
+              // skip over it for now.
+              skippedIdentifiers += 1
+              return
+            }
+
+            removedPaths.add(path)
+            nestedIdentifiers.delete(path.node.id.name)
+            path.get('init').traverse(collectNestedIdentifiers)
+            remove(path, globalOptions, { type: 'declarator' })
+          },
+        }
+
+        let lastNestedIdentifiers = new Set()
+        while (
+          !areSetsEqual(nestedIdentifiers, lastNestedIdentifiers) &&
+          nestedIdentifiers.size > 0 &&
+          skippedIdentifiers < nestedIdentifiers.size
+        ) {
+          lastNestedIdentifiers = new Set(nestedIdentifiers)
+          skippedIdentifiers = 0
+          programPath.scope.crawl()
+          programPath.traverse(removeNewlyUnusedIdentifiers)
+        }
 
         if (globalOptions.removeImport) {
           if (globalOptions.mode === 'remove') {

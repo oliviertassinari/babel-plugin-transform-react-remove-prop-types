@@ -1,9 +1,5 @@
 "use strict";
 
-var propTypes = {
-  foo: PropTypes.string
-};
-
 var Foo =
 /*#__PURE__*/
 function (_React$Component) {
