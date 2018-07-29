@@ -22,8 +22,8 @@ describe('fixtures', () => {
       const fixtureDir = path.join(fixturesDir, caseName)
 
       // Only run a specific test
-      // if (caseName !== 'issue-106') {
-      //   return;
+      // if (caseName !== 'recursive') {
+      //   return
       // }
 
       modes.forEach(mode => {
