@@ -1,5 +1,7 @@
 // @flow weak
 
+const traversed = Symbol('traversed')
+
 function isJSXElementOrReactCreateElement(path) {
   let visited = false
 
@@ -9,7 +11,8 @@ function isJSXElementOrReactCreateElement(path) {
 
       if (
         callee.matchesPattern('React.createElement') ||
-        callee.matchesPattern('React.cloneElement')
+        callee.matchesPattern('React.cloneElement') ||
+        callee.node.name === 'cloneElement'
       ) {
         visited = true
       }
@@ -22,10 +25,14 @@ function isJSXElementOrReactCreateElement(path) {
   return visited
 }
 
-function isReturningJSXElement(path) {
+function isReturningJSXElement(path, iteration = 0) {
   // Early exit for ArrowFunctionExpressions, there is no ReturnStatement node.
   if (path.node.init && path.node.init.body && isJSXElementOrReactCreateElement(path)) {
     return true
+  }
+
+  if (iteration > 20) {
+    throw new Error('transform-react-remove-prop-type: infinite loop detected.')
   }
 
   let visited = false
@@ -57,7 +64,14 @@ function isReturningJSXElement(path) {
           return
         }
 
-        if (isReturningJSXElement(binding.path)) {
+        // Prevents infinite traverse loop.
+        if (binding.path[traversed]) {
+          return
+        }
+
+        binding.path[traversed] = true
+
+        if (isReturningJSXElement(binding.path, iteration + 1)) {
           visited = true
         }
       }

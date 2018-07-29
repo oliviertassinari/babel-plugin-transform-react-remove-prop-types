@@ -227,7 +227,7 @@ export default function(api) {
             })
           } else {
             throw new Error(
-              'react-remove-prop-types: removeImport and mode=remove can not be used at the same time.'
+              'transform-react-remove-prop-type: removeImport = true and mode != "remove" can not be used at the same time.'
             )
           }
         }
