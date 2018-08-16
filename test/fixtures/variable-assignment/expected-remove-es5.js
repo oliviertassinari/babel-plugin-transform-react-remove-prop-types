@@ -13,6 +13,10 @@ var FooExtraReference = function FooExtraReference() {
   return React.createElement("div", null);
 };
 
+var FooExtraReferenceSpread = function FooExtraReferenceSpread() {
+  return React.createElement("div", null);
+};
+
 var FooWrapped = function FooWrapped() {
   return React.createElement("div", null);
 };

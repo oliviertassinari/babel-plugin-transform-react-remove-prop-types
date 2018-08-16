@@ -15,6 +15,15 @@ const propTypesWithExtraReference = process.env.NODE_ENV !== "production" ? Obje
 const FooExtraReference = () => <div />;
 
 FooExtraReference.propTypes = process.env.NODE_ENV !== "production" ? propTypesWithExtraReference : {};
+const propTypesWithExtraReferenceSpread = process.env.NODE_ENV !== "production" ? babelHelpers.objectSpread({}, extraReference, {
+  foo: PropTypes.string
+}, {
+  bar: PropTypes.string
+}) : {};;
+
+const FooExtraReferenceSpread = () => <div />;
+
+FooExtraReferenceSpread.propTypes = process.env.NODE_ENV !== "production" ? propTypesWithExtraReferenceSpread : {};
 const propTypesWrapped = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
 } : {};;

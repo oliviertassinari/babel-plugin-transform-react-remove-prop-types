@@ -25,6 +25,17 @@ var FooExtraReference = function FooExtraReference() {
 };
 
 FooExtraReference.propTypes = process.env.NODE_ENV !== "production" ? propTypesWithExtraReference : {};
+var propTypesWithExtraReferenceSpread = process.env.NODE_ENV !== "production" ? babelHelpers.objectSpread({}, extraReference, {
+  foo: PropTypes.string
+}, {
+  bar: PropTypes.string
+}) : {};;
+
+var FooExtraReferenceSpread = function FooExtraReferenceSpread() {
+  return React.createElement("div", null);
+};
+
+FooExtraReferenceSpread.propTypes = process.env.NODE_ENV !== "production" ? propTypesWithExtraReferenceSpread : {};
 var propTypesWrapped = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
 } : {};;

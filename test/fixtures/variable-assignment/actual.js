@@ -22,6 +22,18 @@ const FooExtraReference = () => (
 
 FooExtraReference.propTypes = propTypesWithExtraReference;
 
+const propTypesWithExtraReferenceSpread = {
+  ...extraReference,
+  ...({ foo: PropTypes.string }),
+  bar: PropTypes.string
+};
+
+const FooExtraReferenceSpread = () => (
+  <div />
+);
+
+FooExtraReferenceSpread.propTypes = propTypesWithExtraReferenceSpread;
+
 const propTypesWrapped = {
   foo: PropTypes.string
 };

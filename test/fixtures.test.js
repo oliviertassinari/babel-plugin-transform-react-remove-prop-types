@@ -9,6 +9,7 @@ import { transformFileSync } from '@babel/core'
 import babelPluginSyntaxJsx from '@babel/plugin-syntax-jsx'
 import babelPluginExternalHelpers from '@babel/plugin-external-helpers'
 import babelPluginTransformClassProperties from '@babel/plugin-proposal-class-properties'
+import babelPluginProposalObjectRestSpread from '@babel/plugin-proposal-object-rest-spread'
 import babelPluginTransformReactRemovePropTypes from '../src/index'
 import { trim } from './utils'
 
@@ -55,6 +56,7 @@ describe('fixtures', () => {
               babelConfig = {
                 plugins: [
                   babelPluginExternalHelpers,
+                  babelPluginProposalObjectRestSpread,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
@@ -70,6 +72,7 @@ describe('fixtures', () => {
               babelConfig = {
                 plugins: [
                   babelPluginExternalHelpers,
+                  babelPluginProposalObjectRestSpread,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
@@ -88,6 +91,7 @@ describe('fixtures', () => {
                   babelPluginExternalHelpers,
                   babelPluginSyntaxJsx,
                   babelPluginTransformClassProperties,
+                  babelPluginProposalObjectRestSpread,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
@@ -106,6 +110,7 @@ describe('fixtures', () => {
                   babelPluginExternalHelpers,
                   babelPluginSyntaxJsx,
                   babelPluginTransformClassProperties,
+                  babelPluginProposalObjectRestSpread,
                   [
                     babelPluginTransformReactRemovePropTypes,
                     {
@@ -121,6 +126,7 @@ describe('fixtures', () => {
               babelConfig = {
                 plugins: [
                   babelPluginExternalHelpers,
+                  babelPluginProposalObjectRestSpread,
                   [babelPluginTransformReactRemovePropTypes, options],
                 ],
               }

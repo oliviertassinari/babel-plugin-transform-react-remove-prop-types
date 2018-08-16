@@ -2,6 +2,8 @@ const FooBasic = () => <div />;
 
 const FooExtraReference = () => <div />;
 
+const FooExtraReferenceSpread = () => <div />;
+
 const FooWrapped = () => <div />;
 
 const propTypesReferenced = {
