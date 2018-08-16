@@ -45,3 +45,9 @@ export const propTypesExported = {
 const FooExported = () => <div />;
 
 FooExported.propTypes = process.env.NODE_ENV !== "production" ? propTypesExported : {};
+const propTypesCreateClass = process.env.NODE_ENV !== "production" ? {
+  foo: PropTypes.string
+} : {};;
+const FooCreateClass = createReactClass({
+  propTypes: propTypesCreateClass
+});

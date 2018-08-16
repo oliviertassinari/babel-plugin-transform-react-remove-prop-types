@@ -39,3 +39,7 @@ exports.propTypesExported = propTypesExported;
 var FooExported = function FooExported() {
   return React.createElement("div", null);
 };
+
+var FooCreateClass = createReactClass({
+  displayName: "FooCreateClass"
+});

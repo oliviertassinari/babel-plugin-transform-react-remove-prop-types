@@ -66,4 +66,10 @@ var FooExported = function FooExported() {
 };
 
 FooExported.propTypes = process.env.NODE_ENV !== "production" ? propTypesExported : {};
-
+var propTypesCreateClass = process.env.NODE_ENV !== "production" ? {
+  foo: PropTypes.string
+} : {};;
+var FooCreateClass = createReactClass({
+  displayName: "FooCreateClass",
+  propTypes: propTypesCreateClass
+});

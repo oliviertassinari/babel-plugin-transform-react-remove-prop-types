@@ -63,3 +63,8 @@ const FooExported = () => (
 );
 
 FooExported.propTypes = propTypesExported;
+
+const propTypesCreateClass = { foo: PropTypes.string };
+const FooCreateClass = createReactClass({
+  propTypes: propTypesCreateClass
+});

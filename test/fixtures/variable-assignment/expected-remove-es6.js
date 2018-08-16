@@ -17,3 +17,5 @@ export const propTypesExported = {
 };
 
 const FooExported = () => <div />;
+
+const FooCreateClass = createReactClass({});
