@@ -7,3 +7,13 @@ class Foo extends React.Component {
 }
 
 Foo.propTypes = propTypes;
+
+class Getter extends React.Component {
+  get foo() {
+    return { foo: PropTypes.string };
+  }
+
+  render() {}
+}
+
+Getter.propTypes = Getter.foo;

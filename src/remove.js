@@ -101,6 +101,24 @@ export default function remove(path, globalOptions, options) {
         path.node[visitedKey] = true
         break
 
+      case 'declarator':
+        if (mode === 'unsafe-wrap') {
+          path.replaceWith(
+            unsafeWrapTemplate({
+              NODE: path.node,
+            })
+          )
+        } else {
+          path.replaceWith(
+            wrapTemplate({
+              LEFT: path.node.id,
+              RIGHT: path.node.init,
+            })
+          )
+        }
+        path.node[visitedKey] = true
+        break
+
       default:
         break
     }
