@@ -69,7 +69,7 @@ export default function(api) {
   const { template, types, traverse } = api
 
   const nestedIdentifiers = new Set()
-  const removedPaths = new Set()
+  const removedPaths = new WeakSet()
   const collectNestedIdentifiers = {
     Identifier(path) {
       if (path.parent.type === 'MemberExpression') {
