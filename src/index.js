@@ -19,7 +19,7 @@ function isPathReactClass(path, globalOptions) {
     return true
   }
 
-  if (node && matchers && node.name.match(matchers)) {
+  if (node && matchers && matchers.test(node.name)) {
     return true
   }
 
@@ -97,13 +97,13 @@ export default function(api) {
         let classNameMatchers
 
         if (state.opts.ignoreFilenames) {
-          ignoreFilenames = new RegExp(state.opts.ignoreFilenames.join('|'), 'gi')
+          ignoreFilenames = new RegExp(state.opts.ignoreFilenames.join('|'), 'i')
         } else {
           ignoreFilenames = undefined
         }
 
         if (state.opts.classNameMatchers) {
-          classNameMatchers = new RegExp(state.opts.classNameMatchers.join('|'), 'g')
+          classNameMatchers = new RegExp(state.opts.classNameMatchers.join('|'))
         } else {
           classNameMatchers = undefined
         }
