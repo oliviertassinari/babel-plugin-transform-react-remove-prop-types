@@ -43,3 +43,23 @@ var FooExported = function FooExported() {
 var FooCreateClass = createReactClass({
   displayName: "FooCreateClass"
 });
+
+var propTypesFunction = function propTypesFunction() {
+  return {
+    foo: PropTypes.string
+  };
+};
+
+var FooFunction = function FooFunction() {
+  return React.createElement("div", null);
+};
+
+var propTypesArrowFunction = function propTypesArrowFunction() {
+  return {
+    foo: PropTypes.string
+  };
+};
+
+var FooArrowFunction = function FooArrowFunction() {
+  return React.createElement("div", null);
+};

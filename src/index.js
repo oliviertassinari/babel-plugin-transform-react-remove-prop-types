@@ -255,6 +255,14 @@ export default function(api) {
               return
             }
 
+            if (
+              path.node.init.type === 'FunctionExpression' ||
+              path.node.init.type === 'ArrowFunctionExpression'
+            ) {
+              removedPaths.add(path)
+              return
+            }
+
             const { referencePaths } = path.scope.getBinding(path.node.id.name)
 
             // Count the number of referencePaths that are not in the

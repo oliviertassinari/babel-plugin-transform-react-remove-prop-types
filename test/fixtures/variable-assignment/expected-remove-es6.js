@@ -19,3 +19,17 @@ export const propTypesExported = {
 const FooExported = () => <div />;
 
 const FooCreateClass = createReactClass({});
+
+const propTypesFunction = function () {
+  return {
+    foo: PropTypes.string
+  };
+};
+
+const FooFunction = () => <div />;
+
+const propTypesArrowFunction = () => ({
+  foo: PropTypes.string
+});
+
+const FooArrowFunction = () => <div />;

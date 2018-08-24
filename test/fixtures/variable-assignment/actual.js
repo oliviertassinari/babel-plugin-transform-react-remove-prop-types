@@ -68,3 +68,25 @@ const propTypesCreateClass = { foo: PropTypes.string };
 const FooCreateClass = createReactClass({
   propTypes: propTypesCreateClass
 });
+
+const propTypesFunction = function() {
+  return {
+    foo: PropTypes.string,
+  };
+};
+
+const FooFunction = () => (
+  <div />
+);
+
+FooFunction.propTypes = propTypesFunction();
+
+const propTypesArrowFunction = () => ({
+  foo: PropTypes.string,
+});
+
+const FooArrowFunction = () => (
+  <div />
+);
+
+FooArrowFunction.propTypes = propTypesArrowFunction();

@@ -51,3 +51,21 @@ const propTypesCreateClass = process.env.NODE_ENV !== "production" ? {
 const FooCreateClass = createReactClass({
   propTypes: propTypesCreateClass
 });
+
+const propTypesFunction = function () {
+  return {
+    foo: PropTypes.string
+  };
+};
+
+const FooFunction = () => <div />;
+
+FooFunction.propTypes = process.env.NODE_ENV !== "production" ? propTypesFunction() : {};
+
+const propTypesArrowFunction = () => ({
+  foo: PropTypes.string
+});
+
+const FooArrowFunction = () => <div />;
+
+FooArrowFunction.propTypes = process.env.NODE_ENV !== "production" ? propTypesArrowFunction() : {};
