@@ -10,7 +10,15 @@
       }
     ],
     "@babel/preset-react",
-    "@babel/preset-flow",
-    "@babel/preset-stage-1"
+    "@babel/preset-flow"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-do-expressions",
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-logical-assignment-operators",
+    ["@babel/plugin-proposal-nullish-coalescing-operator", { "loose": false }],
+    ["@babel/plugin-proposal-optional-chaining", { "loose": false }],
+    ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal" }]
   ]
 }
