@@ -12,7 +12,7 @@ function (_React$Component) {
 
   function _default() {
     babelHelpers.classCallCheck(this, _default);
-    return babelHelpers.possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+    return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(_default).apply(this, arguments));
   }
 
   babelHelpers.createClass(_default, [{
@@ -23,11 +23,6 @@ function (_React$Component) {
 }(React.Component);
 
 exports.default = _default;
-Object.defineProperty(_default, "propTypes", {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  value: {
-    foo: PropTypes.string
-  }
+babelHelpers.defineProperty(_default, "propTypes", {
+  foo: PropTypes.string
 });

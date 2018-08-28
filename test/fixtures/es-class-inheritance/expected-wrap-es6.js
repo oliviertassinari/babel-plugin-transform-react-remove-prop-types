@@ -22,11 +22,6 @@ export class Foo3 {
   render() {}
 
 }
-Object.defineProperty(Foo3, "propTypes", {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  value: {
-    foo3: PropTypes.string
-  }
+babelHelpers.defineProperty(Foo3, "propTypes", {
+  foo3: PropTypes.string
 });

@@ -12,7 +12,7 @@ function (_React$Component) {
 
   function Foo1() {
     babelHelpers.classCallCheck(this, Foo1);
-    return babelHelpers.possibleConstructorReturn(this, (Foo1.__proto__ || Object.getPrototypeOf(Foo1)).apply(this, arguments));
+    return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Foo1).apply(this, arguments));
   }
 
   babelHelpers.createClass(Foo1, [{
@@ -33,7 +33,7 @@ function (_React$Component2) {
 
   function Foo2() {
     babelHelpers.classCallCheck(this, Foo2);
-    return babelHelpers.possibleConstructorReturn(this, (Foo2.__proto__ || Object.getPrototypeOf(Foo2)).apply(this, arguments));
+    return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Foo2).apply(this, arguments));
   }
 
   babelHelpers.createClass(Foo2, [{

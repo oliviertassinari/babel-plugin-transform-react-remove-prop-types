@@ -9,7 +9,7 @@ function (_Component) {
 
   function Greeting() {
     babelHelpers.classCallCheck(this, Greeting);
-    return babelHelpers.possibleConstructorReturn(this, (Greeting.__proto__ || Object.getPrototypeOf(Greeting)).apply(this, arguments));
+    return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Greeting).apply(this, arguments));
   }
 
   babelHelpers.createClass(Greeting, [{
