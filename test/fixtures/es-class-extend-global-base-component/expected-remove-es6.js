@@ -3,13 +3,8 @@ class Foo1 extends GlobalComponent {
 
 }
 
-Object.defineProperty(Foo1, "propTypes", {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  value: {
-    foo1: PropTypes.string
-  }
+babelHelpers.defineProperty(Foo1, "propTypes", {
+  foo1: PropTypes.string
 });
 
 class Foo2 extends GlobalComponent {

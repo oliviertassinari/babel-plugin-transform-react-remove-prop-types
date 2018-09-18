@@ -12,7 +12,7 @@ function (_Component) {
 
   function PureRenderComponent() {
     babelHelpers.classCallCheck(this, PureRenderComponent);
-    return babelHelpers.possibleConstructorReturn(this, (PureRenderComponent.__proto__ || Object.getPrototypeOf(PureRenderComponent)).apply(this, arguments));
+    return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(PureRenderComponent).apply(this, arguments));
   }
 
   return PureRenderComponent;
@@ -25,7 +25,7 @@ function (_PureRenderComponent) {
 
   function Foo1() {
     babelHelpers.classCallCheck(this, Foo1);
-    return babelHelpers.possibleConstructorReturn(this, (Foo1.__proto__ || Object.getPrototypeOf(Foo1)).apply(this, arguments));
+    return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Foo1).apply(this, arguments));
   }
 
   babelHelpers.createClass(Foo1, [{
@@ -46,7 +46,7 @@ function (_PureRenderComponent2) {
 
   function Foo2() {
     babelHelpers.classCallCheck(this, Foo2);
-    return babelHelpers.possibleConstructorReturn(this, (Foo2.__proto__ || Object.getPrototypeOf(Foo2)).apply(this, arguments));
+    return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Foo2).apply(this, arguments));
   }
 
   babelHelpers.createClass(Foo2, [{
@@ -75,11 +75,6 @@ function () {
 }();
 
 exports.Foo3 = Foo3;
-Object.defineProperty(Foo3, "propTypes", {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  value: {
-    foo3: PropTypes.string
-  }
+babelHelpers.defineProperty(Foo3, "propTypes", {
+  foo3: PropTypes.string
 });

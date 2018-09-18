@@ -5,11 +5,6 @@ class Foo extends BaseComponent {
 
 }
 
-Object.defineProperty(Foo, "propTypes", {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  value: {
-    foo: PropTypes.string.isRequired
-  }
+babelHelpers.defineProperty(Foo, "propTypes", {
+  foo: PropTypes.string.isRequired
 });

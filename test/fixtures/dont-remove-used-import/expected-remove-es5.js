@@ -18,7 +18,7 @@ function (_Component) {
     var _this;
 
     babelHelpers.classCallCheck(this, Greeting);
-    _this = babelHelpers.possibleConstructorReturn(this, (Greeting.__proto__ || Object.getPrototypeOf(Greeting)).call(this, props, context));
+    _this = babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Greeting).call(this, props, context));
     var appName = context.store.getState().appName;
     _this.state = {
       appName: appName
