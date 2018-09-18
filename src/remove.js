@@ -12,7 +12,11 @@ function isInside(scope, regex) {
     return true
   }
 
-  return filename.match(regex) !== null
+  if (!regex) {
+    return false
+  }
+
+  return regex.test(filename)
 }
 
 // Remove a specific path.
