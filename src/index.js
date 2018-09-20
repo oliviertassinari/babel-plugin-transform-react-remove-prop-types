@@ -288,11 +288,22 @@ export default function(api) {
         let skippedIdentifiers = 0
         const removeNewlyUnusedIdentifiers = {
           VariableDeclarator(path) {
-            if (!nestedIdentifiers.has(path.node.id.name)) {
+            if (path.node.id.type === 'ObjectPattern') {
+              // Object destructuring, so we will want to capture all the names
+              // created by the destructuring. This currently doesn't work, but
+              // would be good to improve. All of the names can be collected
+              // like:
+              //
+              //   path.node.id.properties.map(prop => prop.value.name);
+              return
+            }
+            const { name } = path.node.id
+
+            if (!nestedIdentifiers.has(name)) {
               return
             }
 
-            const { referencePaths } = path.scope.getBinding(path.node.id.name)
+            const { referencePaths } = path.scope.getBinding(name)
 
             // Count the number of referencePaths that are not in the
             // removedPaths Set. We need to do this in order to support the wrap
@@ -310,7 +321,7 @@ export default function(api) {
             }
 
             removedPaths.add(path)
-            nestedIdentifiers.delete(path.node.id.name)
+            nestedIdentifiers.delete(name)
             path.get('init').traverse(collectNestedIdentifiers)
             remove(path, globalOptions, { type: 'declarator' })
           },
