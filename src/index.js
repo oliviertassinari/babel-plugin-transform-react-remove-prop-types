@@ -65,6 +65,35 @@ function areSetsEqual(set1, set2) {
   return !Array.from(set1).some(item => !set2.has(item))
 }
 
+function memberExpressionRootIdentifier(path) {
+  // Traverse up to the parent before the topmost member expression, and then
+  // traverse back down to find the topmost identifier. It seems like there
+  // might be a better way to do this.
+  const parent = path.findParent(p => !p.isMemberExpression())
+  const { type } = parent.node
+
+  let memberExpression
+  if (type === 'ObjectProperty') {
+    // The topmost MemberExpression's parent is an object property, so the
+    // topmost MemberExpression should be the value.
+    memberExpression = parent.get('value')
+  }
+
+  if (!memberExpression) {
+    // This case is currently unhandled by this plugin.
+    return null
+  }
+
+  // We have a topmost MemberExpression now, so we want to traverse down the
+  // left half untli we no longer see MemberExpressions. This node will give us
+  // our leftmost identifier.
+  while (memberExpression.node.object.type === 'MemberExpression') {
+    memberExpression = memberExpression.get('object')
+  }
+
+  return memberExpression.get('object')
+}
+
 export default function(api) {
   const { template, types, traverse } = api
 
@@ -74,6 +103,12 @@ export default function(api) {
     Identifier(path) {
       if (path.parent.type === 'MemberExpression') {
         // foo.bar
+
+        const root = memberExpressionRootIdentifier(path)
+        if (root) {
+          nestedIdentifiers.add(root.node.name)
+        }
+
         return
       }
 
@@ -188,6 +223,7 @@ export default function(api) {
               }
             },
           },
+
           // Here to support stage-1 transform-class-properties.
           ClassProperty(path) {
             const { node, scope } = path
@@ -205,6 +241,7 @@ export default function(api) {
               }
             }
           },
+
           AssignmentExpression(path) {
             const { node, scope } = path
 
