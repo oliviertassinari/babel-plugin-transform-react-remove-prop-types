@@ -288,11 +288,11 @@ export default function(api) {
         let skippedIdentifiers = 0
         const removeNewlyUnusedIdentifiers = {
           VariableDeclarator(path) {
-            if (path.node.id.type === 'ObjectPattern') {
-              // Object destructuring, so we will want to capture all the names
-              // created by the destructuring. This currently doesn't work, but
-              // would be good to improve. All of the names can be collected
-              // like:
+            if (['ObjectPattern', 'ArrayPattern'].includes(path.node.id.type)) {
+              // Object or Array destructuring, so we will want to capture all
+              // the names created by the destructuring. This currently doesn't
+              // work, but would be good to improve. All of the names for
+              // ObjectPattern can be collected like:
               //
               //   path.node.id.properties.map(prop => prop.value.name);
               return
