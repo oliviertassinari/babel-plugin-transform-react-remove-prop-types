@@ -211,8 +211,10 @@ export default function(api) {
                   return false
                 }
 
-                return currentNode.get('callee').node.name === 'createReactClass' ||
-                        currentNode.get('callee').node.property.name === 'createClass';
+                return (
+                  currentNode.get('callee').node.name === 'createReactClass' ||
+                  currentNode.get('callee').node.property.name === 'createClass'
+                )
               })
 
               if (parent) {
