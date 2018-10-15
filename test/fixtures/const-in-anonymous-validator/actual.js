@@ -4,6 +4,13 @@ const Component = () => (
   <div />
 );
 
+const referencedPropTypes = {
+   variant3: () => {
+    const willBeWrapped = 1;
+    return null;
+  }
+}
+
 Component.propTypes = {
   variant1: props => {
     const variants = [null];
@@ -25,6 +32,7 @@ Component.propTypes = {
       return null;
     },
   ),
+  ...referencedPropTypes,
 };
 
 export default Component;
