@@ -30,6 +30,9 @@
   "bugs": {
     "url": "https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types/issues"
   },
+  "peerDependencies": {
+    "@babel/core": "^7.0.0-0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.1.0",
