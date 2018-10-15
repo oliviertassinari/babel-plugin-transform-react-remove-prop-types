@@ -152,12 +152,23 @@ export default function(api) {
             `,
             { placeholderPattern: /^NODE$/ }
           ),
-          wrapTemplate: template(
-            `
-              LEFT = process.env.NODE_ENV !== "production" ? RIGHT : {}
-            `,
-            { placeholderPattern: /^(LEFT|RIGHT)$/ }
-          ),
+          wrapTemplate: ({ LEFT, RIGHT }, options = {}) => {
+            const { as = 'assignmentExpression' } = options
+            const right = template.expression(
+              `
+                process.env.NODE_ENV !== "production" ? RIGHT : {}
+              `,
+              { placeholderPattern: /^(LEFT|RIGHT)$/ }
+            )({ RIGHT })
+            switch (as) {
+              case 'variableDeclarator':
+                return types.variableDeclarator(LEFT, right)
+              case 'assignmentExpression':
+                return types.assignmentExpression('=', LEFT, right)
+              default:
+                throw new Error(`unrecognized template type ${as}`)
+            }
+          },
           mode: state.opts.mode || 'remove',
           ignoreFilenames,
           types,
