@@ -23,7 +23,7 @@ describe('fixtures', () => {
       const fixtureDir = path.join(fixturesDir, caseName)
 
       // Only run a specific test
-      // if (caseName !== 'recursive') {
+      // if (caseName !== 'const-in-anonymous-validator') {
       //   return
       // }
 

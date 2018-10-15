@@ -1,16 +1,16 @@
 const propTypesBasic = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : {};
+} : {};;
 
 const FooBasic = () => <div />;
 
 FooBasic.propTypes = process.env.NODE_ENV !== "production" ? propTypesBasic : {};
 const extraReference = process.env.NODE_ENV !== "production" ? {
   bar: PropTypes.string
-} : {};
+} : {};;
 const propTypesWithExtraReference = process.env.NODE_ENV !== "production" ? Object.assign({}, extraReference, {
   foo: PropTypes.string
-}) : {};
+}) : {};;
 
 const FooExtraReference = () => <div />;
 
@@ -19,14 +19,14 @@ const propTypesWithExtraReferenceSpread = process.env.NODE_ENV !== "production" 
   foo: PropTypes.string
 }, {
   bar: PropTypes.string
-}) : {};
+}) : {};;
 
 const FooExtraReferenceSpread = () => <div />;
 
 FooExtraReferenceSpread.propTypes = process.env.NODE_ENV !== "production" ? propTypesWithExtraReferenceSpread : {};
 const propTypesWrapped = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : {};
+} : {};;
 
 const FooWrapped = () => <div />;
 
@@ -47,7 +47,7 @@ const FooExported = () => <div />;
 FooExported.propTypes = process.env.NODE_ENV !== "production" ? propTypesExported : {};
 const propTypesCreateClass = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : {};
+} : {};;
 const FooCreateClass = createReactClass({
   propTypes: propTypesCreateClass
 });
