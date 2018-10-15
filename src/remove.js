@@ -1,4 +1,3 @@
-// @flow weak
 /* eslint-disable no-param-reassign */
 
 function isInside(scope, regex) {

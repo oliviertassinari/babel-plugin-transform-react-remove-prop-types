@@ -8,10 +8,9 @@
     "test:unit": "mocha",
     "test:watch": "mocha -w",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write",
-    "test": "npm run lint && npm run test:unit && npm run flow",
+    "test": "npm run lint && npm run test:unit",
     "prebuild": "rm -rf lib/",
     "build": "babel src --out-dir lib",
-    "flow": "flow",
     "version": "npm run build && pkgfiles"
   },
   "repository": {
@@ -53,7 +52,6 @@
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
-    "flow-bin": "^0.59.0",
     "mocha": "^4.0.1",
     "path-exists": "^3.0.0",
     "pkgfiles": "^2.3.2",

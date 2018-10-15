@@ -1,5 +1,3 @@
-// @flow weak
-
 const traversed = Symbol('traversed')
 
 function isJSXElementOrReactCreateElement(path) {
