@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.propTypesExported = void 0;
 var propTypesBasic = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : {};
+} : {};;
 
 var FooBasic = function FooBasic() {
   return React.createElement("div", null);
@@ -15,10 +15,10 @@ var FooBasic = function FooBasic() {
 FooBasic.propTypes = process.env.NODE_ENV !== "production" ? propTypesBasic : {};
 var extraReference = process.env.NODE_ENV !== "production" ? {
   bar: PropTypes.string
-} : {};
+} : {};;
 var propTypesWithExtraReference = process.env.NODE_ENV !== "production" ? Object.assign({}, extraReference, {
   foo: PropTypes.string
-}) : {};
+}) : {};;
 
 var FooExtraReference = function FooExtraReference() {
   return React.createElement("div", null);
@@ -29,7 +29,7 @@ var propTypesWithExtraReferenceSpread = process.env.NODE_ENV !== "production" ? 
   foo: PropTypes.string
 }, {
   bar: PropTypes.string
-}) : {};
+}) : {};;
 
 var FooExtraReferenceSpread = function FooExtraReferenceSpread() {
   return React.createElement("div", null);
@@ -38,7 +38,7 @@ var FooExtraReferenceSpread = function FooExtraReferenceSpread() {
 FooExtraReferenceSpread.propTypes = process.env.NODE_ENV !== "production" ? propTypesWithExtraReferenceSpread : {};
 var propTypesWrapped = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : {};
+} : {};;
 
 var FooWrapped = function FooWrapped() {
   return React.createElement("div", null);
@@ -68,7 +68,7 @@ var FooExported = function FooExported() {
 FooExported.propTypes = process.env.NODE_ENV !== "production" ? propTypesExported : {};
 var propTypesCreateClass = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
-} : {};
+} : {};;
 var FooCreateClass = createReactClass({
   displayName: "FooCreateClass",
   propTypes: propTypesCreateClass

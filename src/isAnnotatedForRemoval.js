@@ -1,7 +1,5 @@
-// @flow weak
-
-export default function(node) {
+export default function isAnnotatedForRemoval(node) {
   const comments = node.trailingComments || []
 
-  return !!comments.find(({ value }) => value.trim() === 'remove-proptypes')
+  return Boolean(comments.find(({ value }) => value.trim() === 'remove-proptypes'))
 }
