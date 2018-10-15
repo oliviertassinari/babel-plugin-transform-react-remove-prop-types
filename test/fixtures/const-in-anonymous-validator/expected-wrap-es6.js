@@ -7,7 +7,7 @@ const referencedPropTypes = process.env.NODE_ENV !== "production" ? {
     const willBeWrapped = 1;
     return null;
   }
-} : {};;
+} : {};
 Component.propTypes = process.env.NODE_ENV !== "production" ? babelHelpers.objectSpread({
   variant1: props => {
     const variants = [null];
