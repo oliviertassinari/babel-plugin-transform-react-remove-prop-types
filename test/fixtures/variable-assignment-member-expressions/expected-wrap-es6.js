@@ -1,6 +1,6 @@
 const shapePropType = process.env.NODE_ENV !== "production" ? PropTypes.shape({
   foo: PropTypes.string
-}) : {};;
+}) : {};
 
 const ComponentA = () => <div />;
 
@@ -10,7 +10,7 @@ ComponentA.propTypes = process.env.NODE_ENV !== "production" ? {
 const somePropTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string,
   bar: PropTypes.number
-} : {};;
+} : {};
 
 const ComponentB = () => <div />;
 
@@ -20,7 +20,7 @@ ComponentB.propTypes = process.env.NODE_ENV !== "production" ? {
 const somePropTypesC = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string,
   bar: PropTypes.number
-} : {};;
+} : {};
 
 const ComponentC = () => <div />;
 
@@ -30,7 +30,7 @@ ComponentC.propTypes = process.env.NODE_ENV !== "production" ? {
 const somePropTypesD = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string,
   bar: PropTypes.number
-} : {};;
+} : {};
 
 const ComponentD = () => <div />;
 
