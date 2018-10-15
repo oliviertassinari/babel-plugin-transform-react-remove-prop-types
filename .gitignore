@@ -10,7 +10,6 @@
 # OS files
 .DS_STORE
 
-# No lockfiles since this is not an app
+# No npm lockfiles
 npm-shrinkwrap.json
 package-lock.json
-yarn.lock
