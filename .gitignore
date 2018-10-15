@@ -9,3 +9,7 @@
 
 # OS files
 .DS_STORE
+
+# No npm lockfiles
+npm-shrinkwrap.json
+package-lock.json
