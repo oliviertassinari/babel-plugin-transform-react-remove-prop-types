@@ -78,7 +78,7 @@ function memberExpressionRootIdentifier(path) {
     memberExpression = parent.get('value')
   }
 
-  if (!memberExpression) {
+  if (!memberExpression || memberExpression.type !== 'MemberExpression') {
     // This case is currently unhandled by this plugin.
     return null
   }
