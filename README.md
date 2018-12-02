@@ -180,6 +180,35 @@ additionalLibraries: ['react-immutable-proptypes'],
 ```
 both will be removed.
 
+#### Regular expressions
+
+If you are using Babel 7 or newer and your config is written as a javascript module (and not static JSON file), you can also use a regular expression to describe modules, which should be removed.
+
+This would be particularly useful when using custom prop types validators, implemented as part of your own source code. For example
+
+```js
+import CustomPropTypes from '../../prop-types/my-own-validator.js'
+import OtherCustomPropTypes from '../../prop-types/my-other-validator.js'
+```
+
+would be removed with following setting
+
+```js
+additionalLibraries: [/\/prop-types\/.*\.js$/]
+```
+
+If you use an index file
+
+```js
+import CustomPropTypes from '../../prop-types'
+```
+
+you could set it up as
+
+```js
+additionalLibraries: [/\/prop-types$/]
+```
+
 ### `classNameMatchers`
 
 Use this option to enable this plugin to run on components that extend a class different than `React.Component` or `React.PureComponent`.
