@@ -182,7 +182,7 @@ both will be removed.
 
 #### Regular expressions
 
-If you are using Babel 7 or newer and your config is written as a javascript module (and not static JSON file), you can also use a regular expression to describe modules, which should be removed.
+If you are using Babel 7 or newer and your config is stored in [`babel.config.js`](https://babeljs.io/docs/en/configuration#babelconfigjs), you can also use a regular expression to describe modules, which should be removed.
 
 This would be particularly useful when using custom prop types validators, implemented as part of your own source code. For example
 
