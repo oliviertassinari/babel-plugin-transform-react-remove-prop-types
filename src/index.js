@@ -361,9 +361,19 @@ export default function(api) {
             programPath.traverse({
               ImportDeclaration(path) {
                 const { source, specifiers } = path.node
-                if (globalOptions.libraries.indexOf(source.value) === -1) {
+
+                const found = globalOptions.libraries.some(library => {
+                  if (library instanceof RegExp) {
+                    return library.test(source.value)
+                  }
+
+                  return source.value === library
+                })
+
+                if (!found) {
                   return
                 }
+
                 const haveUsedSpecifiers = specifiers.some(specifier => {
                   const importedIdentifierName = specifier.local.name
                   const { referencePaths } = path.scope.getBinding(importedIdentifierName)
