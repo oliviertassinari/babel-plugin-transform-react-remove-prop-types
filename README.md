@@ -187,14 +187,14 @@ If you are using Babel 7 or newer and your config is stored in [`babel.config.js
 This would be particularly useful when using custom prop types validators, implemented as part of your own source code. For example
 
 ```js
-import CustomPropTypes from '../../prop-types/my-own-validator.js'
-import OtherCustomPropTypes from '../../prop-types/my-other-validator.js'
+import CustomPropTypes from '../../prop-types/my-own-validator'
+import OtherCustomPropTypes from '../../prop-types/my-other-validator'
 ```
 
-would be removed with following setting
+would be removed with the following setting
 
 ```js
-additionalLibraries: [/\/prop-types\/.*\.js$/]
+additionalLibraries: [/\/prop-types\/.*$/]
 ```
 
 If you use an index file
