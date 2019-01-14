@@ -1,4 +1,3 @@
-// @flow weak
 /* eslint-disable no-param-reassign */
 
 function isInside(scope, regex) {
@@ -114,10 +113,13 @@ export default function remove(path, globalOptions, options) {
           )
         } else {
           path.replaceWith(
-            wrapTemplate({
-              LEFT: path.node.id,
-              RIGHT: path.node.init,
-            })
+            wrapTemplate(
+              {
+                LEFT: path.node.id,
+                RIGHT: path.node.init,
+              },
+              { as: 'variableDeclarator' }
+            )
           )
         }
         path.node[visitedKey] = true

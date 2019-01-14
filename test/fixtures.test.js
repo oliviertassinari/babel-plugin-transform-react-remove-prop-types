@@ -3,8 +3,8 @@
 
 import path from 'path'
 import fs from 'fs'
+import globby from 'globby'
 import { assert } from 'chai'
-import pathExists from 'path-exists'
 import { transformFileSync } from '@babel/core'
 import babelPluginSyntaxJsx from '@babel/plugin-syntax-jsx'
 import babelPluginExternalHelpers from '@babel/plugin-external-helpers'
@@ -23,7 +23,7 @@ describe('fixtures', () => {
       const fixtureDir = path.join(fixturesDir, caseName)
 
       // Only run a specific test
-      // if (caseName !== 'recursive') {
+      // if (caseName !== 'const-in-anonymous-validator') {
       //   return
       // }
 
@@ -31,10 +31,11 @@ describe('fixtures', () => {
         let expected
         let options = {}
 
-        const optionsPath = path.join(fixtureDir, 'options.json')
-        if (pathExists.sync(optionsPath)) {
+        const optionsPaths = globby.sync(path.join(fixtureDir, 'options.{js,json}'))
+
+        optionsPaths.forEach(optionsPath => {
           options = require(optionsPath) // eslint-disable-line global-require, import/no-dynamic-require
-        }
+        })
 
         const filename = mode === 'options' ? 'expected.js' : `expected-${mode}.js`
 

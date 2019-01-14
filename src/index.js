@@ -1,4 +1,3 @@
-// @flow weak
 /* eslint-disable global-require, import/no-dynamic-require */
 
 // import generate from 'babel-generator';
@@ -79,7 +78,7 @@ function memberExpressionRootIdentifier(path) {
     memberExpression = parent.get('value')
   }
 
-  if (!memberExpression) {
+  if (!memberExpression || memberExpression.type !== 'MemberExpression') {
     // This case is currently unhandled by this plugin.
     return null
   }
@@ -153,12 +152,23 @@ export default function(api) {
             `,
             { placeholderPattern: /^NODE$/ }
           ),
-          wrapTemplate: template(
-            `
-              LEFT = process.env.NODE_ENV !== "production" ? RIGHT : {}
-            `,
-            { placeholderPattern: /^(LEFT|RIGHT)$/ }
-          ),
+          wrapTemplate: ({ LEFT, RIGHT }, options = {}) => {
+            const { as = 'assignmentExpression' } = options
+            const right = template.expression(
+              `
+                process.env.NODE_ENV !== "production" ? RIGHT : {}
+              `,
+              { placeholderPattern: /^(LEFT|RIGHT)$/ }
+            )({ RIGHT })
+            switch (as) {
+              case 'variableDeclarator':
+                return types.variableDeclarator(LEFT, right)
+              case 'assignmentExpression':
+                return types.assignmentExpression('=', LEFT, right)
+              default:
+                throw new Error(`unrecognized template type ${as}`)
+            }
+          },
           mode: state.opts.mode || 'remove',
           ignoreFilenames,
           types,
@@ -291,6 +301,11 @@ export default function(api) {
         let skippedIdentifiers = 0
         const removeNewlyUnusedIdentifiers = {
           VariableDeclarator(path) {
+            // Only consider the top level scope.
+            if (path.scope.block.type !== 'Program') {
+              return
+            }
+
             if (['ObjectPattern', 'ArrayPattern'].includes(path.node.id.type)) {
               // Object or Array destructuring, so we will want to capture all
               // the names created by the destructuring. This currently doesn't
@@ -312,7 +327,7 @@ export default function(api) {
             // removedPaths Set. We need to do this in order to support the wrap
             // option, which doesn't actually remove the references.
             const hasRemainingReferencePaths = referencePaths.some(referencePath => {
-              const found = referencePath.find(p => removedPaths.has(p))
+              const found = referencePath.find(path2 => removedPaths.has(path2))
               return !found
             })
 
@@ -349,9 +364,19 @@ export default function(api) {
             programPath.traverse({
               ImportDeclaration(path) {
                 const { source, specifiers } = path.node
-                if (globalOptions.libraries.indexOf(source.value) === -1) {
+
+                const found = globalOptions.libraries.some(library => {
+                  if (library instanceof RegExp) {
+                    return library.test(source.value)
+                  }
+
+                  return source.value === library
+                })
+
+                if (!found) {
                   return
                 }
+
                 const haveUsedSpecifiers = specifiers.some(specifier => {
                   const importedIdentifierName = specifier.local.name
                   const { referencePaths } = path.scope.getBinding(importedIdentifierName)

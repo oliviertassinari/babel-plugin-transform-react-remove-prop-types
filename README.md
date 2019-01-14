@@ -7,7 +7,7 @@
 [![Build Status](https://travis-ci.org/oliviertassinari/babel-plugin-transform-react-remove-prop-types.svg?branch=master)](https://travis-ci.org/oliviertassinari/babel-plugin-transform-react-remove-prop-types)
 
 [![Dependencies](https://img.shields.io/david/oliviertassinari/babel-plugin-transform-react-remove-prop-types.svg)](https://david-dm.org/oliviertassinari/babel-plugin-transform-react-remove-prop-types)
-[![DevDependencies](https://img.shields.io/david/dev/oliviertassinari/babel-plugin-transform-react-remove-prop-types.svg)](https://david-dm.org/oliviertassinari/babel-plugin-transform-react-remove-prop-types#info=devDependencies&view=list)
+[![DevDependencies](https://img.shields.io/david/dev/oliviertassinari/babel-plugin-transform-react-remove-prop-types.svg)](https://david-dm.org/oliviertassinari/babel-plugin-transform-react-remove-prop-types?type=dev)
 
 ## Installation
 
@@ -179,6 +179,35 @@ will result in the latter not to be removed, while with:
 additionalLibraries: ['react-immutable-proptypes'],
 ```
 both will be removed.
+
+#### Regular expressions
+
+If you are using Babel 7 or newer and your config is stored in [`babel.config.js`](https://babeljs.io/docs/en/configuration#babelconfigjs), you can also use a regular expression to describe modules, which should be removed.
+
+This would be particularly useful when using custom prop types validators, implemented as part of your own source code. For example
+
+```js
+import CustomPropTypes from '../../prop-types/my-own-validator'
+import OtherCustomPropTypes from '../../prop-types/my-other-validator'
+```
+
+would be removed with the following setting
+
+```js
+additionalLibraries: [/\/prop-types\/.*$/]
+```
+
+If you use an index file
+
+```js
+import CustomPropTypes from '../../prop-types'
+```
+
+you could set it up as
+
+```js
+additionalLibraries: [/\/prop-types$/]
+```
 
 ### `classNameMatchers`
 

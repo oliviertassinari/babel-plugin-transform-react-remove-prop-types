@@ -10,5 +10,9 @@
 # OS files
 .DS_STORE
 
-# IntelliJ files
-.idea/
+# No npm lockfiles
+npm-shrinkwrap.json
+package-lock.json
+
+# JetBrains IDE
+.idea
