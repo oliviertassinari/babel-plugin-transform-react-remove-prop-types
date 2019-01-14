@@ -1,8 +1,8 @@
-const createClass = require('create-react-class')
-const PropTypes = require('prop-types')
+var createSomethingReallySpecial = require('create-react-class');
+var PropTypes = require('prop-types');
 
-createClass({
+createSomethingReallySpecial({
   propTypes: {
     foo: PropTypes.string,
   },
-})
+});
