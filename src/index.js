@@ -222,7 +222,10 @@ export default function(api) {
                   return false
                 }
 
-                return currentNode.get('callee').node.name === globalOptions.createReactClassName
+                return (
+                  currentNode.get('callee').node.name === globalOptions.createReactClassName ||
+                  currentNode.get('callee').node.property.name === 'createClass'
+                )
               })
 
               if (parent) {
