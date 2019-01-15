@@ -224,7 +224,8 @@ export default function(api) {
 
                 return (
                   currentNode.get('callee').node.name === globalOptions.createReactClassName ||
-                  currentNode.get('callee').node.property.name === 'createClass'
+                  (currentNode.get('callee').node.property &&
+                    currentNode.get('callee').node.property.name === 'createClass')
                 )
               })
 
