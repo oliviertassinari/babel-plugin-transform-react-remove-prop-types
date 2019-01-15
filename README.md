@@ -225,6 +225,22 @@ You would use:
 classNameMatchers: ["BaseComponent"]
 ```
 
+### `createReactClassName`
+
+Use this option to set a custom name for the import of the `create-react-class` package that is different than `createReactClass`.
+
+Given this example:
+
+```js
+import createClass from 'create-react-class';
+```
+
+You would use:
+
+```js
+createReactClassName: 'createClass'
+```
+
 ## Is it safe?
 
 If you are using the `propTypes` in a conventional way,

@@ -175,6 +175,7 @@ export default function(api) {
           removeImport: state.opts.removeImport || false,
           libraries: (state.opts.additionalLibraries || []).concat('prop-types'),
           classNameMatchers,
+          createReactClassName: state.opts.createReactClassName || 'createReactClass',
         }
 
         if (state.opts.plugins) {
@@ -222,7 +223,7 @@ export default function(api) {
                 }
 
                 return (
-                  currentNode.get('callee').node.name === 'createReactClass' ||
+                  currentNode.get('callee').node.name === globalOptions.createReactClassName ||
                   currentNode.get('callee').node.property.name === 'createClass'
                 )
               })
