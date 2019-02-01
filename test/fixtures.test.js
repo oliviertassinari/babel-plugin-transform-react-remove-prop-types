@@ -13,7 +13,7 @@ import babelPluginProposalObjectRestSpread from '@babel/plugin-proposal-object-r
 import babelPluginTransformReactRemovePropTypes from '../src/index'
 import { trim } from './utils'
 
-const modes = ['options', 'remove-es5', 'wrap-es5', 'remove-es6', 'wrap-es6']
+const modes = ['options', 'remove-es5', 'wrap-es5', 'remove-es6', 'wrap-es6', 'unsafe-wrap-es6']
 
 describe('fixtures', () => {
   const fixturesDir = path.join(__dirname, 'fixtures')
@@ -117,6 +117,25 @@ describe('fixtures', () => {
                     {
                       ...options,
                       mode: 'wrap',
+                    },
+                  ],
+                ],
+              }
+              break
+
+            case 'unsafe-wrap-es6':
+              babelConfig = {
+                babelrc: false,
+                plugins: [
+                  babelPluginExternalHelpers,
+                  babelPluginSyntaxJsx,
+                  babelPluginTransformClassProperties,
+                  babelPluginProposalObjectRestSpread,
+                  [
+                    babelPluginTransformReactRemovePropTypes,
+                    {
+                      ...options,
+                      mode: 'unsafe-wrap',
                     },
                   ],
                 ],
