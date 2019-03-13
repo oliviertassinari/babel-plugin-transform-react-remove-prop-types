@@ -119,3 +119,11 @@ function Foo12(props) {
 Foo12.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
 } : {};
+
+function Foo13(props) {
+  return _react2.default.createElement(props.children);
+}
+
+Foo13.propTypes = process.env.NODE_ENV !== "production" ? {
+  foo: PropTypes.string
+} : {};

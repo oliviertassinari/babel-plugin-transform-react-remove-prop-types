@@ -71,3 +71,7 @@ const Foo11 = () => true && <div />;
 function Foo12(props) {
   return React.cloneElement(props.children);
 }
+
+function Foo13(props) {
+  return _react2.default.createElement(props.children);
+}

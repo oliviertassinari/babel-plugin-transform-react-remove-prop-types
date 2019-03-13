@@ -4,6 +4,7 @@
 // console.log(generate(node).code);
 import isAnnotatedForRemoval from './isAnnotatedForRemoval'
 import isStatelessComponent from './isStatelessComponent'
+import isInheritedComponent from './isInheritedComponent'
 import remove from './remove'
 
 function isPathReactClass(path, globalOptions) {
@@ -284,15 +285,28 @@ export default function(api) {
               return
             }
 
-            if (binding.path.isClassDeclaration()) {
-              const superClass = binding.path.get('superClass')
+            let bindingPath = binding.path
+
+            if (binding.value === null) {
+              bindingPath =
+                binding.constantViolations.find(p => {
+                  return types.isAssignmentExpression(p) && !types.isNullLiteral(p.node.right)
+                }) || bindingPath
+            }
+
+            if (bindingPath.isClassDeclaration()) {
+              const superClass = bindingPath.get('superClass')
 
               if (isReactClass(superClass, scope, globalOptions)) {
                 path.traverse(collectNestedIdentifiers)
                 removedPaths.add(path)
                 remove(path, globalOptions, { type: 'assign' })
               }
-            } else if (isStatelessComponent(binding.path)) {
+            } else if (isStatelessComponent(bindingPath)) {
+              path.traverse(collectNestedIdentifiers)
+              removedPaths.add(path)
+              remove(path, globalOptions, { type: 'assign' })
+            } else if (isInheritedComponent(bindingPath, globalOptions)) {
               path.traverse(collectNestedIdentifiers)
               removedPaths.add(path)
               remove(path, globalOptions, { type: 'assign' })

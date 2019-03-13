@@ -6,11 +6,12 @@ function isJSXElementOrReactCreateElement(path) {
   path.traverse({
     CallExpression(path2) {
       const callee = path2.get('callee')
-
+      const name = callee.node.name || (callee.node.property && callee.node.property.name)
       if (
         callee.matchesPattern('React.createElement') ||
         callee.matchesPattern('React.cloneElement') ||
-        callee.node.name === 'cloneElement'
+        name === 'cloneElement' ||
+        name === 'createElement'
       ) {
         visited = true
       }
@@ -87,9 +88,5 @@ export default function isStatelessComponent(path) {
     return false
   }
 
-  if (isReturningJSXElement(path)) {
-    return true
-  }
-
-  return false
+  return !!isReturningJSXElement(path)
 }
