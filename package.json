@@ -1,5 +1,5 @@
 {
-  "name": "babel-plugin-transform-react-remove-prop-types",
+  "name": "@exodus/babel-plugin-transform-react-remove-prop-types",
   "version": "0.4.24",
   "description": "Remove unnecessary React propTypes from the production build",
   "main": "lib/index.js",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types.git"
+    "url": "https://github.com/ExodusMovement/babel-plugin-transform-react-remove-prop-types.git"
   },
   "keywords": [
     "babel",
@@ -24,10 +24,9 @@
     "minification",
     "propTypes"
   ],
-  "author": "Nikita Gusakov",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types/issues"
+    "url": "https://github.com/ExodusMovement/babel-plugin-transform-react-remove-prop-types.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
