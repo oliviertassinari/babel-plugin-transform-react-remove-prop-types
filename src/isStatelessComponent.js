@@ -74,6 +74,15 @@ function isReturningJSXElement(path, iteration = 0) {
         }
       }
     },
+    ArrowFunctionExpression(path2) {
+      if (visited) {
+        return
+      }
+
+      if (isJSXElementOrReactCreateElement(path2)) {
+        visited = true
+      }
+    },
   })
 
   return visited
