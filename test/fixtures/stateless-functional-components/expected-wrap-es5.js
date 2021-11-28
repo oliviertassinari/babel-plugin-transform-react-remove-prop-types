@@ -125,3 +125,9 @@ function Foo12(props) {
 Foo12.propTypes = process.env.NODE_ENV !== "production" ? {
   foo: PropTypes.string
 } : {};
+var Foo13 = React.memo(function () {
+  return true && React.createElement("div", null);
+});
+Foo13.propTypes = process.env.NODE_ENV !== "production" ? {
+  foo: PropTypes.string
+} : {};

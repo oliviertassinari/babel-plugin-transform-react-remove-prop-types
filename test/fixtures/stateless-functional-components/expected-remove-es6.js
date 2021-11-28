@@ -71,3 +71,5 @@ const Foo11 = () => true && <div />;
 function Foo12(props) {
   return React.cloneElement(props.children);
 }
+
+const Foo13 = React.memo(() => true && <div />);

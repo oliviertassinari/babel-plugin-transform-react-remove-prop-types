@@ -123,3 +123,11 @@ function Foo12(props) {
 Foo12.propTypes = {
   foo: PropTypes.string,
 };
+
+const Foo13 = React.memo(() => (
+  true && <div />
+));
+
+Foo13.propTypes = {
+  foo: PropTypes.string
+};

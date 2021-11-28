@@ -77,3 +77,7 @@ var Foo11 = function Foo11() {
 function Foo12(props) {
   return React.cloneElement(props.children);
 }
+
+var Foo13 = React.memo(function () {
+  return true && React.createElement("div", null);
+});
