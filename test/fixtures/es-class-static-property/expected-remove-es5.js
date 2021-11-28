@@ -40,3 +40,23 @@ function (_React$Component2) {
 }(React.Component);
 
 exports.default = Foo2;
+
+var componentFactory = function componentFactory() {
+  return (
+    /*#__PURE__*/
+    function (_React$Component3) {
+      babelHelpers.inherits(Foo3, _React$Component3);
+
+      function Foo3() {
+        babelHelpers.classCallCheck(this, Foo3);
+        return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Foo3).apply(this, arguments));
+      }
+
+      babelHelpers.createClass(Foo3, [{
+        key: "render",
+        value: function render() {}
+      }]);
+      return Foo3;
+    }(React.Component)
+  );
+};

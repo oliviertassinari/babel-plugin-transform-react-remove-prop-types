@@ -47,3 +47,26 @@ exports.default = Foo2;
 Foo2.propTypes = process.env.NODE_ENV !== "production" ? {
   bar2: PropTypes.string
 } : {};
+
+var componentFactory = function componentFactory() {
+  var _temp;
+
+  return _temp =
+  /*#__PURE__*/
+  function (_React$Component3) {
+    babelHelpers.inherits(Foo3, _React$Component3);
+
+    function Foo3() {
+      babelHelpers.classCallCheck(this, Foo3);
+      return babelHelpers.possibleConstructorReturn(this, babelHelpers.getPrototypeOf(Foo3).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(Foo3, [{
+      key: "render",
+      value: function render() {}
+    }]);
+    return Foo3;
+  }(React.Component), Foo3.propTypes = process.env.NODE_ENV !== "production" ? {
+    bar3: PropTypes.string
+  } : {}, _temp;
+};

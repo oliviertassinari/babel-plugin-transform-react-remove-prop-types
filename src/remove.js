@@ -59,15 +59,19 @@ export default function remove(path, globalOptions, options) {
 
       // Inspired from babel-plugin-transform-class-properties.
       case 'class static': {
-        let ref
         let pathClassDeclaration = options.pathClassDeclaration
 
-        if (!pathClassDeclaration.isClassExpression() && pathClassDeclaration.node.id) {
-          ref = pathClassDeclaration.node.id
-        } else {
+        if (!pathClassDeclaration.node.id) {
           // Class without name not supported
           return
         }
+
+        if (pathClassDeclaration.isClassExpression()) {
+          // () => class Foo {}
+          return
+        }
+
+        const ref = pathClassDeclaration.node.id
 
         const node = types.expressionStatement(
           types.assignmentExpression(
